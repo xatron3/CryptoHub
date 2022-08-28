@@ -1,7 +1,12 @@
 <template>
-  <div class="h-screen w-screen flex bg-gray-200">
-    <Navigation></Navigation>
-    <div class="flex w-full">
+  <div
+    v-if="this.$store.state.user !== null"
+    class="h-screen w-screen flex bg-gray-200"
+  >
+    <Navigation
+      v-if="this.$store.state.user !== null && this.$store.state.user !== false"
+    ></Navigation>
+    <div class="flex w-full p-4">
       <router-view></router-view>
     </div>
   </div>
@@ -9,6 +14,8 @@
 
 <script>
 import Navigation from "../../layout/navigation/Index.vue";
+import { useCookies } from "vue3-cookies";
+import axios from "axios";
 
 export default {
   data() {
@@ -18,6 +25,22 @@ export default {
   },
   components: {
     Navigation,
+  },
+  setup() {
+    const { cookies } = useCookies();
+    return { cookies };
+  },
+  async mounted() {
+    if (this.cookies.get("access_token")) {
+      var token = this.cookies.get("access_token");
+      let res = await axios.get("/api/user", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      this.$store.commit("setUser", res.data);
+    }
   },
 };
 </script>

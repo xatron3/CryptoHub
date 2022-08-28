@@ -1,26 +1,20 @@
 <template>
-  <!-- component -->
-  <!-- 
-    add this in your css
-
-    @layer components {
-      .sidebar{
-        transition:all .4s ease-in-out;
-      }
-    }
-
-   w-[3.35rem]
-  -->
-
   <div class="min-h-screen bg-gray-100">
     <div class="sidebar min-h-screen overflow-hidden border-r w-56 shadow-sm">
       <div class="flex h-screen flex-col justify-between pt-2 pb-6">
         <div>
-          <div class="w-max p-2.5 mb-6">Logo</div>
+          <div class="w-max p-4 mb-3">{{ logo }}</div>
           <div class="mx-4">
             <NavigationHeader title="General" />
-            <NavigationLink path="/" title="Dashboard"></NavigationLink>
-            <NavigationLink path="/test" title="Courses"></NavigationLink>
+            <NavigationLink
+              path="/dashboard"
+              title="Dashboard"
+            ></NavigationLink>
+            <NavigationHeader title="TRADES" />
+            <NavigationLink
+              path="/positions/active"
+              title="Active Positions"
+            ></NavigationLink>
           </div>
         </div>
         <div class="w-max -mb-3">
@@ -58,6 +52,11 @@ export default {
     return {
       title: "Navigation",
     };
+  },
+  computed: {
+    logo() {
+      return import.meta.env.VITE_APP_NAME;
+    },
   },
   components: {
     NavigationLink,
