@@ -15,6 +15,11 @@
               path="/positions/active"
               title="Active Positions"
             ></NavigationLink>
+            <NavigationHeader title="ADMINPANEL" />
+            <NavigationLink
+              path="/admin/assets/"
+              title="All Assets"
+            ></NavigationLink>
           </div>
         </div>
         <div class="w-max -mb-3">

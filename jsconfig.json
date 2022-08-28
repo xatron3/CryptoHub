@@ -1,0 +1,7 @@
+{
+  "include": ["./resources/**/*"],
+  "compilerOptions": {
+    "allowJs": true,
+    "jsx": "preserve"
+  }
+}

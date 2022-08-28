@@ -1,12 +1,9 @@
 <template>
-  <div
-    v-if="this.$store.state.user !== null"
-    class="h-screen w-screen flex bg-gray-200"
-  >
+  <div class="h-screen w-screen flex bg-gray-200">
     <Navigation
       v-if="this.$store.state.user !== null && this.$store.state.user !== false"
     ></Navigation>
-    <div class="flex w-full p-4">
+    <div class="w-full p-4">
       <router-view></router-view>
     </div>
   </div>

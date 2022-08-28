@@ -9,6 +9,10 @@ import Login from "../pages/Auth/Login/Login.vue";
 import Dashboard from "../pages/Dashboard/Dashboard.vue";
 import ActivePositions from "../pages/Positions/Active.vue";
 
+// Admin Pages
+import AllAssets from "../pages/Assets/All.vue";
+import AddNewAsset from "../pages/Assets/New.vue";
+
 const routes = [
   {
     path: "/dashboard",
@@ -27,6 +31,18 @@ const routes = [
     name: "Login",
     component: Login,
     beforeEnter: guest,
+  },
+  {
+    path: "/admin/assets",
+    name: "Assets",
+    component: AllAssets,
+    beforeEnter: auth,
+  },
+  {
+    path: "/admin/assets/new",
+    name: "AddNewAsset",
+    component: AddNewAsset,
+    beforeEnter: auth,
   },
 ];
 

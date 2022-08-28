@@ -8,12 +8,18 @@
       type="danger"
     ></Alert>
     <form class="space-y-2">
-      <Input placeholder="Email" name="email" v-model="this.email" />
+      <Input
+        placeholder="Email"
+        name="email"
+        v-model="this.email"
+        :value="this.email"
+      />
       <Input
         placeholder="Password"
         name="password"
         type="password"
         v-model="this.password"
+        :value="this.password"
       />
       <Button title="SIGN IN" @click="submit" />
     </form>
@@ -71,8 +77,8 @@ export default {
           password: this.password,
         })
         .then((res) => {
-          this.cookies.set("access_token", res.data.access_token);
-          this.$store.commit("setUser", res.data);
+          this.cookies.set("access_token", res.data.access_token, 3000000);
+          this.$store.commit("setUser", res.data.user);
           this.$router.push({ name: "Home" });
         })
         .catch((err) => {

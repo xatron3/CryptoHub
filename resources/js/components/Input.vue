@@ -12,6 +12,7 @@
       class="w-full border p-2 rounded-md"
       :name="name"
       :id="fieldId"
+      :value="value"
       :placeholder="placeholder"
       @input="$emit('update:modelValue', $event.target.value)"
     />
@@ -20,7 +21,7 @@
 
 <script>
 export default {
-  props: ["placeholder", "name", "type", "showLabel", "modelValue"],
+  props: ["placeholder", "name", "type", "showLabel", "modelValue", "value"],
   name: "InputField",
   computed: {
     fieldId() {
