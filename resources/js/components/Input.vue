@@ -10,6 +10,7 @@
     <input
       :type="fieldType"
       class="w-full border p-2 rounded-md"
+      :class="_class"
       :name="name"
       :id="fieldId"
       :value="value"
@@ -21,7 +22,15 @@
 
 <script>
 export default {
-  props: ["placeholder", "name", "type", "showLabel", "modelValue", "value"],
+  props: [
+    "placeholder",
+    "name",
+    "type",
+    "showLabel",
+    "modelValue",
+    "value",
+    "class",
+  ],
   name: "InputField",
   computed: {
     fieldId() {
@@ -43,6 +52,13 @@ export default {
         return true;
       } else {
         return this.showLabel;
+      }
+    },
+    _class() {
+      if (this.class === undefined) {
+        return "";
+      } else {
+        return this.class;
       }
     },
   },

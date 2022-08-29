@@ -25,7 +25,8 @@ class JWTMiddleware
       if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenInvalidException) {
         return response()->json(['status' => 'Token is Invalid']);
       } else if ($e instanceof \Tymon\JWTAuth\Exceptions\TokenExpiredException) {
-        return response()->json(['status' => 'Token is Expired']);
+        $newToken = JWTAuth::parseToken()->refresh();
+        return response()->json(['token' => $newToken], 401);
       } else {
         return response()->json(['status' => 'Authorization Token not found']);
       }

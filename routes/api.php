@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AssetsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\PositionsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,8 +28,11 @@ Route::post('login', [AuthController::class, 'login']);
 Route::group(['middleware' => 'jwt.verify'], function () {
     Route::get('user', [AuthController::class, 'getUser']);
 
-    Route::post('assets/add', [AssetsController::class, 'store']);
+    Route::post('asset/add', [AssetsController::class, 'store']);
     Route::get('assets', [AssetsController::class, 'getAll']);
+
+    Route::post('position/add', [PositionsController::class, 'store']);
+    Route::get('positions', [PositionsController::class, 'getAll']);
 });
 
-Route::get('test', [AssetsController::class, 'updateCoingeckoPrices']);
+Route::get('update-coingecko', [AssetsController::class, 'updateCoingeckoPrices']);

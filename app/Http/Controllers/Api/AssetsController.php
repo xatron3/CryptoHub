@@ -9,8 +9,6 @@ use Illuminate\Support\Facades\Validator;
 
 class AssetsController extends Controller
 {
-  //https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=bitcoin,ethereum
-
   public function store(Request $request)
   {
     $coingecko_id = $request->coingecko_id;

@@ -33,10 +33,8 @@
 </template>
 
 <script>
-import cookie from "../../helpers/cookie";
 import Button from "../../components/Button.vue";
 import Input from "../../components/Input.vue";
-import Button1 from "../../components/Button.vue";
 
 export default {
   name: "AddNewAsset",
@@ -55,12 +53,7 @@ export default {
   components: { Button, Input },
   methods: {
     async getAssets() {
-      const token = cookie.getCookie("access_token");
-      let res = await axios.get("/api/assets", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      let res = await axios.get("/api/assets");
 
       return res.data;
     },
@@ -82,18 +75,9 @@ export default {
       this.coingecko_id = id;
     },
     async addNewAsset() {
-      const token = cookie.getCookie("access_token");
-      let res = await axios.post(
-        "/api/assets/add",
-        {
-          coingecko_id: this.coingecko_id,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      let res = await axios.post("/api/asset/add", {
+        coingecko_id: this.coingecko_id,
+      });
 
       this.$router.push("/admin/assets");
     },

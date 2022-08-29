@@ -29,12 +29,7 @@ export default {
   },
   async mounted() {
     if (this.cookies.get("access_token")) {
-      var token = this.cookies.get("access_token");
-      let res = await axios.get("/api/user", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      let res = await axios.get("/api/user");
 
       this.$store.commit("setUser", res.data);
     }
