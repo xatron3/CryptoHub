@@ -5,8 +5,7 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Models\ActivePosition;
 use App\Http\Controllers\Controller;
-use App\Http\Resources\GroupedPositionResource;
-use App\Http\Resources\IndividualPositionResource;
+use App\Http\Resources\PositionResource;
 
 class PositionsController extends Controller
 {
@@ -28,12 +27,12 @@ class PositionsController extends Controller
     $user_id = $request->user()->id;
 
     if ($request->grouped === "true") {
-      $positions = ActivePosition::groupBy('buy_asset_id')->where('user_id', $user_id)->selectRaw("SUM(sell_amount) as total_sell_amount")
-        ->selectRaw("SUM(buy_amount) as total_buy_amount")->selectRaw('buy_asset_id')->selectRaw('sell_asset_id')->get();
-      return GroupedPositionResource::collection($positions);
+      $positions = ActivePosition::groupBy('buy_asset_id')->where('user_id', $user_id)->selectRaw("SUM(sell_amount) as sell_amount")
+        ->selectRaw("SUM(buy_amount) as buy_amount")->selectRaw('buy_asset_id')->selectRaw('sell_asset_id')->get();
     } else {
       $positions = ActivePosition::where('user_id', $user_id)->get();
-      return IndividualPositionResource::collection($positions);
     }
+
+    return PositionResource::collection($positions);
   }
 }

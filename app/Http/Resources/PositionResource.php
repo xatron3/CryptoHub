@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use App\Models\Asset;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class IndividualPositionResource extends JsonResource
+class PositionResource extends JsonResource
 {
     public function getAssetData($id)
     {
@@ -25,17 +25,19 @@ class IndividualPositionResource extends JsonResource
         $sellSymbol = strtoupper($this->getAssetData($this->sell_asset_id)->symbol);
 
         $priceEach = $this->sell_amount / $this->buy_amount;
-        $priceEachFormatted = number_format($priceEach, zeros_after_dot($priceEach)) . ' ' . $sellSymbol;
+        $priceEachFormatted = number_format($priceEach, zeros_after_dot($priceEach));
 
         $currentPriceEach = $this->getAssetData($this->buy_asset_id)->current_price / $this->getAssetData($this->sell_asset_id)->current_price;
-        $currentPriceEachFormatted =  number_format($currentPriceEach, zeros_after_dot($currentPriceEach)) . ' ' . $sellSymbol;
+        $currentPriceEachFormatted =  number_format($currentPriceEach, zeros_after_dot($currentPriceEach));
 
         return [
             'id' => $this->id,
             'buy_logo' => $this->getAssetData($this->buy_asset_id)->logo,
-            'buy_amount' => $this->buy_amount . ' ' . $buySymbol,
+            'buy_symbol' => $buySymbol,
+            'buy_amount' => $this->buy_amount,
             'sell_logo' => $this->getAssetData($this->sell_asset_id)->logo,
-            'sell_amount' => $this->sell_amount . ' ' . $sellSymbol,
+            'sell_symbol' => $sellSymbol,
+            'sell_amount' => $this->sell_amount,
             'price' => $priceEachFormatted,
             'current_sell_price' => $currentPriceEachFormatted
         ];

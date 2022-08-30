@@ -30,7 +30,7 @@
             <router-link :to="editLink(item)">Edit</router-link>
           </div>
           <div v-else>
-            {{ this.formatColumn(item[column], column) }}
+            <div v-html="this.formatColumn(item, column)"></div>
           </div>
         </td>
       </tr>
@@ -44,15 +44,39 @@ export default {
   name: "Table",
   methods: {
     formatColumn(data, index) {
+      var _class;
+
       if (index === "current_price") {
-        return this.formatPrice(data);
+        return this.formatPrice(data[index]);
+      }
+
+      if (index === "name") {
+        return `<div class="flex space-x-1 items-center"><img src="${data["logo"]}" class="w-5 h-5"> <span>${data[index]}</span></div>`;
       }
 
       if (index === "symbol") {
-        return data.toUpperCase();
+        return data[index].toUpperCase();
       }
 
-      return data;
+      if (index === "sell_amount") {
+        return `<div class="flex space-x-1 items-center"><img src="${data["sell_logo"]}" class="w-5 h-5"> <span>${data[index]} ${data["sell_symbol"]}</span></div>`;
+      }
+
+      if (index === "buy_amount") {
+        return `<div class="flex space-x-1 items-center"><img src="${data["buy_logo"]}" class="w-5 h-5"> <span>${data[index]} ${data["buy_symbol"]}</span></div>`;
+      }
+
+      if (index === "current_sell_price") {
+        if (data[index] > data["price"]) {
+          _class = "text-green-500";
+        } else {
+          _class = "text-red-500";
+        }
+
+        return `<span class="${_class}">${data[index]}</span>`;
+      }
+
+      return data[index];
     },
     formatPrice(data) {
       let config;
