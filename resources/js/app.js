@@ -6,6 +6,7 @@ import { router } from "./routes";
 import store from "./store/store";
 
 import { globalCookiesConfig } from "vue3-cookies";
+import { setHeaders } from "./bootstrap";
 
 globalCookiesConfig({
   expireTimes: "30d",
@@ -18,6 +19,8 @@ globalCookiesConfig({
 const app = createApp(App);
 
 router.beforeEach((to) => {
+  setHeaders();
+
   document.title = `${import.meta.env.VITE_APP_NAME} - ${to.name}`;
 });
 

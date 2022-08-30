@@ -11,7 +11,7 @@
         </th>
       </tr>
     </thead>
-    <tbody class="text-gray-600 text-sm font-light">
+    <tbody class="text-gray-700 text-sm">
       <tr
         v-for="(item, index) in items"
         :key="index"

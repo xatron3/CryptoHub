@@ -1,5 +1,5 @@
 <template>
-  <button :class="[bgColor]" class="w-full px-3 py-2 rounded-md">
+  <button :class="[bgColor]" class="px-3 py-2 rounded-md">
     {{ this.title }}
   </button>
 </template>

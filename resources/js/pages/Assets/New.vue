@@ -1,6 +1,8 @@
 <template>
   <div class="max-w-xl">
     <div class="space-y-2 flex flex-col">
+      <Alert :content="this.error" v-if="this.error" type="warning" />
+
       <Input
         :showLabel="true"
         name="coingecko_id"
@@ -35,6 +37,7 @@
 <script>
 import Button from "../../components/Button.vue";
 import Input from "../../components/Input.vue";
+import Alert from "../../components/Alert.vue";
 
 export default {
   name: "AddNewAsset",
@@ -43,6 +46,7 @@ export default {
       coingecko_id: null,
       coins: [],
       coin_list: null,
+      error: null,
     };
   },
   async mounted() {
@@ -50,7 +54,7 @@ export default {
 
     this.coin_list = res.data;
   },
-  components: { Button, Input },
+  components: { Button, Input, Alert },
   methods: {
     async getAssets() {
       let res = await axios.get("/api/assets");
@@ -75,11 +79,15 @@ export default {
       this.coingecko_id = id;
     },
     async addNewAsset() {
-      let res = await axios.post("/api/asset/add", {
-        coingecko_id: this.coingecko_id,
-      });
+      try {
+        let res = await axios.post("/api/asset/add", {
+          coingecko_id: this.coingecko_id,
+        });
 
-      this.$router.push("/admin/assets");
+        this.$router.push("/admin/assets");
+      } catch (error) {
+        this.error = error.response.data.error;
+      }
     },
   },
 };

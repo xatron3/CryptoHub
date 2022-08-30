@@ -46,7 +46,7 @@ export default {
     async updatePrices() {
       let res = await axios.get("/api/update-coingecko");
 
-      console.log(res);
+      this.assets = await this.getAssets();
     },
   },
   components: { Table, Button },

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use App\Http\Resources\PositionResource;
 use App\Models\ActivePosition;
+use App\Http\Controllers\Controller;
+use App\Http\Resources\GroupedPositionResource;
+use App\Http\Resources\IndividualPositionResource;
 
 class PositionsController extends Controller
 {
@@ -22,10 +23,17 @@ class PositionsController extends Controller
     return response()->json(['success' => 'Position was stored.'], 200);
   }
 
-  public function getAll()
+  public function getAll(Request $request)
   {
-    $positions = ActivePosition::all();
+    $user_id = $request->user()->id;
 
-    return PositionResource::collection($positions);
+    if ($request->grouped === "true") {
+      $positions = ActivePosition::groupBy('buy_asset_id')->where('user_id', $user_id)->selectRaw("SUM(sell_amount) as total_sell_amount")
+        ->selectRaw("SUM(buy_amount) as total_buy_amount")->selectRaw('buy_asset_id')->selectRaw('sell_asset_id')->get();
+      return GroupedPositionResource::collection($positions);
+    } else {
+      $positions = ActivePosition::where('user_id', $user_id)->get();
+      return IndividualPositionResource::collection($positions);
+    }
   }
 }
