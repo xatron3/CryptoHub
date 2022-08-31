@@ -45,12 +45,38 @@
     </div>
   </div>
 
-  <div v-if="this.positions" class="max-w-4xl mt-5 space-y-2">
-    <div class="flex space-x-2">
-      <Button title="Individual" @click="setGrouped(false)" />
-      <Button title="Grouped" @click="setGrouped(true)" />
+  <div v-if="this.active_positions" class="max-w-4xl mt-5 space-y-2">
+    <h2 class="text-lg font-bold">Active Positions</h2>
+    <div class="flex space-x-2 justify-between">
+      <div class="space-x-2">
+        <Button
+          title="Individual"
+          @click="setGrouped(false)"
+          class="bg-yellow-500 hover:bg-yellow-400"
+        />
+        <Button
+          title="Grouped"
+          @click="setGrouped(true)"
+          class="bg-yellow-500 hover:bg-yellow-400"
+        />
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <span>Close Amount</span>
+        <Input
+          v-model="close_amount"
+          :value="close_amount"
+          name="close_amount"
+          id="close_amount"
+          type="number"
+        />
+      </div>
     </div>
-    <Table :items="this.positions" :columns="key_columns" />
+    <Table
+      :items="this.active_positions"
+      :columns="key_columns"
+      @button_clicked="closePosition"
+    />
   </div>
 </template>
 
@@ -69,8 +95,14 @@ export default {
   },
   data() {
     return {
-      key_columns: ["sell_amount", "buy_amount", "price", "current_sell_price"],
-      positions: false,
+      key_columns: [
+        "sell_amount",
+        "buy_amount",
+        "price",
+        "current_sell_price",
+        "close",
+      ],
+      active_positions: null,
       assets: null,
       selectKeys: ["id", "name"],
       buy_amount: null,
@@ -78,24 +110,38 @@ export default {
       sell_amount: null,
       sell_asset_id: null,
       grouped: false,
+      close_amount: 0,
     };
   },
   async mounted() {
     this.assets = await this.getAllAssets();
-    this.positions = await this.getAllPostions();
+    this.active_positions = await this.getAllPostions();
   },
   methods: {
+    async closePosition(data) {
+      if (this.close_amount > 0) {
+        let res = await axios.post("/api/position/close", {
+          id: data.id,
+          close_amount: this.close_amount,
+        });
+
+        console.log(res);
+      } else {
+        console.log("Fill");
+      }
+    },
     async getAllAssets() {
       let res = await axios.get("/api/assets");
 
       return res.data;
     },
-    async getAllPostions() {
+    async getAllPostions(closed = false) {
       var result;
 
       let res = await axios.get("/api/positions", {
         params: {
           grouped: this.grouped,
+          closed: closed,
         },
       });
 
@@ -116,7 +162,7 @@ export default {
           sell_asset_id: this.sell_asset_id,
         });
 
-        this.positions = await this.getAllPostions();
+        this.active_positions = await this.getAllPostions();
       } catch (error) {
         console.log(error);
       }
@@ -125,7 +171,7 @@ export default {
     },
     async setGrouped(bool) {
       this.grouped = bool;
-      this.positions = await this.getAllPostions();
+      this.active_positions = await this.getAllPostions();
     },
   },
 };

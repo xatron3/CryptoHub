@@ -14,11 +14,7 @@
       />
     </div>
 
-    <Table
-      :columns="this.columns"
-      :items="this.assets"
-      editUrl="/asset/edit/"
-    />
+    <Table :columns="this.columns" :items="this.assets" />
   </div>
 </template>
 

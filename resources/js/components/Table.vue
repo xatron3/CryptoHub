@@ -7,7 +7,7 @@
           :key="index"
           class="py-3 px-6 text-left"
         >
-          {{ column }}
+          {{ this.formatHeader(column) }}
         </th>
       </tr>
     </thead>
@@ -26,8 +26,12 @@
             'bg-white': index % 2 !== 0,
           }"
         >
-          <div v-if="column === 'edit'">
-            <router-link :to="editLink(item)">Edit</router-link>
+          <div v-if="column === 'close'">
+            <Button
+              title="Close"
+              v-on:click="$emit('button_clicked', item)"
+              class="py-1.5"
+            />
           </div>
           <div v-else>
             <div v-html="this.formatColumn(item, column)"></div>
@@ -39,44 +43,68 @@
 </template>
 
 <script>
+import Button from "./Button.vue";
+
 export default {
-  props: ["columns", "items", "editUrl"],
+  props: ["columns", "items"],
   name: "Table",
+  components: {
+    Button,
+  },
   methods: {
-    formatColumn(data, index) {
+    formatColumn(data, column) {
       var _class;
 
-      if (index === "current_price") {
-        return this.formatPrice(data[index]);
+      if (column === "current_price") {
+        return this.formatPrice(data[column]);
       }
 
-      if (index === "name") {
-        return `<div class="flex space-x-1 items-center"><img src="${data["logo"]}" class="w-5 h-5"> <span>${data[index]}</span></div>`;
+      if (column === "name") {
+        return `<div class="flex space-x-1 items-center"><img src="${data["logo"]}" class="w-5 h-5"> <span>${data[column]}</span></div>`;
       }
 
-      if (index === "symbol") {
-        return data[index].toUpperCase();
+      if (column === "symbol") {
+        return data[column].toUpperCase();
       }
 
-      if (index === "sell_amount") {
-        return `<div class="flex space-x-1 items-center"><img src="${data["sell_logo"]}" class="w-5 h-5"> <span>${data[index]} ${data["sell_symbol"]}</span></div>`;
+      if (column === "sell_amount") {
+        return `<div class="flex space-x-1 items-center"><img src="${data["sell_logo"]}" class="w-5 h-5"> <span>${data[column]} ${data["sell_symbol"]}</span></div>`;
       }
 
-      if (index === "buy_amount") {
-        return `<div class="flex space-x-1 items-center"><img src="${data["buy_logo"]}" class="w-5 h-5"> <span>${data[index]} ${data["buy_symbol"]}</span></div>`;
+      if (column === "buy_amount") {
+        return `<div class="flex space-x-1 items-center"><img src="${data["buy_logo"]}" class="w-5 h-5"> <span>${data[column]} ${data["buy_symbol"]}</span></div>`;
       }
 
-      if (index === "current_sell_price") {
-        if (data[index] > data["price"]) {
+      if (column === "current_sell_price") {
+        if (data[column] > data["price"]) {
           _class = "text-green-500";
         } else {
           _class = "text-red-500";
         }
 
-        return `<span class="${_class}">${data[index]}</span>`;
+        return `<span class="${_class}">${
+          data[column]
+        }</span> <span class="text-xs">(${nums
+          .getPercentageIncrease(data[column], data["price"])
+          .toFixed(2)}%)</span>`;
       }
 
-      return data[index];
+      if (column === "close_amount") {
+        return `${data[column]} ${data["sell_symbol"]}`;
+      }
+
+      if (column === "profit") {
+        return `<div class="flex space-x-1 items-center"><img src="${data["sell_logo"]}" class="w-5 h-5"> <span class="text-green-500">${data[column]} ${data["sell_symbol"]}</span></div>`;
+      }
+
+      return data[column];
+    },
+    formatHeader(column) {
+      if (column === "sell_amount") {
+        return "Sell Amount";
+      }
+
+      return column;
     },
     formatPrice(data) {
       let config;
@@ -97,9 +125,6 @@ export default {
       var formatter = new Intl.NumberFormat("en-US", config);
 
       return formatter.format(data);
-    },
-    editLink(item) {
-      return this.editUrl + item["id"];
     },
   },
 };

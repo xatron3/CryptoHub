@@ -8,6 +8,7 @@ import guest from "./middleware/guest";
 import Login from "../pages/Auth/Login/Login.vue";
 import Dashboard from "../pages/Dashboard/Dashboard.vue";
 import ActivePositions from "../pages/Positions/Active.vue";
+import ClosedPositions from "../pages/Positions/Closed.vue";
 
 // Admin Pages
 import AllAssets from "../pages/Assets/All.vue";
@@ -24,6 +25,12 @@ const routes = [
     path: "/positions/active",
     name: "ActivePositions",
     component: ActivePositions,
+    beforeEnter: auth,
+  },
+  {
+    path: "/positions/closed",
+    name: "ClosedPositions",
+    component: ClosedPositions,
     beforeEnter: auth,
   },
   {

@@ -22,7 +22,7 @@ class AuthController extends Controller
     }
 
     if (!$token = JWTAuth::attempt($validator->validated())) {
-      return response()->json(['error' => 'Unauthorized'], 401);
+      return response()->json(['error' => 'Wrong email or password', 'status' => 401], 400);
     }
     return $this->createNewToken($token);
   }
@@ -45,7 +45,7 @@ class AuthController extends Controller
     ));
 
     if (!$token = JWTAuth::attempt($request->only('email', 'password'))) {
-      return response()->json(['error' => 'Unauthorized'], 401);
+      return response()->json(['error' => 'Wrong email or password'], 400);
     }
     return $this->createNewToken($token);
   }

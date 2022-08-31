@@ -32,7 +32,6 @@ import Button from "./Button.vue";
 import Alert from "./Alert.vue";
 
 import axios from "axios";
-import { useCookies } from "vue3-cookies";
 
 export default {
   name: "LoginForm",
@@ -47,10 +46,6 @@ export default {
       password: null,
       error: null,
     };
-  },
-  setup() {
-    const { cookies } = useCookies();
-    return { cookies };
   },
   methods: {
     async submit(e) {
@@ -77,9 +72,13 @@ export default {
           password: this.password,
         })
         .then((res) => {
-          this.cookies.set("access_token", res.data.access_token, 3000000);
-          this.$store.commit("setUser", res.data.user);
-          this.$router.push({ name: "Home" });
+          if (res.status === 200) {
+            cookie.setItem("access_token", res.data.access_token, 3000000);
+            this.$store.commit("setUser", res.data.user);
+            this.$router.push({ name: "Home" });
+          } else {
+            console.log(res);
+          }
         })
         .catch((err) => {
           console.log(err);

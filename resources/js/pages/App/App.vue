@@ -11,7 +11,6 @@
 
 <script>
 import Navigation from "../../layout/navigation/Index.vue";
-import { useCookies } from "vue3-cookies";
 import axios from "axios";
 
 export default {
@@ -23,12 +22,8 @@ export default {
   components: {
     Navigation,
   },
-  setup() {
-    const { cookies } = useCookies();
-    return { cookies };
-  },
   async mounted() {
-    if (this.cookies.get("access_token")) {
+    if (cookie.getItem("access_token")) {
       let res = await axios.get("/api/user");
 
       this.$store.commit("setUser", res.data);

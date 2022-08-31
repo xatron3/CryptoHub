@@ -32,6 +32,7 @@ Route::group(['middleware' => 'jwt.verify'], function () {
     Route::get('assets', [AssetsController::class, 'getAll']);
 
     Route::post('position/add', [PositionsController::class, 'store']);
+    Route::post('position/close', [PositionsController::class, 'closePosition']);
     Route::get('positions', [PositionsController::class, 'getAll']);
 });
 

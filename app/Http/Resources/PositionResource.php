@@ -39,6 +39,8 @@ class PositionResource extends JsonResource
             'sell_symbol' => $sellSymbol,
             'sell_amount' => $this->sell_amount,
             'price' => $priceEachFormatted,
+            'close_amount' => $this->close_amount,
+            'profit' => $this->close_amount - $this->sell_amount,
             'current_sell_price' => $currentPriceEachFormatted
         ];
     }

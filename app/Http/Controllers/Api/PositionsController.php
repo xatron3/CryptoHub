@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Models\ActivePosition;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PositionResource;
 
@@ -22,15 +23,34 @@ class PositionsController extends Controller
     return response()->json(['success' => 'Position was stored.'], 200);
   }
 
+  public function closePosition(Request $request)
+  {
+    $position_id = $request->id;
+
+    $position = ActivePosition::where('id', $position_id)->first();
+    $position->close_amount = $request->close_amount;
+    $position->save();
+
+    return response()->json(['success' => 'Position was closed.'], 200);
+  }
+
   public function getAll(Request $request)
   {
     $user_id = $request->user()->id;
+    $closed = $request->closed;
+    $grouped = $request->grouped;
 
-    if ($request->grouped === "true") {
-      $positions = ActivePosition::groupBy('buy_asset_id')->where('user_id', $user_id)->selectRaw("SUM(sell_amount) as sell_amount")
-        ->selectRaw("SUM(buy_amount) as buy_amount")->selectRaw('buy_asset_id')->selectRaw('sell_asset_id')->get();
+    if ($grouped === "true") {
+      $positions = ActivePosition::groupBy('buy_asset_id', 'sell_asset_id')
+        ->where([['user_id', $user_id], ['close_amount', '=', null]])
+        ->selectRaw("SUM(sell_amount) as sell_amount")
+        ->selectRaw("SUM(buy_amount) as buy_amount")
+        ->selectRaw('buy_asset_id')->selectRaw('sell_asset_id')->get();
+    } else if ($closed === "true") {
+      $positions = ActivePosition::where([['user_id', $user_id], ['close_amount', '!=', null]])
+        ->get();
     } else {
-      $positions = ActivePosition::where('user_id', $user_id)->get();
+      $positions = ActivePosition::where([['user_id', $user_id], ['close_amount', '=', null]])->get();
     }
 
     return PositionResource::collection($positions);

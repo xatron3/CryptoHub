@@ -10,7 +10,7 @@ function zeros_after_dot($float)
   for ($x = 0; $x < $max; ++$x) {  // for loop with a hard limit to avoid infinite loop
     $float *= 10;
     if ($float >= 1) {
-      return $x + 2;
+      return $x + 3;
     }
   }
   return $max;
