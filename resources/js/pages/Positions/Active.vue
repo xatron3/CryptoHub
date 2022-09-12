@@ -125,7 +125,7 @@ export default {
           close_amount: this.close_amount,
         });
 
-        console.log(res);
+        this.active_positions = await this.getAllPostions();
       } else {
         console.log("Fill");
       }
@@ -166,8 +166,6 @@ export default {
       } catch (error) {
         console.log(error);
       }
-
-      console.log(res);
     },
     async setGrouped(bool) {
       this.grouped = bool;

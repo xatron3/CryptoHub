@@ -40,14 +40,24 @@ class PositionsController extends Controller
     $closed = $request->closed;
     $grouped = $request->grouped;
 
-    if ($grouped === "true") {
+    if ($grouped === "true" && $closed !== "true") {
       $positions = ActivePosition::groupBy('buy_asset_id', 'sell_asset_id')
         ->where([['user_id', $user_id], ['close_amount', '=', null]])
         ->selectRaw("SUM(sell_amount) as sell_amount")
         ->selectRaw("SUM(buy_amount) as buy_amount")
         ->selectRaw('buy_asset_id')->selectRaw('sell_asset_id')->get();
-    } else if ($closed === "true") {
+    } else if ($closed === "true" && $grouped !== "true") {
       $positions = ActivePosition::where([['user_id', $user_id], ['close_amount', '!=', null]])
+        ->select(['buy_asset_id', 'sell_asset_id', 'buy_amount', 'sell_amount', 'id', 'close_amount'])
+        ->selectRaw('(close_amount - sell_amount) AS profit')
+        ->get();
+    } else if ($closed === "true" && $grouped === "true") {
+      $positions = ActivePosition::groupBy('buy_asset_id', 'sell_asset_id')->where([['user_id', $user_id], ['close_amount', '!=', null]])
+        ->select(['buy_asset_id', 'sell_asset_id', 'id'])
+        ->selectRaw('(SUM(close_amount) - SUM(sell_amount)) AS profit')
+        ->selectRaw('SUM(buy_amount) AS buy_amount')
+        ->selectRaw('SUM(sell_amount) AS sell_amount')
+        ->selectRaw('SUM(close_amount) AS close_amount')
         ->get();
     } else {
       $positions = ActivePosition::where([['user_id', $user_id], ['close_amount', '=', null]])->get();
