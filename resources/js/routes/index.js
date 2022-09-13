@@ -6,15 +6,21 @@ import guest from "./middleware/guest";
 
 // Public Pages
 import Login from "../pages/Auth/Login/Login.vue";
-import Dashboard from "../pages/Dashboard/Dashboard.vue";
-import ActivePositions from "../pages/Positions/Active.vue";
-import ClosedPositions from "../pages/Positions/Closed.vue";
 
 // Admin Pages
 import AllAssets from "../pages/Assets/All.vue";
 import AddNewAsset from "../pages/Assets/New.vue";
+import Dashboard from "../pages/Dashboard/Dashboard.vue";
+import ActivePositions from "../pages/Positions/Active.vue";
+import ClosedPositions from "../pages/Positions/Closed.vue";
 
 const routes = [
+  {
+    path: "/",
+    name: "Login",
+    component: Login,
+    beforeEnter: guest,
+  },
   {
     path: "/dashboard",
     name: "Home",
@@ -34,12 +40,6 @@ const routes = [
     beforeEnter: auth,
   },
   {
-    path: "/",
-    name: "Login",
-    component: Login,
-    beforeEnter: guest,
-  },
-  {
     path: "/admin/assets",
     name: "Assets",
     component: AllAssets,
@@ -56,4 +56,8 @@ const routes = [
 export const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+router.beforeEach((to) => {
+  document.title = `${import.meta.env.VITE_APP_NAME} - ${to.name}`;
 });

@@ -23,6 +23,7 @@ export default {
     Navigation,
   },
   async mounted() {
+    console.log(cookie.getItem("access_token"));
     if (cookie.getItem("access_token")) {
       let res = await axios.get("/api/user");
 

@@ -9,15 +9,18 @@
             <NavigationLink
               path="/dashboard"
               title="Dashboard"
+              icon="Squares2X2Icon"
             ></NavigationLink>
             <NavigationHeader title="TRADES" />
             <NavigationLink
               path="/positions/active"
               title="Active Positions"
+              icon="BriefcaseIcon"
             ></NavigationLink>
             <NavigationLink
               path="/positions/closed"
               title="Closed Positions"
+              icon="BriefcaseIcon"
             ></NavigationLink>
             <NavigationHeader title="ADMINPANEL" />
             <NavigationLink

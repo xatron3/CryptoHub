@@ -60,7 +60,7 @@ export default {
       }
 
       if (column === "name") {
-        return `<div class="flex space-x-1 items-center"><img src="${data["logo"]}" class="w-5 h-5"> <span>${data[column]}</span></div>`;
+        return `<div class="flex space-x-1 items-center"><img src="${data["logo"]}" class="w-7 h-7"> <span>${data[column]}</span></div>`;
       }
 
       if (column === "symbol") {
@@ -68,11 +68,11 @@ export default {
       }
 
       if (column === "sell_amount") {
-        return `<div class="flex space-x-1 items-center"><img src="${data["sell_logo"]}" class="w-5 h-5"> <span>${data[column]} ${data["sell_symbol"]}</span></div>`;
+        return `<div class="flex space-x-1 items-center"><img src="${data["sell_logo"]}" class="w-6 h-6"> <span>${data[column]} ${data["sell_symbol"]}</span></div>`;
       }
 
       if (column === "buy_amount") {
-        return `<div class="flex space-x-1 items-center"><img src="${data["buy_logo"]}" class="w-5 h-5"> <span>${data[column]} ${data["buy_symbol"]}</span></div>`;
+        return `<div class="flex space-x-1 items-center"><img src="${data["buy_logo"]}" class="w-6 h-6"> <span>${data[column]} ${data["buy_symbol"]}</span></div>`;
       }
 
       if (column === "current_sell_price") {

@@ -2,8 +2,8 @@
   <div class="space-y-2 max-w-sm">
     <div class="flex space-x-2">
       <Input
-        v-model="this.sell_amount"
-        :value="this.sell_amount"
+        v-model="this.newPosition.sell_amount"
+        :value="this.newPosition.sell_amount"
         id="sell_amount"
         name="buy_amount"
         placeholder="Sell amount"
@@ -12,16 +12,15 @@
       <Select
         :items="this.assets"
         :keys="selectKeys"
-        v-if="this.assets !== null"
-        v-model="this.sell_asset_id"
+        v-model="this.newPosition.sell_asset_id"
         class="h-11 self-end"
       />
     </div>
 
     <div class="flex space-x-2">
       <Input
-        v-model="this.buy_amount"
-        :value="this.buy_amount"
+        v-model="this.newPosition.buy_amount"
+        :value="this.newPosition.buy_amount"
         id="buy_amount"
         name="buy_amount"
         placeholder="Buy amount"
@@ -30,8 +29,7 @@
       <Select
         :items="this.assets"
         :keys="selectKeys"
-        v-if="this.assets !== null"
-        v-model="this.buy_asset_id"
+        v-model="this.newPosition.buy_asset_id"
         class="h-10 self-end"
       />
     </div>
@@ -60,24 +58,32 @@
           class="bg-yellow-500 hover:bg-yellow-400"
         />
       </div>
-
-      <div class="flex items-center space-x-2">
-        <span>Close Amount</span>
-        <Input
-          v-model="close_amount"
-          :value="close_amount"
-          name="close_amount"
-          id="close_amount"
-          type="number"
-        />
-      </div>
     </div>
+
+    <!-- Active Positions Table -->
     <Table
       :items="this.active_positions"
       :columns="key_columns"
-      @button_clicked="closePosition"
+      @button_clicked="showClosePosition"
     />
   </div>
+
+  <!-- Close Modal -->
+  <vue-final-modal v-model="closeInfo.show_modal">
+    <div class="flex items-center space-x-2">
+      <span>Close Amount</span>
+      <Input
+        v-model="closeInfo.amount"
+        :value="closeInfo.amount"
+        name="close_amount"
+        id="close_amount"
+        type="number"
+      />
+    </div>
+    <Button title="Close" v-on:click="closePosition" class="py-1.5" />
+
+    <button class="vfm__close" @click="closeInfo.show_modal = false">X</button>
+  </vue-final-modal>
 </template>
 
 <script>
@@ -85,6 +91,15 @@ import Select from "../../components/Select.vue";
 import Input from "../../components/Input.vue";
 import Button from "../../components/Button.vue";
 import Table from "../../components/Table.vue";
+
+import {
+  getPosition,
+  addPosition,
+  closePosition,
+} from "../../services/positions";
+
+import { useToast } from "vue-toastification";
+
 export default {
   name: "PositionActive",
   components: {
@@ -92,6 +107,12 @@ export default {
     Input,
     Button,
     Table,
+  },
+  setup() {
+    // Get toast interface
+    const toast = useToast();
+
+    return { toast };
   },
   data() {
     return {
@@ -102,74 +123,78 @@ export default {
         "current_sell_price",
         "close",
       ],
+      selectKeys: ["id", "name"],
       active_positions: null,
       assets: null,
-      selectKeys: ["id", "name"],
-      buy_amount: null,
-      buy_asset_id: null,
-      sell_amount: null,
-      sell_asset_id: null,
       grouped: false,
-      close_amount: 0,
+      newPosition: {
+        buy_amount: null,
+        buy_asset_id: null,
+        sell_amount: null,
+        sell_asset_id: null,
+      },
+      closeInfo: {
+        amount: 0,
+        id: 0,
+        show_modal: false,
+      },
     };
   },
   async mounted() {
     this.assets = await this.getAllAssets();
-    this.active_positions = await this.getAllPostions();
+    await this.refreshActivePositions();
   },
   methods: {
-    async closePosition(data) {
-      if (this.close_amount > 0) {
-        let res = await axios.post("/api/position/close", {
-          id: data.id,
-          close_amount: this.close_amount,
-        });
-
-        this.active_positions = await this.getAllPostions();
-      } else {
-        console.log("Fill");
-      }
+    async refreshActivePositions() {
+      this.active_positions = await getPosition({ grouped: this.grouped });
+    },
+    showClosePosition(data) {
+      this.closeInfo.show_modal = true;
+      this.closeInfo.id = data.id;
+    },
+    async setGrouped(bool) {
+      this.grouped = bool;
+      await this.refreshActivePositions();
     },
     async getAllAssets() {
       let res = await axios.get("/api/assets");
 
       return res.data;
     },
-    async getAllPostions(closed = false) {
-      var result;
-
-      let res = await axios.get("/api/positions", {
-        params: {
-          grouped: this.grouped,
-          closed: closed,
-        },
-      });
-
-      if (res.data.data) {
-        result = res.data.data;
-      } else {
-        result = res.data;
-      }
-
-      return result;
-    },
     async addPosition() {
-      try {
-        let res = await axios.post("/api/position/add", {
-          buy_amount: this.buy_amount,
-          buy_asset_id: this.buy_asset_id,
-          sell_amount: this.sell_amount,
-          sell_asset_id: this.sell_asset_id,
-        });
+      let result = await addPosition(this.newPosition);
 
-        this.active_positions = await this.getAllPostions();
-      } catch (error) {
-        console.log(error);
+      if (result.status === 200) {
+        this.toast.success(result.message);
+        await this.refreshActivePositions();
+      } else {
+        this.toast.error(result.message);
       }
     },
-    async setGrouped(bool) {
-      this.grouped = bool;
-      this.active_positions = await this.getAllPostions();
+    async closePosition() {
+      if (this.closeInfo.amount === 0) {
+        this.toast.error("Enter a close amount");
+        return;
+      }
+
+      if (this.closeInfo.id === 0) {
+        this.toast.error("Error with getting position ID");
+        return;
+      }
+
+      let result = await closePosition(this.closeInfo);
+
+      if (result.status === 200) {
+        this.toast.success(`Successfully closed position`);
+
+        this.closeInfo.show_modal = false;
+        this.closeInfo.amount = 0;
+        this.closeInfo.id = 0;
+
+        await this.refreshActivePositions();
+      } else {
+        this.toast.error(result.message);
+      }
     },
   },
 };

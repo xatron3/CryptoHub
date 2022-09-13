@@ -20,7 +20,7 @@ class PositionsController extends Controller
     $position->user_id = $request->user()->id;
     $position->save();
 
-    return response()->json(['success' => 'Position was stored.'], 200);
+    return response()->json(['message' => 'Position was stored.'], 200);
   }
 
   public function closePosition(Request $request)
@@ -31,7 +31,7 @@ class PositionsController extends Controller
     $position->close_amount = $request->close_amount;
     $position->save();
 
-    return response()->json(['success' => 'Position was closed.'], 200);
+    return response()->json(['message' => 'Position was closed.'], 200);
   }
 
   public function getAll(Request $request)
