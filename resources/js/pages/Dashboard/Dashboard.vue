@@ -38,6 +38,7 @@ export default {
       this.positions.losses = this.positions.all.filter((item) => {
         return item.current_sell_price < item.price;
       });
+
       const today = new Date();
       this.lastUpdated = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
     },
