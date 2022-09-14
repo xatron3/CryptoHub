@@ -3,3 +3,9 @@ export async function getAssets() {
 
   return res.data;
 }
+
+export async function getCoingeckoList() {
+  let res = await axios.get("https://api.coingecko.com/api/v3/coins/list");
+
+  return res.data;
+}

@@ -1,7 +1,9 @@
 <template>
-  <div>
-    <div class="mb-2">Last Updated: {{ this.lastUpdated }}</div>
-    <div class="flex space-x-4">
+  <div class="relative">
+    <div class="text-xs absolute right-4 top-2">
+      Last Updated: {{ this.lastUpdated }}
+    </div>
+    <div class="flex space-x-4 mt-4">
       <PositionCard :positions="this.positions.losses" title="Losses" />
       <PositionCard :positions="this.positions.profit" title="Profit" />
     </div>

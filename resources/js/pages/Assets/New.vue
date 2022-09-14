@@ -38,6 +38,7 @@
 import Button from "../../components/Button.vue";
 import Input from "../../components/Input.vue";
 import Alert from "../../components/Alert.vue";
+import { getCoingeckoList } from "../../services/assets";
 
 export default {
   name: "AddNewAsset",
@@ -50,17 +51,10 @@ export default {
     };
   },
   async mounted() {
-    let res = await axios.get("https://api.coingecko.com/api/v3/coins/list");
-
-    this.coin_list = res.data;
+    this.coin_list = await getCoingeckoList();
   },
   components: { Button, Input, Alert },
   methods: {
-    async getAssets() {
-      let res = await axios.get("/api/assets");
-
-      return res.data;
-    },
     getCoinList() {
       this.coins = [];
 

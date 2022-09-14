@@ -32,10 +32,10 @@ class AssetsController extends Controller
 
         return response()->json(['success' => 'Asset was created.'], 200);
       } else {
-        return response()->json(['error' => 'Asset was not found on Coingecko.'], 400);
+        return response()->json(['error' => 'Asset was not found on Coingecko.'], 422);
       }
     } else {
-      return response()->json(['error' => 'Asset already exists.'], 400);
+      return response()->json(['error' => 'Asset already exists.'], 422);
     }
   }
 

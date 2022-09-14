@@ -21,28 +21,24 @@
 <script>
 import Table from "../../components/Table.vue";
 import Button from "../../components/Button.vue";
+import { getAssets } from "../../services/assets";
 
 export default {
   name: "Assets",
   data() {
     return {
       assets: null,
-      columns: ["name", "symbol", "current_price", "edit"],
+      columns: ["name", "symbol", "current_price"],
     };
   },
   async mounted() {
-    this.assets = await this.getAssets();
+    this.assets = await getAssets();
   },
   methods: {
-    async getAssets() {
-      let res = await axios.get("/api/assets");
-
-      return res.data;
-    },
     async updatePrices() {
       let res = await axios.get("/api/update-coingecko");
 
-      this.assets = await this.getAssets();
+      this.assets = await getAssets();
     },
   },
   components: { Table, Button },
