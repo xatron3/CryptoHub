@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     logout() {
-      cookie.removeItem("access_token");
+      localStorage.removeItem("access_token");
       this.$store.commit("setUser", null);
       this.$router.push({ name: "Login" });
     },

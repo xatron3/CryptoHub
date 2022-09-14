@@ -28,8 +28,5 @@ export default {
       return this.title.toLowerCase();
     },
   },
-  mounted() {
-    console.log(this.icon);
-  },
 };
 </script>

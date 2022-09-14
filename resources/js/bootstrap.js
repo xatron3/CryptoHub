@@ -2,11 +2,9 @@ import _ from "lodash";
 window._ = _;
 
 import axios from "axios";
-import cookie from "./helpers/cookie";
 import nums from "./helpers/numbers";
 
 window.axios = axios;
-window.cookie = cookie;
 window.nums = nums;
 
 window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
@@ -15,7 +13,7 @@ let subscribers = [];
 
 axios.interceptors.request.use(
   (config) => {
-    config.headers["Authorization"] = `Bearer ${cookie.getItem(
+    config.headers["Authorization"] = `Bearer ${localStorage.getItem(
       "access_token"
     )}`;
 
@@ -39,7 +37,7 @@ axios.interceptors.response.use(
     const originalRequest = config;
 
     if (status === 401 && data.message == "Token Expired") {
-      cookie.setItem("access_token", data.token);
+      localStorage.setItem("access_token", data.token);
 
       subscribers = [];
 
