@@ -94,7 +94,15 @@ export default {
       }
 
       if (column === "profit") {
-        return `<div class="flex space-x-1 items-center"><img src="${data["sell_logo"]}" class="w-5 h-5"> <span class="text-green-500">${data[column]} ${data["sell_symbol"]}</span></div>`;
+        if (data[column] === 0) {
+          _class = "text-yellow-500";
+        } else if (data[column] > 0) {
+          _class = "text-green-500";
+        } else {
+          _class = "text-red-500";
+        }
+
+        return `<div class="flex space-x-1 items-center"><img src="${data["sell_logo"]}" class="w-5 h-5"> <span class="${_class}">${data[column]} ${data["sell_symbol"]}</span></div>`;
       }
 
       return data[column];

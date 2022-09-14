@@ -1,5 +1,6 @@
 @import url("../../node_modules/vue-toastification/dist/index.css");
 
+@import "./general.scss";
 @import "./modal.scss";
 
 @import "tailwindcss/base";

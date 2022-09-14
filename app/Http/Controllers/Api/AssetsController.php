@@ -41,7 +41,7 @@ class AssetsController extends Controller
 
   public function getAll()
   {
-    $assets = Asset::all();
+    $assets = Asset::orderBy('name')->get();
 
     return $assets;
   }

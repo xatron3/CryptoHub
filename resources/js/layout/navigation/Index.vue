@@ -15,26 +15,20 @@
             <NavigationLink
               path="/positions/active"
               title="Active Positions"
-              icon="BriefcaseIcon"
+              icon="BriefcaseIconOutlined"
             ></NavigationLink>
             <NavigationLink
               path="/positions/closed"
               title="Closed Positions"
               icon="BriefcaseIcon"
             ></NavigationLink>
-            <NavigationHeader title="ADMINPANEL" />
-            <NavigationLink
-              path="/admin/assets/"
-              title="All Assets"
-            ></NavigationLink>
-          </div>
-        </div>
-        <div class="w-full -mb-3 mx-4 flex">
-          <div
-            @click="logout()"
-            class="group flex items-center space-x-4 rounded-md text-sm py-1.5 text-gray-600 w-full cursor-pointer"
-          >
-            Logout
+            <div v-if="this.$store.state.user.is_admin === 1">
+              <NavigationHeader title="ADMINPANEL" />
+              <NavigationLink
+                path="/admin/assets/"
+                title="All Assets"
+              ></NavigationLink>
+            </div>
           </div>
         </div>
       </div>
@@ -61,13 +55,6 @@ export default {
   components: {
     NavigationLink,
     NavigationHeader,
-  },
-  methods: {
-    logout() {
-      cookie.removeItem("access_token");
-      this.$store.commit("setUser", null);
-      this.$router.push({ name: "Login" });
-    },
   },
 };
 </script>

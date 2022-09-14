@@ -1,5 +1,8 @@
 <template>
-  <select @input="$emit('update:modelValue', $event.target.value)">
+  <select
+    @input="$emit('update:modelValue', $event.target.value)"
+    class="border"
+  >
     <option></option>
     <option
       v-for="item in this.items"
