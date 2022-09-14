@@ -1,5 +1,5 @@
 <template>
-  <vue-final-modal v-model="show">
+  <vue-final-modal v-model="show" @closed="$emit('hideModal')">
     <div class="space-y-2 max-w-sm mx-auto">
       <div class="flex space-x-2">
         <Input

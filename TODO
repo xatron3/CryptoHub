@@ -1,2 +1,7 @@
 TODO:
-  ☐ Fix Active.vue error with Add New position modal on open multiple times @created(22-09-14 04:10)
+  ☐ Implement spatie user roles to user model @created(22-09-14 04:11)
+  ☐ Create an simple event calendar @created(22-09-14 13:55)
+    ☐ Track FED meetings, bitcoin halving etc @created(22-09-14 13:55)
+
+Archive:
+  ✔ Fix Active.vue error with Add New position modal on open multiple times @created(22-09-14 04:10) @done(22-09-14 13:53) @project(TODO)
