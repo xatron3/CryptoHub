@@ -1,32 +1,20 @@
 <template>
-  <div class="flex space-x-4">
-    <div class="flex flex-col w-1/4 rounded-md bg-slate-300 p-4">
-      Losses
-      <div
-        v-for="losses in this.positions.losses"
-        :key="losses"
-        class="space-x-2"
-      >
-        <span>{{ losses.buy_symbol }}</span>
-        <span>{{ losses.current_sell_price }}</span>
-      </div>
-    </div>
-
-    <div class="flex flex-col w-1/4 rounded-md bg-slate-300 p-4">
-      Profit
-      <div v-for="profit in this.positions.profit" :key="profit">
-        {{ profit.current_sell_price }}
-      </div>
+  <div>
+    <div class="mb-2">Last Updated: {{ this.lastUpdated }}</div>
+    <div class="flex space-x-4">
+      <PositionCard :positions="this.positions.losses" title="Losses" />
+      <PositionCard :positions="this.positions.profit" title="Profit" />
     </div>
   </div>
 </template>
 
 <script>
 import { getPosition } from "../../services/positions";
+import PositionCard from "./components/PositionCard.vue";
 
 export default {
   name: "Home",
-  setup() {},
+  components: { PositionCard },
   data() {
     return {
       positions: {
@@ -34,22 +22,24 @@ export default {
         profit: null,
         losses: null,
       },
+      lastUpdated: null,
     };
   },
   async mounted() {
     this.loadAndSort();
+    setInterval(this.loadAndSort, 60000);
   },
   methods: {
     async loadAndSort() {
       this.positions.all = await getPosition({ grouped: true });
-
       this.positions.profit = this.positions.all.filter((item) => {
         return item.current_sell_price > item.price;
       });
-
       this.positions.losses = this.positions.all.filter((item) => {
         return item.current_sell_price < item.price;
       });
+      const today = new Date();
+      this.lastUpdated = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
     },
   },
 };

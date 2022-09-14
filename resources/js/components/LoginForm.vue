@@ -73,7 +73,7 @@ export default {
         })
         .then((res) => {
           if (res.status === 200) {
-            cookie.setItem("access_token", res.data.access_token, 3000000);
+            localStorage.setItem("access_token", res.data.access_token);
             this.$store.commit("setUser", res.data.user);
             this.$router.push({ name: "Home" });
           } else {

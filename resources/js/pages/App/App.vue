@@ -31,8 +31,7 @@ export default {
     },
   },
   async mounted() {
-    console.log(cookie.getItem("access_token"));
-    if (cookie.getItem("access_token")) {
+    if (localStorage.getItem("access_token")) {
       let res = await axios.get("/api/user");
 
       this.$store.commit("setUser", res.data);
