@@ -35,8 +35,6 @@
 </template>
 
 <script>
-import Button from "../../components/Button.vue";
-import Input from "../../components/Input.vue";
 import Alert from "../../components/Alert.vue";
 import { getCoingeckoList } from "../../services/assets";
 
@@ -53,7 +51,7 @@ export default {
   async mounted() {
     this.coin_list = await getCoingeckoList();
   },
-  components: { Button, Input, Alert },
+  components: { Alert },
   methods: {
     getCoinList() {
       this.coins = [];

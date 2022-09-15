@@ -11,9 +11,6 @@
 </template>
 
 <script>
-import Select from "../../components/Select.vue";
-import Input from "../../components/Input.vue";
-import Button from "../../components/Button.vue";
 import Table from "../../components/Table.vue";
 
 import Filter from "./components/Filter.vue";
@@ -23,9 +20,6 @@ import { getPosition } from "../../services/positions";
 export default {
   name: "PositionActive",
   components: {
-    Select,
-    Input,
-    Button,
     Table,
     Filter,
   },

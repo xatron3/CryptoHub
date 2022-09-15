@@ -51,24 +51,13 @@
 </template>
 
 <script>
-import Select from "../../../components/Select.vue";
-import Input from "../../../components/Input.vue";
-import Button from "../../../components/Button.vue";
-
 import { getAssets } from "../../../services/assets";
-
 import { addPosition } from "../../../services/positions";
-
 import { useToast } from "vue-toastification";
 
 export default {
   props: ["show", "assets"],
   name: "New Position",
-  components: {
-    Select,
-    Input,
-    Button,
-  },
   setup() {
     // Get toast interface
     const toast = useToast();

@@ -7,17 +7,20 @@
 
       <Transition>
         <div
-          class="absolute right-0 top-8 shadow-md rounded-md bg-gray-100 z-50 p-2 w-52"
+          class="absolute right-0 top-8 shadow-md rounded-md bg-slate-100 z-50 p-2 w-52 text-center"
           v-if="this._showDropDown"
         >
-          <div class="w-full text-center py-2 font-bold">
-            {{ this.$store.state.user.name }}
+          <div class="flex flex-col space-y-1 pb-2">
+            <div class="w-full font-bold">
+              {{ this.$store.state.user.name }}
+            </div>
+
+            <router-link to="/profile/settings" @click="_showDropDown = false">
+              Settings
+            </router-link>
           </div>
 
-          <div
-            class="w-full cursor-pointer text-center border-t pt-2 pb-1"
-            @click="logout"
-          >
+          <div class="w-full cursor-pointer border-t pt-2 pb-1" @click="logout">
             Logout
           </div>
         </div>

@@ -20,7 +20,6 @@
 
 <script>
 import Table from "../../components/Table.vue";
-import Button from "../../components/Button.vue";
 import { getAssets } from "../../services/assets";
 
 export default {
@@ -41,6 +40,6 @@ export default {
       this.assets = await getAssets();
     },
   },
-  components: { Table, Button },
+  components: { Table },
 };
 </script>

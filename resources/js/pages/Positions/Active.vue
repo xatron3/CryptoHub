@@ -21,23 +21,12 @@
     </div>
 
     <!-- Close Modal -->
-    <vue-final-modal v-model="closeInfo.show_modal">
-      <div class="flex items-center space-x-2">
-        <span>Close Amount</span>
-        <Input
-          v-model="closeInfo.amount"
-          :value="closeInfo.amount"
-          name="close_amount"
-          id="close_amount"
-          type="number"
-        />
-      </div>
-      <Button title="Close" @click="closePosition" class="py-1.5" />
-
-      <button class="vfm__close" @click="closeInfo.show_modal = false">
-        X
-      </button>
-    </vue-final-modal>
+    <ClosePosition
+      :show="this.showClosePositionModal"
+      :id="this.closeId"
+      @hideModal="this.showClosePositionModal = false"
+      @refreshPositions="refreshPositions"
+    />
 
     <!-- New Position Modal -->
     <NewPosition
@@ -49,9 +38,6 @@
 </template>
 
 <script>
-import Select from "../../components/Select.vue";
-import Input from "../../components/Input.vue";
-import Button from "../../components/Button.vue";
 import Table from "../../components/Table.vue";
 import Filter from "./components/Filter.vue";
 
@@ -59,16 +45,15 @@ import { getPosition, closePosition } from "../../services/positions";
 
 import { useToast } from "vue-toastification";
 import NewPosition from "./components/NewPosition.vue";
+import ClosePosition from "./components/ClosePosition.vue";
 
 export default {
   name: "Position Active",
   components: {
-    Select,
-    Input,
-    Button,
     Table,
     Filter,
     NewPosition,
+    ClosePosition,
   },
   setup() {
     // Get toast interface
@@ -88,11 +73,8 @@ export default {
       active_positions: null,
       grouped: false,
       showPositionModal: false,
-      closeInfo: {
-        amount: 0,
-        id: 0,
-        show_modal: false,
-      },
+      showClosePositionModal: false,
+      closeId: 0,
     };
   },
   async mounted() {
@@ -103,8 +85,8 @@ export default {
       this.active_positions = await getPosition({ grouped: this.grouped });
     },
     showClosePosition(data) {
-      this.closeInfo.show_modal = true;
-      this.closeInfo.id = data.id;
+      this.showClosePositionModal = true;
+      this.closeId = data.id;
     },
     async updateFilter(data) {
       if (data === 1) {
@@ -114,31 +96,6 @@ export default {
       }
 
       await this.refreshPositions();
-    },
-    async closePosition() {
-      if (this.closeInfo.amount === 0) {
-        this.toast.error("Enter a close amount");
-        return;
-      }
-
-      if (this.closeInfo.id === 0) {
-        this.toast.error("Error with getting position ID");
-        return;
-      }
-
-      let result = await closePosition(this.closeInfo);
-
-      if (result.status === 200) {
-        this.toast.success(`Successfully closed position`);
-
-        this.closeInfo.show_modal = false;
-        this.closeInfo.amount = 0;
-        this.closeInfo.id = 0;
-
-        await this.refreshPositions();
-      } else {
-        this.toast.error(result.message);
-      }
     },
   },
 };

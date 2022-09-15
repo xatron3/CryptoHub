@@ -5,7 +5,11 @@
       <span class="col-span-2">Buy Amount (Asset)</span>
     </div>
 
-    <div v-for="item in positions" :key="item" class="grid grid-cols-3">
+    <div
+      v-for="item in positions"
+      :key="item"
+      class="grid grid-cols-3 border-b py-0.5"
+    >
       <span class="col-span-2 flex items-center space-x-1.5">
         <img :src="item.buy_logo" class="h-4" />
         <span>{{ `${item.buy_amount} ${item.buy_symbol}` }}</span>

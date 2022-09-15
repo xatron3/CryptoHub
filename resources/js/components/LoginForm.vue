@@ -27,8 +27,6 @@
 </template>
 
 <script>
-import Input from "./Input.vue";
-import Button from "./Button.vue";
 import Alert from "./Alert.vue";
 
 import axios from "axios";
@@ -36,8 +34,6 @@ import axios from "axios";
 export default {
   name: "LoginForm",
   components: {
-    Input,
-    Button,
     Alert,
   },
   data() {

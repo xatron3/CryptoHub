@@ -3,6 +3,7 @@ import { createWebHistory, createRouter } from "vue-router";
 // Middleware
 import auth from "./middleware/auth";
 import guest from "./middleware/guest";
+import admin from "./middleware/admin";
 
 // Public Pages
 import Login from "../pages/Auth/Login/Login.vue";
@@ -13,6 +14,9 @@ import AddNewAsset from "../pages/Assets/New.vue";
 import Dashboard from "../pages/Dashboard/Dashboard.vue";
 import ActivePositions from "../pages/Positions/Active.vue";
 import ClosedPositions from "../pages/Positions/Closed.vue";
+
+// Profile
+import ProfileSettings from "../pages/Profile/Settings/Index.vue";
 
 const routes = [
   {
@@ -25,6 +29,12 @@ const routes = [
     path: "/dashboard",
     name: "Home",
     component: Dashboard,
+    beforeEnter: auth,
+  },
+  {
+    path: "/profile/settings",
+    name: "Profile Settings",
+    component: ProfileSettings,
     beforeEnter: auth,
   },
   {
@@ -43,13 +53,13 @@ const routes = [
     path: "/admin/assets",
     name: "Assets",
     component: AllAssets,
-    beforeEnter: auth,
+    beforeEnter: admin,
   },
   {
     path: "/admin/assets/new",
     name: "AddNewAsset",
     component: AddNewAsset,
-    beforeEnter: auth,
+    beforeEnter: admin,
   },
 ];
 

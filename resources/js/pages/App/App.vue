@@ -1,11 +1,12 @@
 <template>
-  <div class="h-screen w-screen flex bg-gray-200">
+  <div class="h-screen w-screen flex bg-gray-200" v-if="loaded">
     <Navigation v-if="hasUser"></Navigation>
     <div class="w-full">
       <HeaderBar v-if="hasUser"></HeaderBar>
       <router-view class="p-4"></router-view>
     </div>
   </div>
+  <div v-else>Loading....</div>
 </template>
 
 <script>
@@ -17,6 +18,7 @@ export default {
   data() {
     return {
       title: "Test",
+      loaded: false,
     };
   },
   components: {
@@ -30,11 +32,14 @@ export default {
       );
     },
   },
-  async mounted() {
+  async beforeMount() {
     if (localStorage.getItem("access_token")) {
       let res = await axios.get("/api/user");
 
       this.$store.commit("setUser", res.data);
+      this.loaded = true;
+    } else {
+      this.loaded = true;
     }
   },
 };
