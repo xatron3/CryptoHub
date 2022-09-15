@@ -9,13 +9,39 @@
         placeholder="Title"
       />
 
-      <Input
-        v-model="this.event.start_date"
-        :value="this.event.start_date"
-        id="start_date"
-        name="start_date"
-        placeholder="Start Date"
-      />
+      <div>
+        <label for="test" class="text-sm font-medium ml-0.5">Description</label>
+        <textarea
+          class="border w-full rounded-md p-2"
+          id="test"
+          placeholder="Description"
+        ></textarea>
+      </div>
+
+      <div class="grid grid-cols-2 space-x-2">
+        <div>
+          <label for="start_date" class="text-sm font-medium ml-0.5"
+            >Start Date</label
+          >
+          <Datepicker
+            v-model="this.event.start_date"
+            format="dd-MM-yyyy HH:mm"
+            type="date"
+          />
+        </div>
+
+        <div>
+          <label for="end_date" class="text-sm font-medium ml-0.5"
+            >End Date</label
+          >
+          <Datepicker
+            v-model="this.event.end_date"
+            modelType="dd-MM-yyyy HH:mm"
+            format="dd-MM-yyyy HH:mm"
+            type="date"
+          />
+        </div>
+      </div>
 
       <Button title="Add Event" @click="addEvent" class="mx-auto w-full" />
     </div>
@@ -27,6 +53,7 @@
 <script>
 import { useToast } from "vue-toastification";
 import { addEvent } from "@/services/events";
+import { ref } from "vue";
 
 export default {
   props: ["show"],

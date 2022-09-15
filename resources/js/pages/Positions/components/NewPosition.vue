@@ -66,7 +66,7 @@ export default {
   },
   data() {
     return {
-      selectKeys: ["id", "name"],
+      selectKeys: ["id", "symbol"],
       assets: null,
       newPosition: {
         buy_amount: null,

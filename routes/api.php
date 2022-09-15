@@ -22,7 +22,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
@@ -40,5 +39,3 @@ Route::group(['middleware' => 'jwt.verify'], function () {
     Route::post('position/close', [PositionsController::class, 'closePosition']);
     Route::get('positions', [PositionsController::class, 'getAll']);
 });
-
-Route::get('update-coingecko', [AssetsController::class, 'updateCoingeckoPrices']);

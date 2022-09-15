@@ -6,7 +6,8 @@
     <div class="flex space-x-4 mt-4">
       <PositionCard :positions="this.positions.losses" title="Losses" />
       <PositionCard :positions="this.positions.profit" title="Profit" />
-      <EventCard :events="this.events" title="Upcoming Events" />
+      <EventCard :events="this.events.upcoming" title="Upcoming Events" />
+      <EventCard :events="this.events.passed" title="Passed Events" />
     </div>
   </div>
 </template>
@@ -28,7 +29,10 @@ export default {
         profit: null,
         losses: null,
       },
-      events: null,
+      events: {
+        upcoming: null,
+        passed: null,
+      },
       lastUpdated: null,
     };
   },
@@ -53,7 +57,8 @@ export default {
       this.lastUpdated = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
     },
     async loadEvents() {
-      this.events = await getEvents({ limit: 6 });
+      this.events.upcoming = await getEvents({ limit: 6, passed: false });
+      this.events.passed = await getEvents({ limit: 6, passed: true });
     },
   },
 };

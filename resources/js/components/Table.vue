@@ -26,9 +26,9 @@
             'bg-white': index % 2 !== 0,
           }"
         >
-          <div v-if="column === 'close'">
+          <div v-if="column === 'button'">
             <Button
-              title="Close"
+              :title="buttonTitle"
               v-on:click="$emit('button_clicked', item)"
               class="py-1.5"
             />
@@ -46,7 +46,7 @@
 import Button from "./Button.vue";
 
 export default {
-  props: ["columns", "items"],
+  props: ["columns", "items", "buttonTitle"],
   name: "Table",
   components: {
     Button,
@@ -61,10 +61,6 @@ export default {
 
       if (column === "name") {
         return `<div class="flex space-x-1 items-center"><img src="${data["logo"]}" class="w-7 h-7"> <span>${data[column]}</span></div>`;
-      }
-
-      if (column === "symbol") {
-        return data[column].toUpperCase();
       }
 
       if (column === "sell_amount") {
@@ -110,6 +106,10 @@ export default {
     formatHeader(column) {
       if (column === "sell_amount") {
         return "Sell Amount";
+      }
+
+      if (column === "button") {
+        return this.buttonTitle;
       }
 
       return column;

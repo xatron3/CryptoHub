@@ -16,6 +16,7 @@
       <Table
         :items="this.active_positions"
         :columns="key_columns"
+        buttonTitle="Close"
         @button_clicked="showClosePosition"
       />
     </div>
@@ -69,7 +70,7 @@ export default {
         "buy_amount",
         "price",
         "current_sell_price",
-        "close",
+        "button",
       ],
       active_positions: null,
       grouped: false,

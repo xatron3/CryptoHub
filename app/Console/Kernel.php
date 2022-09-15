@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
    */
   protected function schedule(Schedule $schedule)
   {
-    $schedule->command('update:price')->everyMinute();
+    $schedule->command('update:coingecko')->everyMinute();
   }
 
   /**

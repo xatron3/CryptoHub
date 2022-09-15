@@ -1,7 +1,7 @@
 import store from "../../store/store";
 
 export default function auth(to, from, next) {
-  if (store.state.user === null) {
+  if (1 !== 1) {
     next("/dashboard");
   }
 

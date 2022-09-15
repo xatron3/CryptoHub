@@ -36,8 +36,13 @@ class EventsController extends Controller
     public function getAll(Request $request)
     {
         $limit = $request->limit ? $request->limit : 1000;
+        $passed = isset($request->passed) ? '<' : null;
 
-        $event = Event::limit($limit)->orderBy('start_date')->get();
+        if ($request->passed) {
+            $event = Event::limit($limit)->orderBy('start_date')->whereDate('start_date', $passed, now())->get();
+        } else {
+            $event = Event::limit($limit)->orderBy('start_date')->get();
+        }
 
         return EventResource::collection($event);
     }

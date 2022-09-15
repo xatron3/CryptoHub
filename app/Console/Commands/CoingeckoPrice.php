@@ -4,16 +4,16 @@ namespace App\Console\Commands;
 
 
 use Illuminate\Console\Command;
-use App\Http\Controllers\Api\AssetsController;
+use App\Http\Controllers\CoingeckoController;
 
-class UpdatePrice extends Command
+class CoingeckoPrice extends Command
 {
   /**
    * The name and signature of the console command.
    *
    * @var string
    */
-  protected $signature = 'update:price';
+  protected $signature = 'update:coingecko';
 
   /**
    * The console command description.
@@ -39,8 +39,8 @@ class UpdatePrice extends Command
    */
   public function handle()
   {
-    $assets = new AssetsController();
-    $assets->updateCoingeckoPrices();
-    $this->info('Price Updated');
+    $coingecko = new CoingeckoController();
+    $coingecko->updateCoingeckoPrices();
+    $this->info('Coingecko Price Updated');
   }
 }

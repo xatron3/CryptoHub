@@ -9,7 +9,12 @@
         />
       </div>
 
-      <Table :columns="this.columns" :items="this.events" />
+      <Table
+        :columns="this.columns"
+        :items="this.events"
+        buttonTitle="Delete"
+        @button_clicked="test"
+      />
     </div>
 
     <NewEvent
@@ -32,7 +37,7 @@ export default {
     return {
       showNewEventModal: false,
       events: null,
-      columns: ["title", "start_date", "end_date"],
+      columns: ["title", "start_date", "end_date", "button"],
     };
   },
   async mounted() {
@@ -41,6 +46,9 @@ export default {
   methods: {
     async getEvents() {
       this.events = await getEvents();
+    },
+    test(data) {
+      console.log(data);
     },
   },
   components: { Table, NewEvent },
