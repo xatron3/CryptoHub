@@ -40,9 +40,11 @@ export default {
   methods: {
     async loadAndSortPositions() {
       this.positions.all = await getPosition({ grouped: true });
+
       this.positions.profit = this.positions.all.filter((item) => {
         return item.current_sell_price > item.price;
       });
+
       this.positions.losses = this.positions.all.filter((item) => {
         return item.current_sell_price < item.price;
       });
@@ -51,7 +53,7 @@ export default {
       this.lastUpdated = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
     },
     async loadEvents() {
-      this.events = await getEvents();
+      this.events = await getEvents({ limit: 6 });
     },
   },
 };

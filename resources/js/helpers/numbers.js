@@ -1,6 +1,6 @@
 function getPercentageIncrease(numA, numB) {
-  numA = parseFloat(numA);
-  numB = parseFloat(numB);
+  numA = numA.split(",").join("");
+  numB = numB.split(",").join("");
 
   return ((numA - numB) / numB) * 100;
 }
