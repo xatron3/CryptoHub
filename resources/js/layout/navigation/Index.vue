@@ -26,7 +26,11 @@
               <NavigationHeader title="ADMINPANEL" />
               <NavigationLink
                 path="/admin/assets/"
-                title="All Assets"
+                title="Assets"
+              ></NavigationLink>
+              <NavigationLink
+                path="/admin/events/"
+                title="Events"
               ></NavigationLink>
             </div>
           </div>

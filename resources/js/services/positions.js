@@ -5,7 +5,6 @@
  * @returns
  */
 export async function getPosition(params = {}) {
-  let result;
   let res = await axios.get("/api/positions", {
     params: {
       grouped: params.grouped ? params.grouped : false,
@@ -13,13 +12,7 @@ export async function getPosition(params = {}) {
     },
   });
 
-  if (res.data.data) {
-    result = await res.data.data;
-  } else {
-    result = await res.data;
-  }
-
-  return result;
+  return res.data.data;
 }
 
 /**

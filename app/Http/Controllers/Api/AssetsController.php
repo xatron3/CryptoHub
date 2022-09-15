@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Models\Asset;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AssetResource;
 use Illuminate\Support\Facades\Validator;
 
 class AssetsController extends Controller
@@ -43,7 +44,7 @@ class AssetsController extends Controller
   {
     $assets = Asset::orderBy('name')->get();
 
-    return $assets;
+    return AssetResource::collection($assets);
   }
 
   public function getCoingeckoData($coingecko_id)

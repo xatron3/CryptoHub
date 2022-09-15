@@ -10,9 +10,9 @@
 </template>
 
 <script>
-import Navigation from "../../layout/navigation/Index.vue";
+import Navigation from "./layout/navigation/Index.vue";
 import axios from "axios";
-import HeaderBar from "../../layout/header-bar/Index.vue";
+import HeaderBar from "./layout/header-bar/Index.vue";
 
 export default {
   data() {

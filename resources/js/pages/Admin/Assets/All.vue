@@ -19,8 +19,8 @@
 </template>
 
 <script>
-import Table from "../../components/Table.vue";
-import { getAssets } from "../../services/assets";
+import Table from "@/components/Table.vue";
+import { getAssets } from "@/services/assets";
 
 export default {
   name: "Assets",

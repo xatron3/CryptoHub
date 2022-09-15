@@ -51,8 +51,8 @@
 </template>
 
 <script>
-import { getAssets } from "../../../services/assets";
-import { addPosition } from "../../../services/positions";
+import { getAssets } from "@/services/assets";
+import { addPosition } from "@/services/positions";
 import { useToast } from "vue-toastification";
 
 export default {

@@ -38,14 +38,15 @@
 </template>
 
 <script>
-import Table from "../../components/Table.vue";
+import Table from "@/components/Table.vue";
+
 import Filter from "./components/Filter.vue";
-
-import { getPosition, closePosition } from "../../services/positions";
-
-import { useToast } from "vue-toastification";
 import NewPosition from "./components/NewPosition.vue";
 import ClosePosition from "./components/ClosePosition.vue";
+
+import { getPosition } from "@/services/positions";
+
+import { useToast } from "vue-toastification";
 
 export default {
   name: "Position Active",

@@ -35,8 +35,8 @@
 </template>
 
 <script>
-import Alert from "../../components/Alert.vue";
-import { getCoingeckoList } from "../../services/assets";
+import Alert from "@/components/Alert.vue";
+import { getCoingeckoList } from "@/services/assets";
 
 export default {
   name: "AddNewAsset",

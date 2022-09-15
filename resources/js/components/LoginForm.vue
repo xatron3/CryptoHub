@@ -71,7 +71,7 @@ export default {
           if (res.status === 200) {
             localStorage.setItem("access_token", res.data.access_token);
             this.$store.commit("setUser", res.data.user);
-            this.$router.push({ name: "Home" });
+            this.$router.push({ name: "Dashboard" });
           } else {
             console.log(res);
           }

@@ -1,9 +1,14 @@
 import "./bootstrap";
+
+// App Imports
 import { createApp } from "vue";
-import App from "./Pages/App/App.vue";
-import "../css/app.css";
+import App from "./App.vue";
+
+// Others
 import { router } from "./routes";
 import store from "./store/store";
+
+// Vue Plugins
 import Toast from "vue-toastification";
 import { vfmPlugin } from "vue-final-modal";
 

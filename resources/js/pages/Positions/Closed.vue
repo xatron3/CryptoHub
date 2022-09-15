@@ -11,11 +11,11 @@
 </template>
 
 <script>
-import Table from "../../components/Table.vue";
+import Table from "@/components/Table.vue";
 
 import Filter from "./components/Filter.vue";
 
-import { getPosition } from "../../services/positions";
+import { getPosition } from "@/services/positions";
 
 export default {
   name: "PositionActive",
