@@ -13,7 +13,7 @@
         :columns="this.columns"
         :items="this.events"
         buttonTitle="Delete"
-        @button_clicked="test"
+        @button_clicked="deleteEvent"
       />
     </div>
 
@@ -29,7 +29,7 @@
 import NewEvent from "./components/NewEvent.vue";
 
 import Table from "@/components/Table.vue";
-import { getEvents } from "@/services/events";
+import { getEvents, deleteEvent } from "@/services/events";
 
 export default {
   name: "Events",
@@ -47,8 +47,9 @@ export default {
     async getEvents() {
       this.events = await getEvents();
     },
-    test(data) {
-      console.log(data);
+    async deleteEvent(data) {
+      await deleteEvent({ id: data.id });
+      this.getEvents();
     },
   },
   components: { Table, NewEvent },

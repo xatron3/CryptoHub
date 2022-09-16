@@ -31,6 +31,7 @@ Route::group(['middleware' => 'jwt.verify'], function () {
     // Should be protected under admin middleware
     Route::post('asset/add', [AssetsController::class, 'store']);
     Route::post('event/add', [EventsController::class, 'store']);
+    Route::post('event/delete', [EventsController::class, 'destroy']);
     // END ADMIN
     Route::get('events', [EventsController::class, 'getAll']);
     Route::get('assets', [AssetsController::class, 'getAll']);

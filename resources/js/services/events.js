@@ -29,3 +29,21 @@ export async function addEvent(data) {
     status: 200,
   };
 }
+
+export async function deleteEvent(data) {
+  if (!data.id) {
+    return {
+      message: "Need ID",
+      status: 500,
+    };
+  }
+
+  let res = await axios.post("/api/event/delete", {
+    id: data.id,
+  });
+
+  return {
+    message: "Event was deleted",
+    status: 200,
+  };
+}

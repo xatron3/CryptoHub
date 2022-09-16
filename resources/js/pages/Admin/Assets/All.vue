@@ -2,12 +2,6 @@
   <div class="max-w-6xl flex flex-col space-y-2">
     <div class="flex justify-end space-x-2">
       <Button
-        @click="updatePrices()"
-        title="Update Prices"
-        class="bg-yellow-500 self-end w-36"
-      />
-
-      <Button
         @click="$router.push('/admin/assets/new')"
         title="Add New"
         class="w-28 self-end"
@@ -33,13 +27,7 @@ export default {
   async mounted() {
     this.assets = await getAssets();
   },
-  methods: {
-    async updatePrices() {
-      let res = await axios.get("/api/update-coingecko");
-
-      this.assets = await getAssets();
-    },
-  },
+  methods: {},
   components: { Table },
 };
 </script>
