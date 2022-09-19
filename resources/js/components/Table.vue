@@ -64,11 +64,19 @@ export default {
       }
 
       if (column === "sell_amount") {
-        return `<div class="flex space-x-1 items-center"><img src="${data["sell_logo"]}" class="w-6 h-6"> <span>${data[column]} ${data["sell_symbol"]}</span></div>`;
+        return `<div class="flex space-x-1 items-center"><img src="${
+          data["sell_logo"]
+        }" class="w-6 h-6"> <span>${nums.formatPrice(data[column])} ${
+          data["sell_symbol"]
+        }</span></div>`;
       }
 
       if (column === "buy_amount") {
-        return `<div class="flex space-x-1 items-center"><img src="${data["buy_logo"]}" class="w-6 h-6"> <span>${data[column]} ${data["buy_symbol"]}</span></div>`;
+        return `<div class="flex space-x-1 items-center"><img src="${
+          data["buy_logo"]
+        }" class="w-6 h-6"> <span>${nums.formatPrice(data[column])} ${
+          data["buy_symbol"]
+        }</span></div>`;
       }
 
       if (column === "current_sell_price") {
@@ -78,9 +86,9 @@ export default {
           _class = "text-red-500";
         }
 
-        return `<span class="${_class}">${
+        return `<span class="${_class}">${nums.formatPrice(
           data[column]
-        }</span> <span class="text-xs">(${nums
+        )}</span> <span class="text-xs">(${nums
           .getPercentageIncrease(data[column], data["price"])
           .toFixed(2)}%)</span>`;
       }

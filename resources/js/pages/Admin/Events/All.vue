@@ -30,9 +30,16 @@ import NewEvent from "./components/NewEvent.vue";
 
 import Table from "@/components/Table.vue";
 import { getEvents, deleteEvent } from "@/services/events";
+import { useToast } from "vue-toastification";
 
 export default {
   name: "Events",
+  setup() {
+    // Get toast interface
+    const toast = useToast();
+
+    return { toast };
+  },
   data() {
     return {
       showNewEventModal: false,
@@ -48,7 +55,14 @@ export default {
       this.events = await getEvents();
     },
     async deleteEvent(data) {
-      await deleteEvent({ id: data.id });
+      const result = await deleteEvent({ id: data.id });
+
+      if (result.status === 200) {
+        this.toast.success(result.message);
+      } else {
+        this.toast.error(result.message);
+      }
+
       this.getEvents();
     },
   },

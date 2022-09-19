@@ -12,7 +12,9 @@
     >
       <span class="col-span-2 flex items-center space-x-1.5">
         <img :src="item.buy_logo" class="h-4" />
-        <span>{{ `${item.buy_amount} ${item.buy_symbol}` }}</span>
+        <span>{{
+          `${nums.formatPrice(item.buy_amount)} ${item.buy_symbol}`
+        }}</span>
       </span>
       <span
         class="col-span-1"
@@ -26,6 +28,14 @@
 export default {
   props: ["positions", "title"],
   name: "PositionCard",
+  data() {
+    return {
+      nums: null,
+    };
+  },
+  mounted() {
+    this.nums = nums;
+  },
   methods: {
     getPercentageIncrease(a, b) {
       const number = nums.getPercentageIncrease(a, b);
