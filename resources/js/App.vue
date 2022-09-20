@@ -11,8 +11,8 @@
 
 <script>
 import Navigation from "./layout/navigation/Index.vue";
-import axios from "axios";
 import HeaderBar from "./layout/header-bar/Index.vue";
+import { getUser } from "./services/auth";
 
 export default {
   data() {
@@ -34,7 +34,7 @@ export default {
   },
   async beforeMount() {
     if (localStorage.getItem("access_token")) {
-      let res = await axios.get("/api/user");
+      let res = await getUser();
 
       this.$store.commit("setUser", res.data);
       this.loaded = true;

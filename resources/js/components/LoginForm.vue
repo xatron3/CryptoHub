@@ -30,7 +30,7 @@
 import Alert from "./Alert.vue";
 
 import { useToast } from "vue-toastification";
-import axios from "axios";
+import { auth } from "../services/auth";
 
 export default {
   name: "LoginForm",
@@ -54,28 +54,18 @@ export default {
     async submit(e) {
       e.preventDefault();
 
-      await axios
-        .post("api/login", {
-          email: this.email,
-          password: this.password,
-        })
-        .then((res) => {
-          if (res.data.status === 200) {
-            localStorage.setItem("access_token", res.data.access_token);
-            this.$store.commit("setUser", res.data.user);
-            this.$router.push({ name: "Dashboard" });
-          } else {
-            this.toast.error(res.data.message);
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    },
-    validEmail: function (email) {
-      var re =
-        /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-      return re.test(email);
+      let res = await auth({
+        email: this.email,
+        password: this.password,
+      });
+
+      if (res.data.status === 200) {
+        localStorage.setItem("access_token", res.data.access_token);
+        this.$store.commit("setUser", res.data.user);
+        this.$router.push({ name: "Dashboard" });
+      } else {
+        this.toast.error(res.data.message);
+      }
     },
   },
 };

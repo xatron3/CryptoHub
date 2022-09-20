@@ -1,3 +1,9 @@
+/**
+ * Get events
+ * @param {bool} passed
+ * @param {int} limit
+ * @returns
+ */
 export async function getEvents(params = {}) {
   let passed, limit;
 
@@ -17,6 +23,12 @@ export async function getEvents(params = {}) {
   return res.data.data;
 }
 
+/**
+ * Add new event
+ * @param {string} title Name of event
+ * @param {date} start_date Start date of event
+ * @returns
+ */
 export async function addEvent(data) {
   if (!data.title || !data.start_date) {
     return {
@@ -38,6 +50,11 @@ export async function addEvent(data) {
   };
 }
 
+/**
+ * Delete event
+ * @param {int} id Event id
+ * @returns
+ */
 export async function deleteEvent(data) {
   if (!data.id) {
     return {

@@ -1,5 +1,5 @@
 // Middleware
-import auth from "./middleware/auth";
+import auth from "../middleware/auth";
 
 // Pages
 import Dashboard from "@/pages/Dashboard/Dashboard.vue";

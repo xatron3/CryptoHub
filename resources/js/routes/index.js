@@ -1,9 +1,9 @@
 import { createWebHistory, createRouter } from "vue-router";
 
 // Routes
-import PublicRoutes from "./public";
-import AuthedRoutes from "./authed";
-import AdminRoutes from "./admin";
+import PublicRoutes from "./paths/public";
+import AuthedRoutes from "./paths/authed";
+import AdminRoutes from "./paths/admin";
 
 var allRoutes = [];
 allRoutes = allRoutes.concat(PublicRoutes, AuthedRoutes, AdminRoutes);

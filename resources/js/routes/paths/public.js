@@ -1,5 +1,5 @@
 // Middlewares
-import guest from "./middleware/guest";
+import guest from "../middleware/guest";
 
 // Pages
 import Login from "@/pages/Login/Login.vue";

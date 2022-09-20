@@ -1,5 +1,5 @@
 // Middleware
-import admin from "./middleware/admin";
+import admin from "../middleware/admin";
 
 // Pages
 import AllAssets from "@/pages/Admin/Assets/All.vue";
