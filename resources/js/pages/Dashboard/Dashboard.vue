@@ -3,11 +3,22 @@
     <div class="text-xs absolute right-4 top-2">
       Last Updated: {{ this.lastUpdated }}
     </div>
-    <div class="flex space-x-4 mt-4">
-      <PositionCard :positions="this.positions.losses" title="Losses" />
-      <PositionCard :positions="this.positions.profit" title="Profit" />
-      <EventCard :events="this.events.upcoming" title="Upcoming Events" />
-      <EventCard :events="this.events.passed" title="Passed Events" />
+    <div class="space-y-4">
+      <div class="flex space-x-4 mt-4">
+        <PositionCard :positions="this.positions.losses" title="Losses" />
+        <PositionCard :positions="this.positions.profit" title="Profit" />
+        <EventCard :events="this.events.upcoming" title="Upcoming Events" />
+        <EventCard :events="this.events.passed" title="Passed Events" />
+      </div>
+
+      <div class="flex">
+        <Chart
+          class="w-1/2 h-96"
+          :options="{
+            symbol: this.symbol,
+          }"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -18,12 +29,14 @@ import { getPosition } from "@/services/positions";
 
 import PositionCard from "./components/PositionCard.vue";
 import EventCard from "./components/EventCard.vue";
+import Chart from "@/components/Chart.vue";
 
 export default {
   name: "Dashboard",
-  components: { PositionCard, EventCard },
+  components: { PositionCard, EventCard, Chart },
   data() {
     return {
+      symbol: "BITSTAMP:BTCUSD",
       positions: {
         all: null,
         profit: null,

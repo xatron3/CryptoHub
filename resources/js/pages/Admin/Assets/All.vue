@@ -8,7 +8,7 @@
       />
     </div>
 
-    <Table :columns="this.columns" :items="this.assets" />
+    <Table :columns="this.columns" :items="this.assets" buttonTitle="Edit" />
   </div>
 </template>
 
@@ -21,7 +21,7 @@ export default {
   data() {
     return {
       assets: null,
-      columns: ["name", "symbol", "current_price"],
+      columns: ["name", "symbol", "current_price", "button"],
     };
   },
   async mounted() {

@@ -29,12 +29,19 @@
 <script>
 import Alert from "./Alert.vue";
 
+import { useToast } from "vue-toastification";
 import axios from "axios";
 
 export default {
   name: "LoginForm",
   components: {
     Alert,
+  },
+  setup() {
+    // Get toast interface
+    const toast = useToast();
+
+    return { toast };
   },
   data() {
     return {
@@ -47,33 +54,18 @@ export default {
     async submit(e) {
       e.preventDefault();
 
-      if (!this.email) {
-        this.error = "Email is required.";
-        return;
-      }
-
-      if (!this.password) {
-        this.error = "Password is required.";
-        return;
-      }
-
-      if (!this.validEmail(this.email)) {
-        this.error = "Valid email required.";
-        return;
-      }
-
       await axios
         .post("api/login", {
           email: this.email,
           password: this.password,
         })
         .then((res) => {
-          if (res.status === 200) {
+          if (res.data.status === 200) {
             localStorage.setItem("access_token", res.data.access_token);
             this.$store.commit("setUser", res.data.user);
             this.$router.push({ name: "Dashboard" });
           } else {
-            console.log(res);
+            this.toast.error(res.data.message);
           }
         })
         .catch((err) => {

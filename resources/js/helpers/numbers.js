@@ -1,11 +1,12 @@
-function getPercentageIncrease(numA, numB) {
+const getPercentageIncrease = (numA, numB) => {
   numA = numA.split(",").join("");
   numB = numB.split(",").join("");
 
   return ((numA - numB) / numB) * 100;
-}
+};
 
 const formatPrice = (number, decimals = 4) => {
+  number = number.toString().split(",").join("");
   number = parseFloat(number);
   let formattedNumber;
 

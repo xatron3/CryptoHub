@@ -18,11 +18,11 @@ class AuthController extends Controller
     ]);
 
     if ($validator->fails()) {
-      return response()->json($validator->errors(), 422);
+      return response()->json(['message' => 'Fill all fields', 'status' => 400], 200);
     }
 
     if (!$token = JWTAuth::attempt($validator->validated())) {
-      return response()->json(['error' => 'Wrong email or password', 'status' => 401], 400);
+      return response()->json(['message' => 'Wrong email or password', 'status' => 400], 200);
     }
     return $this->createNewToken($token);
   }
@@ -53,6 +53,7 @@ class AuthController extends Controller
   protected function createNewToken($token)
   {
     return response()->json([
+      'status' => 200,
       'access_token' => $token,
       'token_type' => 'bearer',
       'user' => auth()->user()
