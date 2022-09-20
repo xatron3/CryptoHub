@@ -34,7 +34,7 @@ Route::group(['middleware' => 'jwt.verify'], function () {
     Route::post('event/delete', [EventsController::class, 'destroy']);
     // END ADMIN
     Route::get('events', [EventsController::class, 'getAll']);
-    Route::get('assets', [AssetsController::class, 'getAll']);
+    Route::get('assets', [AssetsController::class, 'get']);
 
     Route::post('position/add', [PositionsController::class, 'store']);
     Route::post('position/close', [PositionsController::class, 'closePosition']);

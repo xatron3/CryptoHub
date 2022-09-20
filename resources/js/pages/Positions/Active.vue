@@ -15,7 +15,7 @@
       <!-- Active Positions Table -->
       <Table
         :items="this.active_positions"
-        :columns="key_columns"
+        :columns="keyColumns"
         buttonTitle="Close"
         @button_clicked="showClosePosition"
       />
@@ -73,11 +73,30 @@ export default {
         "button",
       ],
       active_positions: null,
-      grouped: false,
+      grouped: true,
       showPositionModal: false,
       showClosePositionModal: false,
       closeId: 0,
     };
+  },
+  computed: {
+    keyColumns() {
+      let columns;
+
+      if (this.grouped) {
+        columns = ["sell_amount", "buy_amount", "price", "current_sell_price"];
+      } else {
+        columns = [
+          "sell_amount",
+          "buy_amount",
+          "price",
+          "current_sell_price",
+          "button",
+        ];
+      }
+
+      return columns;
+    },
   },
   async mounted() {
     await this.refreshPositions();

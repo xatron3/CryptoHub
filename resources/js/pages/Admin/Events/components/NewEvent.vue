@@ -25,7 +25,8 @@
           >
           <Datepicker
             v-model="this.event.start_date"
-            format="dd-MM-yyyy HH:mm"
+            :enableTimePicker="false"
+            format="dd-MM-yyyy"
             type="date"
           />
         </div>
@@ -36,8 +37,8 @@
           >
           <Datepicker
             v-model="this.event.end_date"
-            modelType="dd-MM-yyyy HH:mm"
-            format="dd-MM-yyyy HH:mm"
+            :enableTimePicker="false"
+            format="dd-MM-yyyy"
             type="date"
           />
         </div>

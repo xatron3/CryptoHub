@@ -8,7 +8,12 @@
       />
     </div>
 
-    <Table :columns="this.columns" :items="this.assets" buttonTitle="Edit" />
+    <Table
+      :columns="this.columns"
+      :items="this.assets"
+      buttonTitle="Edit"
+      @button_clicked="test"
+    />
   </div>
 </template>
 
@@ -27,7 +32,11 @@ export default {
   async mounted() {
     this.assets = await getAssets();
   },
-  methods: {},
+  methods: {
+    test(data) {
+      console.log(data.id);
+    },
+  },
   components: { Table },
 };
 </script>

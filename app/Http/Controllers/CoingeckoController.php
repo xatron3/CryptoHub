@@ -6,7 +6,7 @@ use App\Models\Asset;
 
 class CoingeckoController extends Controller
 {
-  public function getCoingeckoData($coingecko_id)
+  public static function getCoingeckoData($coingecko_id)
   {
     $client = new \GuzzleHttp\Client(array('curl' => array(CURLOPT_SSL_VERIFYPEER => false)));
 

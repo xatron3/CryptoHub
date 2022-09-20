@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Controllers\CoingeckoController;
 use App\Models\Asset;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -16,7 +17,7 @@ class AssetsController extends Controller
     $asset = Asset::where('coingecko_id', $coingecko_id)->first();
 
     if (!$asset) {
-      $result = $this->getCoingeckoData($request->coingecko_id);
+      $result = CoingeckoController::getCoingeckoData($request->coingecko_id);
 
       if (!empty($result)) {
         $result = $result[0];
@@ -30,18 +31,27 @@ class AssetsController extends Controller
         $asset->market_cap = $result->market_cap;
         $asset->save();
 
-        return response()->json(['success' => 'Asset was created.'], 200);
+        return response()->json(['message' => 'Asset was added.', 'status' => 200], 200);
       } else {
-        return response()->json(['error' => 'Asset was not found on Coingecko.'], 422);
+        return response()->json(['message' => 'Asset was not found on Coingecko.', 'status' => 400], 200);
       }
     } else {
-      return response()->json(['error' => 'Asset already exists.'], 422);
+      return response()->json(['message' => 'Asset already exists.', 'status' => 400], 200);
     }
   }
 
-  public function getAll()
+  /**
+   * Get assets
+   */
+  public function get(Request $request)
   {
-    $assets = Asset::orderBy('name')->get();
+    $id = $request->id;
+
+    if ($request->has('id')) {
+      $assets = Asset::where('id', $id)->get();
+    } else {
+      $assets = Asset::orderBy('name')->get();
+    }
 
     return AssetResource::collection($assets);
   }

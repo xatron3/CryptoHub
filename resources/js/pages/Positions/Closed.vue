@@ -27,7 +27,7 @@ export default {
     return {
       key_columns: ["sell_amount", "buy_amount", "close_amount", "profit"],
       closed_positions: null,
-      grouped: false,
+      grouped: true,
     };
   },
   async mounted() {

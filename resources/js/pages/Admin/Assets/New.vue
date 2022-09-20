@@ -38,6 +38,8 @@
 import Alert from "@/components/Alert.vue";
 import { getCoingeckoList } from "@/services/assets";
 
+import { useToast } from "vue-toastification";
+
 export default {
   name: "AddNewAsset",
   data() {
@@ -47,6 +49,12 @@ export default {
       coin_list: null,
       error: null,
     };
+  },
+  setup() {
+    // Get toast interface
+    const toast = useToast();
+
+    return { toast };
   },
   async mounted() {
     this.coin_list = await getCoingeckoList();
@@ -71,14 +79,15 @@ export default {
       this.coingecko_id = id;
     },
     async addNewAsset() {
-      try {
-        let res = await axios.post("/api/asset/add", {
-          coingecko_id: this.coingecko_id,
-        });
+      let res = await axios.post("/api/asset/add", {
+        coingecko_id: this.coingecko_id,
+      });
 
+      if (res.data.status === 200) {
+        this.toast.success(res.data.message);
         this.$router.push("/admin/assets");
-      } catch (error) {
-        this.error = error.response.data.error;
+      } else {
+        this.toast.error(res.data.message);
       }
     },
   },
