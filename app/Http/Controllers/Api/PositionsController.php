@@ -7,6 +7,7 @@ use App\Models\ActivePosition;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\PositionResource;
+use App\Models\Asset;
 
 class PositionsController extends Controller
 {
@@ -39,7 +40,7 @@ class PositionsController extends Controller
     $user_id = $request->user()->id;
     $closed = $request->closed;
     $grouped = $request->grouped;
-
+    $sell_asset = $request->sell_asset;
 
     if ($grouped === "true") {
       $positions = ActivePosition::groupBy('buy_asset_id', 'sell_asset_id')
@@ -52,9 +53,20 @@ class PositionsController extends Controller
     }
 
     if ($closed === "true") {
-      $positions->where([['user_id', $user_id], ['close_amount', '!=', null]]);
+      $positions
+        ->selectRaw('(close_amount - sell_amount) AS profit')
+        ->where([['user_id', $user_id], ['close_amount', '!=', null]]);
     } else {
       $positions->where([['user_id', $user_id], ['close_amount', '=', null]]);
+    }
+
+    if ($request->has('sell_asset')) {
+      $asset = Asset::where('symbol', strtolower($sell_asset))->first();
+
+      if ($asset === null)
+        return response()->json(['message' => 'Could not find sell asset: ' . $sell_asset, 'status' => 400], 200);
+
+      $positions->where('sell_asset_id', $asset->id);
     }
 
     $positions = $positions->get();

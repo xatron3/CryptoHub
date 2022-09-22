@@ -20,7 +20,7 @@
       </span>
       <span
         class="col-span-1"
-        v-html="getPercentageIncrease(item.current_sell_price, item.price)"
+        v-html="getPercentageIncrease(item.current_sell_price, item.buy_price)"
       ></span>
     </div>
   </div>

@@ -35,12 +35,12 @@ class PositionResource extends JsonResource
             'buy_logo' => $this->getAssetData($this->buy_asset_id)->logo,
             'buy_symbol' => $buySymbol,
             'buy_amount' => $this->buy_amount,
+            'buy_price' => $priceEachFormatted,
             'sell_logo' => $this->getAssetData($this->sell_asset_id)->logo,
             'sell_symbol' => $sellSymbol,
             'sell_amount' => $this->sell_amount,
-            'price' => $priceEachFormatted,
-            'close_amount' => $this->close_amount,
             'current_sell_price' => $currentPriceEachFormatted,
+            'close_amount' => $this->close_amount,
             'profit' => $this->profit
         ];
     }

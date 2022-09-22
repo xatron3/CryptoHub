@@ -65,13 +65,6 @@ export default {
   },
   data() {
     return {
-      key_columns: [
-        "sell_amount",
-        "buy_amount",
-        "price",
-        "current_sell_price",
-        "button",
-      ],
       active_positions: null,
       grouped: true,
       showPositionModal: false,
@@ -84,12 +77,17 @@ export default {
       let columns;
 
       if (this.grouped) {
-        columns = ["sell_amount", "buy_amount", "price", "current_sell_price"];
+        columns = [
+          "sell_amount",
+          "buy_amount",
+          "buy_price",
+          "current_sell_price",
+        ];
       } else {
         columns = [
           "sell_amount",
           "buy_amount",
-          "price",
+          "buy_price",
           "current_sell_price",
           "button",
         ];

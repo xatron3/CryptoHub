@@ -91,7 +91,7 @@ export default {
         return `<span class="${_class}">${nums.formatPrice(
           data[column]
         )}</span> <span class="text-xs">(${nums
-          .getPercentageIncrease(data[column], data["price"])
+          .getPercentageIncrease(data[column], data["buy_price"])
           .toFixed(2)}%)</span>`;
       }
 
@@ -109,6 +109,10 @@ export default {
         }
 
         return `<div class="flex space-x-1 items-center"><img src="${data["sell_logo"]}" class="w-5 h-5"> <span class="${_class}">${data[column]} ${data["sell_symbol"]}</span></div>`;
+      }
+
+      if (column === "buy_price") {
+        return `${data[column]} ${data["sell_symbol"]}`;
       }
 
       return data[column];

@@ -14,9 +14,7 @@
       <div class="flex">
         <Chart
           class="w-1/2 h-96"
-          :options="{
-            symbol: this.symbol,
-          }"
+          :options="{ symbol: this.symbol, theme: 'dark' }"
         />
       </div>
     </div>
@@ -59,11 +57,11 @@ export default {
       this.positions.all = await getPosition({ grouped: true });
 
       this.positions.profit = this.positions.all.filter((item) => {
-        return item.current_sell_price >= item.price;
+        return item.current_sell_price >= item.buy_price;
       });
 
       this.positions.losses = this.positions.all.filter((item) => {
-        return item.current_sell_price < item.price;
+        return item.current_sell_price < item.buy_price;
       });
 
       const today = new Date();

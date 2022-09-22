@@ -7,11 +7,12 @@
       >{{ this.placeholder }}</label
     >
 
-    <div class="">
+    <div class="relative">
+      <img :src="this.icon" class="absolute w-6 ml-1 icon" v-if="this.icon" />
       <input
         :type="fieldType"
-        class="w-full border p-2 rounded-md"
-        :class="_class"
+        class="w-full border p-2 rounded-md focus:border-0"
+        :class="[_class, iconClass]"
         :name="name"
         :id="fieldId"
         :value="value"
@@ -32,9 +33,17 @@ export default {
     "modelValue",
     "value",
     "class",
+    "icon",
   ],
   name: "InputField",
   computed: {
+    iconClass() {
+      if (this.icon === undefined) {
+        return;
+      } else {
+        return "pl-8";
+      }
+    },
     fieldId() {
       return "input_" + this.name;
     },
@@ -67,3 +76,9 @@ export default {
   mounted() {},
 };
 </script>
+
+<style scoped>
+.icon {
+  top: calc(50% - 12px);
+}
+</style>
