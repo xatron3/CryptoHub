@@ -1,26 +1,38 @@
 <template>
-  <div class="h-14 bg-gray-100 shadow-sm flex-row flex items-center px-3">
+  <div
+    class="h-14 bg-gray-100 shadow-sm flex-row flex items-center px-3 dark:bg-gray-700"
+  >
     <div class="ml-auto relative">
       <div class="flex flex-row space-x-2">
-        <UserCircleIcon class="h-6 cursor-pointer" @click="showDropDown" />
+        <UserCircleIcon
+          class="h-6 cursor-pointer dark:text-gray-200"
+          @click="showDropDown"
+        />
       </div>
 
       <Transition>
         <div
-          class="absolute right-0 top-8 shadow-md rounded-md bg-slate-100 z-50 p-2 w-52 text-center"
+          class="absolute right-0 top-8 shadow-md rounded-md bg-slate-100 dark:bg-slate-800 z-50 p-2 w-52 text-center"
           v-if="this._showDropDown"
         >
           <div class="flex flex-col space-y-1 pb-2">
-            <div class="w-full font-bold">
+            <div class="w-full font-bold dark:text-white">
               {{ this.$store.state.user.name }}
             </div>
 
-            <router-link to="/profile/settings" @click="_showDropDown = false">
+            <router-link
+              to="/profile/settings"
+              @click="_showDropDown = false"
+              class="dark:text-white"
+            >
               Settings
             </router-link>
           </div>
 
-          <div class="w-full cursor-pointer border-t pt-2 pb-1" @click="logout">
+          <div
+            class="w-full cursor-pointer border-t pt-2 pb-1 dark:text-white"
+            @click="logout"
+          >
             Logout
           </div>
         </div>

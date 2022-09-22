@@ -1,8 +1,13 @@
 TODO:
   ☐ Implement spatie user roles to user model @created(22-09-14 04:11)
-  ☐ Fix EventController passed param @created(22-09-15 10:19)
+  ☐ Rescoures @created(22-09-23 00:20)
+    ☐ Books @created(22-09-23 00:20)
+    ☐ Terms? @created(22-09-23 00:20)
+      Like CVD, Bull Div, Bear Div etc.
+  ☐ @created(22-09-23 00:21)
 
 Archive:
+  ✔ Fix EventController passed param @created(22-09-23 00:20) @done(22-09-23 00:20) @project(TODO)
   ✔ Create an simple event calendar @created(22-09-14 13:55) @done(22-09-15 10:19) @project(TODO)
   ✔ Track FED meetings, bitcoin halving etc @created(22-09-14 13:55) @done(22-09-15 10:19) @project(TODO)
   ✔ Fix Active.vue error with Add New position modal on open multiple times @created(22-09-14 04:10) @done(22-09-14 13:53) @project(TODO)

@@ -40,28 +40,24 @@ class PositionsController extends Controller
     $closed = $request->closed;
     $grouped = $request->grouped;
 
-    if ($grouped === "true" && $closed !== "true") {
+
+    if ($grouped === "true") {
       $positions = ActivePosition::groupBy('buy_asset_id', 'sell_asset_id')
-        ->where([['user_id', $user_id], ['close_amount', '=', null]])
-        ->select(['buy_asset_id', 'sell_asset_id'])
-        ->selectRaw("SUM(sell_amount) as sell_amount")
-        ->selectRaw("SUM(buy_amount) as buy_amount")->get();
-    } else if ($closed === "true" && $grouped !== "true") {
-      $positions = ActivePosition::where([['user_id', $user_id], ['close_amount', '!=', null]])
-        ->select(['buy_asset_id', 'sell_asset_id', 'buy_amount', 'sell_amount', 'id', 'close_amount'])
-        ->selectRaw('(close_amount - sell_amount) AS profit')
-        ->get();
-    } else if ($closed === "true" && $grouped === "true") {
-      $positions = ActivePosition::groupBy('buy_asset_id', 'sell_asset_id')->where([['user_id', $user_id], ['close_amount', '!=', null]])
         ->select(['buy_asset_id', 'sell_asset_id', 'id'])
-        ->selectRaw('(SUM(close_amount) - SUM(sell_amount)) AS profit')
-        ->selectRaw('SUM(buy_amount) AS buy_amount')
-        ->selectRaw('SUM(sell_amount) AS sell_amount')
-        ->selectRaw('SUM(close_amount) AS close_amount')
-        ->get();
+        ->selectRaw("SUM(sell_amount) as sell_amount")
+        ->selectRaw("SUM(buy_amount) as buy_amount")
+        ->selectRaw('SUM(close_amount) AS close_amount');
     } else {
-      $positions = ActivePosition::where([['user_id', $user_id], ['close_amount', '=', null]])->get();
+      $positions = ActivePosition::select(['buy_asset_id', 'sell_asset_id', 'id', 'sell_amount', 'buy_amount', 'close_amount']);
     }
+
+    if ($closed === "true") {
+      $positions->where([['user_id', $user_id], ['close_amount', '!=', null]]);
+    } else {
+      $positions->where([['user_id', $user_id], ['close_amount', '=', null]]);
+    }
+
+    $positions = $positions->get();
 
     return PositionResource::collection($positions);
   }

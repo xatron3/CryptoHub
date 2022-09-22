@@ -1,7 +1,9 @@
 <template>
   <table class="min-w-max w-full table-auto" v-if="this.items">
     <thead>
-      <tr class="bg-gray-300 text-gray-600 uppercase text-sm leading-normal">
+      <tr
+        class="bg-gray-300 dark:bg-gray-900 text-gray-600 dark:text-gray-100 uppercase text-sm leading-normal"
+      >
         <th
           v-for="(column, index) in columns"
           :key="index"
@@ -11,19 +13,19 @@
         </th>
       </tr>
     </thead>
-    <tbody class="text-gray-700 text-sm">
+    <tbody class="text-gray-700 dark:text-gray-100 text-sm">
       <tr
         v-for="(item, index) in items"
         :key="index"
-        class="border-b border-gray-200"
+        class="border-b border-gray-200 dark:border-gray-600"
       >
         <td
           v-for="(column, indexColumn) in columns"
           :key="indexColumn"
           class="py-3 px-6 text-left whitespace-nowrap"
           :class="{
-            'bg-gray-100': index % 2 === 0,
-            'bg-white': index % 2 !== 0,
+            'bg-gray-100 dark:bg-slate-800': index % 2 === 0,
+            'bg-white dark:bg-slate-700': index % 2 !== 0,
           }"
         >
           <div v-if="column === 'button'">

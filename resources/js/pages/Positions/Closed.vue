@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="this.closed_positions" class="max-w-4xl space-y-2">
-      <h2 class="text-lg font-bold">Closed Positions</h2>
+      <h2 class="text-lg font-bold dark:text-white">Closed Positions</h2>
       <!-- Filter -->
       <Filter @filterChange="updateFilter"></Filter>
 

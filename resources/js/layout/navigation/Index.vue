@@ -1,9 +1,11 @@
 <template>
-  <div class="min-h-screen bg-gray-100">
-    <div class="sidebar min-h-screen overflow-hidden border-r w-56 shadow-sm">
+  <div class="min-h-screen bg-gray-100 dark:bg-gray-700">
+    <div
+      class="sidebar min-h-screen overflow-hidden border-r w-56 shadow-sm dark:border-gray-600"
+    >
       <div class="flex h-screen flex-col justify-between pt-2 pb-6">
         <div>
-          <div class="w-max p-4 mb-3">{{ logo }}</div>
+          <div class="w-max p-4 mb-3 dark:text-gray-200">{{ logo }}</div>
           <div class="mx-4">
             <NavigationHeader title="General" />
             <NavigationLink

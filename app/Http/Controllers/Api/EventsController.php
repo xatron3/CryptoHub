@@ -6,6 +6,7 @@ use App\Models\Event;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\EventResource;
+use Illuminate\Support\Facades\Validator;
 
 class EventsController extends Controller
 {
@@ -17,6 +18,14 @@ class EventsController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'start_date' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+        }
+
         $event = new Event();
         $event->title = $request->title;
         $event->description = $request->description ? $request->description : null;

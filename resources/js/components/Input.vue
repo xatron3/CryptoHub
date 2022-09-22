@@ -3,20 +3,22 @@
     <label
       v-if="_showLabel"
       :for="fieldId"
-      class="text-sm font-medium ml-0.5"
+      class="text-sm font-medium ml-0.5 dark:text-white"
       >{{ this.placeholder }}</label
     >
 
-    <input
-      :type="fieldType"
-      class="w-full border p-2 rounded-md"
-      :class="_class"
-      :name="name"
-      :id="fieldId"
-      :value="value"
-      :placeholder="placeholder"
-      @input="$emit('update:modelValue', $event.target.value)"
-    />
+    <div class="">
+      <input
+        :type="fieldType"
+        class="w-full border p-2 rounded-md"
+        :class="_class"
+        :name="name"
+        :id="fieldId"
+        :value="value"
+        :placeholder="placeholder"
+        @input="$emit('update:modelValue', $event.target.value)"
+      />
+    </div>
   </div>
 </template>
 

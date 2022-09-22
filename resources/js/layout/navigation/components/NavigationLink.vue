@@ -3,7 +3,7 @@
     <router-link
       :to="this.path"
       :aria-label="lcTitle"
-      class="group flex items-center space-x-1 rounded-md text-sm py-1.5 text-gray-600"
+      class="group flex items-center space-x-1 rounded-md text-sm py-1.5 text-gray-600 dark:text-gray-200"
     >
       <component :is="this.icon" class="h-5 w-5" />
       <span class="-mr-1">{{ this.title }}</span>
