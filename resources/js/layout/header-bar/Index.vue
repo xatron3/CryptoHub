@@ -27,6 +27,8 @@
             >
               Settings
             </router-link>
+
+            <Button title="Darkmode" @click="darkMode()" />
           </div>
 
           <div
@@ -69,6 +71,18 @@ export default {
     },
     showDropDown() {
       this._showDropDown = !this._showDropDown;
+    },
+    darkMode() {
+      const darkMode = localStorage.getItem("darkMode");
+      const root = document.getElementsByTagName("html")[0];
+
+      if (darkMode === "true") {
+        localStorage.setItem("darkMode", false);
+        root.removeAttribute("class", "dark");
+      } else {
+        localStorage.setItem("darkMode", true);
+        root.setAttribute("class", "dark");
+      }
     },
   },
 };
