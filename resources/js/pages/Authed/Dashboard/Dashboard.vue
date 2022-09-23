@@ -11,12 +11,7 @@
         <EventCard :events="this.events.passed" title="Passed Events" />
       </div>
 
-      <div class="flex">
-        <Chart
-          class="w-1/2 h-96"
-          :options="{ symbol: this.symbol, theme: 'dark' }"
-        />
-      </div>
+      <div class="flex">Wo</div>
     </div>
   </div>
 </template>
@@ -27,11 +22,10 @@ import { getPosition } from "@/services/positions";
 
 import PositionCard from "./components/PositionCard.vue";
 import EventCard from "./components/EventCard.vue";
-import Chart from "@/components/Chart.vue";
 
 export default {
   name: "Dashboard",
-  components: { PositionCard, EventCard, Chart },
+  components: { PositionCard, EventCard },
   data() {
     return {
       symbol: "BITSTAMP:BTCUSD",

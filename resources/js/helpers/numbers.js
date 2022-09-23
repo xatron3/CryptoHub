@@ -20,11 +20,12 @@ const getPercentageIncrease = (numA, numB) => {
 const formatPrice = (number, decimals = 4) => {
   number = number.toString().split(",").join("");
   number = parseFloat(number);
-  let formattedNumber;
+  let formattedNumber, m;
 
-  var m = -Math.floor(Math.log10(number) + 1);
+  if (number > 0) m = -Math.floor(Math.log10(number) + 1);
+  else m = 0;
 
-  if (number.toFixed() < 0.01) {
+  if (number < 0.01) {
     formattedNumber = number.toFixed(m + decimals);
   } else {
     formattedNumber = number.toFixed(2);

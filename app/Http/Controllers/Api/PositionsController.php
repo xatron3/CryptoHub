@@ -57,7 +57,8 @@ class PositionsController extends Controller
         ->selectRaw('(close_amount - sell_amount) AS profit')
         ->where([['user_id', $user_id], ['close_amount', '!=', null]]);
     } else {
-      $positions->where([['user_id', $user_id], ['close_amount', '=', null]]);
+      $positions
+        ->where([['user_id', $user_id], ['close_amount', '=', null]]);
     }
 
     if ($request->has('sell_asset')) {

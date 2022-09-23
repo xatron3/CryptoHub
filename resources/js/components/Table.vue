@@ -58,7 +58,7 @@ export default {
       var _class;
 
       if (column === "current_price") {
-        return this.formatPrice(data[column]);
+        return nums.formatPrice(data[column]);
       }
 
       if (column === "name") {
@@ -82,7 +82,7 @@ export default {
       }
 
       if (column === "current_sell_price") {
-        if (data[column] > data["price"]) {
+        if (data[column] > data["buy_price"]) {
           _class = "text-green-500";
         } else {
           _class = "text-red-500";
@@ -108,11 +108,16 @@ export default {
           _class = "text-red-500";
         }
 
-        return `<div class="flex space-x-1 items-center"><img src="${data["sell_logo"]}" class="w-5 h-5"> <span class="${_class}">${data[column]} ${data["sell_symbol"]}</span></div>`;
+        return `<div class="flex space-x-1 items-center"><img src="${
+          data["sell_logo"]
+        }" class="w-5 h-5"> <span class="${_class}">${nums.formatPrice(
+          data[column],
+          2
+        )} ${data["sell_symbol"]}</span></div>`;
       }
 
       if (column === "buy_price") {
-        return `${data[column]} ${data["sell_symbol"]}`;
+        return `${nums.formatPrice(data[column])} ${data["sell_symbol"]}`;
       }
 
       return data[column];
@@ -122,31 +127,31 @@ export default {
         return "Sell Amount";
       }
 
+      if (column === "current_sell_price") {
+        return "Current Price";
+      }
+
+      if (column === "buy_price") {
+        return "Buy Price";
+      }
+
+      if (column === "buy_amount") {
+        return "Buy Amount";
+      }
+
+      if (column === "close_amount") {
+        return "Close Amount";
+      }
+
       if (column === "button") {
         return this.buttonTitle;
       }
 
-      return column;
-    },
-    formatPrice(data) {
-      let config;
-
-      if (data < 0.1) {
-        config = {
-          style: "currency",
-          currency: "USD",
-          maximumSignificantDigits: 2,
-        };
-      } else {
-        config = {
-          style: "currency",
-          currency: "USD",
-        };
+      if (column === "profit") {
+        return "PNL";
       }
 
-      var formatter = new Intl.NumberFormat("en-US", config);
-
-      return formatter.format(data);
+      return column;
     },
   },
 };

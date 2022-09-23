@@ -1,11 +1,26 @@
 TODO:
   ☐ Implement spatie user roles to user model @created(22-09-14 04:11)
-  ☐ Rescoures @created(22-09-23 00:20)
-    https://blockchainwhispers.com/bitmex-position-calculator
+  ☐ Resources @created(22-09-23 00:20)
+    ☐ Services @created(22-09-23 03:07)
+      https://blockchainwhispers.com/bitmex-position-calculator
+      https://www.coinglass.com/LiquidationData
+      https://www.coinglass.com/FundingRate
+  ☐ Asset Portfolio @created(22-09-23 00:21)
+    Need to split up assets between platforms (ex. FTM Address, FTX, Binance)
+    The split is needed for future automation and just to keep it "clean"?
+    Maybe start by just tagging them manually?
+    ☐ Should be able to add to portolio when close position @created(22-09-23 03:05)
+    ☐ Model @created(22-09-23 03:16)
+      ☐ User ID @created(22-09-23 03:17)
+      ☐ Asset ID @created(22-09-23 03:17)
+      ☐ Amount @created(22-09-23 03:17)
+      ☐ Platform @created(22-09-23 03:17)
+
+IDEAS:
+  ☐ Resources @created(22-09-23 03:09)
     ☐ Books @created(22-09-23 00:20)
     ☐ Terms? @created(22-09-23 00:20)
       Like CVD, Bull Div, Bear Div etc.
-  ☐ @created(22-09-23 00:21)
 
 Archive:
   ✔ Fix EventController passed param @created(22-09-23 00:20) @done(22-09-23 00:20) @project(TODO)

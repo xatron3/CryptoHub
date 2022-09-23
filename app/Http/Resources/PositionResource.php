@@ -30,6 +30,10 @@ class PositionResource extends JsonResource
         $currentPriceEach = $this->getAssetData($this->buy_asset_id)->current_price / $this->getAssetData($this->sell_asset_id)->current_price;
         $currentPriceEachFormatted =  number_format($currentPriceEach, zeros_after_dot($currentPriceEach));
 
+        if ($this->profit === null) {
+            $this->profit = ($this->buy_amount * $currentPriceEach) - ($this->sell_amount);
+        }
+
         return [
             'id' => $this->id,
             'buy_logo' => $this->getAssetData($this->buy_asset_id)->logo,

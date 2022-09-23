@@ -85,6 +85,7 @@ export default {
           "buy_amount",
           "buy_price",
           "current_sell_price",
+          "profit",
         ];
       } else {
         columns = [
@@ -92,6 +93,7 @@ export default {
           "buy_amount",
           "buy_price",
           "current_sell_price",
+          "profit",
           "button",
         ];
       }
