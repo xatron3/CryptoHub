@@ -2,11 +2,13 @@
 import auth from "../middleware/auth";
 
 // Pages
-import Dashboard from "@/pages/Dashboard/Dashboard.vue";
-import ActivePositions from "@/pages/Positions/Active.vue";
-import ClosedPositions from "@/pages/Positions/Closed.vue";
+import Dashboard from "@/pages/Authed/Dashboard/Dashboard.vue";
+import ActivePositions from "@/pages/Authed/Positions/Active.vue";
+import ClosedPositions from "@/pages/Authed/Positions/Closed.vue";
 
-import ProfileSettings from "@/pages/Profile/Settings/Index.vue";
+import ProfileSettings from "@/pages/Authed/Profile/Settings/Index.vue";
+
+import Portfolio from "@/pages/Authed/Portfolio/Index.vue";
 
 const routes = [
   {
@@ -31,6 +33,12 @@ const routes = [
     path: "/positions/closed",
     name: "Closed Positions",
     component: ClosedPositions,
+    beforeEnter: auth,
+  },
+  {
+    path: "/portfolio",
+    name: "Portfolio",
+    component: Portfolio,
     beforeEnter: auth,
   },
 ];

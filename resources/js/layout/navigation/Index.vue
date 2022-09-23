@@ -13,6 +13,12 @@
               title="Dashboard"
               icon="Squares2X2Icon"
             ></NavigationLink>
+            <NavigationHeader title="Portfolio" />
+            <NavigationLink
+              path="/portfolio"
+              title="View Portfolio"
+              icon="BriefcaseIconOutlined"
+            ></NavigationLink>
             <NavigationHeader title="TRADES" />
             <NavigationLink
               path="/positions/active"
