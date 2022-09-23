@@ -66,7 +66,10 @@ export default {
   data() {
     return {
       active_positions: null,
-      grouped: true,
+      filter: {
+        grouped: true,
+        sell_asset: null,
+      },
       showPositionModal: false,
       showClosePositionModal: false,
       closeId: 0,
@@ -76,7 +79,7 @@ export default {
     keyColumns() {
       let columns;
 
-      if (this.grouped) {
+      if (this.filter.grouped) {
         columns = [
           "sell_amount",
           "buy_amount",
@@ -101,17 +104,19 @@ export default {
   },
   methods: {
     async refreshPositions() {
-      this.active_positions = await getPosition({ grouped: this.grouped });
+      this.active_positions = await getPosition(this.filter);
     },
     showClosePosition(data) {
       this.showClosePositionModal = true;
       this.closeId = data.id;
     },
     async updateFilter(data) {
-      if (data === 1) {
-        this.grouped = false;
-      } else if (data === 2) {
-        this.grouped = true;
+      if (data.id === 1) {
+        this.filter.grouped = true;
+      } else if (data.id === 2) {
+        this.filter.grouped = false;
+      } else if (data.id === 3) {
+        this.filter.sell_asset = data.asset;
       }
 
       await this.refreshPositions();

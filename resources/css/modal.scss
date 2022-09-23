@@ -28,4 +28,15 @@
     margin: 8px 8px 0 0;
     cursor: pointer;
   }
+
+  
+}
+
+.dark {
+  .vfm__container {
+    .vfm__content {
+      --tw-bg-opacity: 1;
+      background-color: rgb(51 65 85 / var(--tw-bg-opacity));
+    }
+  }
 }

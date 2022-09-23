@@ -1,8 +1,6 @@
 <template>
   <div class="max-w-xl">
     <div class="space-y-2 flex flex-col">
-      <Alert :content="this.error" v-if="this.error" type="warning" />
-
       <Input
         :showLabel="true"
         name="coingecko_id"
@@ -47,7 +45,6 @@ export default {
       coingecko_id: null,
       coins: [],
       coin_list: null,
-      error: null,
     };
   },
   setup() {

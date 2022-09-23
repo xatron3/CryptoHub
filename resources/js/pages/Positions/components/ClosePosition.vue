@@ -1,5 +1,6 @@
 <template>
-  <vue-final-modal v-model="show" @closed="$emit('hideModal')">
+  <Modal v-model="show" @closed="$emit('hideModal')">
+    <template v-slot:title>Close Position</template>
     <div class="space-y-2">
       <Input
         v-model="amount"
@@ -16,9 +17,7 @@
         class="py-1.5 w-full"
       />
     </div>
-
-    <button class="vfm__close" @click="$emit('hideModal')">X</button>
-  </vue-final-modal>
+  </Modal>
 </template>
 
 <script>

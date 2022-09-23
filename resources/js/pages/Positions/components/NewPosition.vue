@@ -1,5 +1,6 @@
 <template>
-  <vue-final-modal v-model="show" @closed="$emit('hideModal')">
+  <Modal v-model="show" @closed="$emit('hideModal')">
+    <template v-slot:title>New Position</template>
     <div class="space-y-2 max-w-sm mx-auto">
       <div class="flex space-x-2">
         <Input
@@ -45,9 +46,7 @@
         />
       </div>
     </div>
-
-    <button class="vfm__close" @click="$emit('hideModal')">X</button>
-  </vue-final-modal>
+  </Modal>
 </template>
 
 <script>

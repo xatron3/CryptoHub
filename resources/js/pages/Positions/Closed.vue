@@ -27,7 +27,11 @@ export default {
     return {
       key_columns: ["sell_amount", "buy_amount", "close_amount", "profit"],
       closed_positions: null,
-      grouped: true,
+      filter: {
+        closed: true,
+        grouped: true,
+        sell_asset: null,
+      },
     };
   },
   async mounted() {
@@ -35,16 +39,15 @@ export default {
   },
   methods: {
     async refreshPositions() {
-      this.closed_positions = await getPosition({
-        closed: true,
-        grouped: this.grouped,
-      });
+      this.closed_positions = await getPosition(this.filter);
     },
     async updateFilter(data) {
-      if (data === 1) {
-        this.grouped = false;
-      } else if (data === 2) {
-        this.grouped = true;
+      if (data.id === 1) {
+        this.filter.grouped = true;
+      } else if (data.id === 2) {
+        this.filter.grouped = false;
+      } else if (data.id === 3) {
+        this.filter.sell_asset = data.asset;
       }
 
       await this.refreshPositions();
