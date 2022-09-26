@@ -5,11 +5,17 @@ const store = createStore({
   state() {
     return {
       user: null,
+      assets: {
+        crypto: null,
+      },
     };
   },
   mutations: {
     setUser(state, user) {
       state.user = user;
+    },
+    setCryptoAssets(state, assets) {
+      state.assets.crypto = assets;
     },
   },
 });

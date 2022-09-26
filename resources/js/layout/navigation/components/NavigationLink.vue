@@ -13,7 +13,10 @@
 
 <script>
 import { Squares2X2Icon, BriefcaseIcon } from "@heroicons/vue/24/solid";
-import { BriefcaseIcon as BriefcaseIconOutlined } from "@heroicons/vue/24/outline";
+import {
+  BriefcaseIcon as BriefcaseIconOutlined,
+  ComputerDesktopIcon,
+} from "@heroicons/vue/24/outline";
 
 export default {
   props: ["title", "path", "icon"],
@@ -22,6 +25,7 @@ export default {
     Squares2X2Icon,
     BriefcaseIcon,
     BriefcaseIconOutlined,
+    ComputerDesktopIcon,
   },
   computed: {
     lcTitle() {

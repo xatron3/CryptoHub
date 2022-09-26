@@ -13,12 +13,19 @@
               title="Dashboard"
               icon="Squares2X2Icon"
             ></NavigationLink>
+            <NavigationLink
+              path="/markets"
+              title="Market Overview"
+              icon="ComputerDesktopIcon"
+            ></NavigationLink>
+
             <NavigationHeader title="Portfolio" />
             <NavigationLink
               path="/portfolio"
               title="View Portfolio"
               icon="BriefcaseIconOutlined"
             ></NavigationLink>
+
             <NavigationHeader title="TRADES" />
             <NavigationLink
               path="/positions/active"
@@ -30,17 +37,8 @@
               title="Closed Positions"
               icon="BriefcaseIcon"
             ></NavigationLink>
-            <div v-if="this.$store.state.user.is_admin === 1">
-              <NavigationHeader title="ADMINPANEL" />
-              <NavigationLink
-                path="/admin/assets/"
-                title="Assets"
-              ></NavigationLink>
-              <NavigationLink
-                path="/admin/events/"
-                title="Events"
-              ></NavigationLink>
-            </div>
+
+            <AdminLinks />
           </div>
         </div>
       </div>
@@ -51,6 +49,7 @@
 <script>
 import NavigationLink from "./components/NavigationLink.vue";
 import NavigationHeader from "./components/NavigationHeader.vue";
+import AdminLinks from "./components/AdminLinks.vue";
 
 export default {
   name: "Navigation",
@@ -67,6 +66,7 @@ export default {
   components: {
     NavigationLink,
     NavigationHeader,
+    AdminLinks,
   },
 };
 </script>

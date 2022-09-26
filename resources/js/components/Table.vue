@@ -58,7 +58,7 @@ export default {
       var _class;
 
       if (column === "current_price") {
-        return nums.formatPrice(data[column]);
+        return `$${nums.formatPrice(data[column])}`;
       }
 
       if (column === "name") {
@@ -118,6 +118,10 @@ export default {
 
       if (column === "buy_price") {
         return `${nums.formatPrice(data[column])} ${data["sell_symbol"]}`;
+      }
+
+      if (column === "market_cap") {
+        return `$${data[column].toLocaleString("en-US")}`;
       }
 
       return data[column];

@@ -34,7 +34,7 @@ export default {
     };
   },
   async mounted() {
-    this.assets = await getAssets();
+    this.assets = await getAssets({ sort_by: "name" });
   },
 };
 </script>

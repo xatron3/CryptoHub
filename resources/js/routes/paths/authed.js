@@ -10,6 +10,8 @@ import ProfileSettings from "@/pages/Authed/Profile/Settings/Index.vue";
 
 import Portfolio from "@/pages/Authed/Portfolio/Index.vue";
 
+import Markets from "@/pages/Authed/Markets/Index.vue";
+
 const routes = [
   {
     path: "/dashboard",
@@ -39,6 +41,12 @@ const routes = [
     path: "/portfolio",
     name: "Portfolio",
     component: Portfolio,
+    beforeEnter: auth,
+  },
+  {
+    path: "/markets",
+    name: "Market Screener",
+    component: Markets,
     beforeEnter: auth,
   },
 ];
