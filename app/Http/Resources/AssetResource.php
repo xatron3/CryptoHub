@@ -3,6 +3,7 @@
 namespace App\Http\Resources;
 
 use App\Models\Asset;
+use App\Models\AssetMarketData;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class AssetResource extends JsonResource
@@ -15,13 +16,16 @@ class AssetResource extends JsonResource
    */
   public function toArray($request)
   {
+    $marketData = AssetMarketData::where('asset_id', $this->id)->first();
+
     return [
       'id' => $this->id,
       'name' => $this->name,
       'symbol' => $this->symbol,
       'logo' => $this->logo,
-      'current_price' => $this->current_price,
-      'market_cap' => $this->market_cap,
+      'current_price' => $marketData->current_price,
+      'price_change_24h' => $marketData->price_change_24h,
+      'market_cap' => $marketData->market_cap,
       'coingecko_id' => $this->coingecko_id
     ];
   }

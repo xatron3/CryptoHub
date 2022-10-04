@@ -124,6 +124,18 @@ export default {
         return `$${data[column].toLocaleString("en-US")}`;
       }
 
+      if (column === "price_change_24h") {
+        if (data[column] === 0) {
+          _class = "text-yellow-500";
+        } else if (data[column] > 0) {
+          _class = "text-green-500";
+        } else {
+          _class = "text-red-500";
+        }
+
+        return `<span class="${_class}">${data[column].toFixed(2)}%</span>`;
+      }
+
       return data[column];
     },
     formatHeader(column) {
@@ -153,6 +165,10 @@ export default {
 
       if (column === "profit") {
         return "PNL";
+      }
+
+      if (column === "price_change_24h") {
+        return "24H Change";
       }
 
       return column;

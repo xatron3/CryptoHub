@@ -2,6 +2,7 @@
   <Input
     :showLabel="true"
     name="coingecko_id"
+    autocomplete="off"
     type="text"
     placeholder="Coingecko ID"
     :value="this.coingecko_id"
@@ -19,7 +20,7 @@
       @click="setCoingeckoId(coin.id)"
       class="hover:bg-gray-300 cursor-pointer"
     >
-      {{ coin.name }}
+      {{ coin.name }} ({{ coin.symbol }})
     </div>
   </div>
 </template>

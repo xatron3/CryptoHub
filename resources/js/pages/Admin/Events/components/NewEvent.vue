@@ -10,7 +10,9 @@
       />
 
       <div>
-        <label for="test" class="text-sm font-medium ml-0.5">Description</label>
+        <label for="test" class="text-sm font-medium ml-0.5 dark:text-white"
+          >Description</label
+        >
         <textarea
           class="border w-full rounded-md p-2"
           id="test"
@@ -20,7 +22,9 @@
 
       <div class="grid grid-cols-2 space-x-2">
         <div>
-          <label for="start_date" class="text-sm font-medium ml-0.5"
+          <label
+            for="start_date"
+            class="text-sm font-medium ml-0.5 dark:text-white"
             >Start Date</label
           >
           <Datepicker
@@ -32,7 +36,9 @@
         </div>
 
         <div>
-          <label for="end_date" class="text-sm font-medium ml-0.5"
+          <label
+            for="end_date"
+            class="text-sm font-medium ml-0.5 dark:text-white"
             >End Date</label
           >
           <Datepicker

@@ -11,6 +11,7 @@
       <img :src="this.icon" class="absolute w-6 ml-1 icon" v-if="this.icon" />
       <input
         :type="fieldType"
+        :autocomplete="_autocomplete"
         class="w-full border p-2 rounded-md focus:border-0"
         :class="[_class, iconClass]"
         :name="name"
@@ -34,9 +35,17 @@ export default {
     "value",
     "class",
     "icon",
+    "autocomplete",
   ],
   name: "InputField",
   computed: {
+    _autocomplete() {
+      if (this.autocomplete === undefined) {
+        return "on";
+      } else {
+        return this.autocomplete;
+      }
+    },
     iconClass() {
       if (this.icon === undefined) {
         return;

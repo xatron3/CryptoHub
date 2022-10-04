@@ -3,10 +3,18 @@
 namespace App\Http\Resources;
 
 use App\Models\Asset;
+use App\Models\AssetMarketData;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PositionResource extends JsonResource
 {
+    public function getAssetMarketData($id)
+    {
+        $marketData = AssetMarketData::where('asset_id', $id)->first();
+
+        return $marketData;
+    }
+
     public function getAssetData($id)
     {
         $asset = Asset::where('id', $id)->first();
@@ -27,7 +35,7 @@ class PositionResource extends JsonResource
         $priceEach = $this->sell_amount / $this->buy_amount;
         $priceEachFormatted = number_format($priceEach, zeros_after_dot($priceEach));
 
-        $currentPriceEach = $this->getAssetData($this->buy_asset_id)->current_price / $this->getAssetData($this->sell_asset_id)->current_price;
+        $currentPriceEach = $this->getAssetMarketData($this->buy_asset_id)->current_price / $this->getAssetMarketData($this->sell_asset_id)->current_price;
         $currentPriceEachFormatted =  number_format($currentPriceEach, zeros_after_dot($currentPriceEach));
 
         if ($this->profit === null) {

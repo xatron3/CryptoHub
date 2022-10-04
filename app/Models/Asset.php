@@ -30,4 +30,9 @@ class Asset extends Model
       get: fn ($value) => strtoupper($value),
     );
   }
+
+  public function assetMarketData()
+  {
+    return $this->hasOne(AssetMarketData::class, 'asset_id');
+  }
 }

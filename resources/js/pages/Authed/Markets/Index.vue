@@ -16,11 +16,24 @@ export default {
   data() {
     return {
       assets: null,
-      columns: ["name", "symbol", "current_price", "market_cap"],
+      columns: [
+        "name",
+        "symbol",
+        "current_price",
+        "price_change_24h",
+        "market_cap",
+      ],
     };
   },
   async mounted() {
-    this.assets = await getAssets({ sort_by: "market_cap" });
+    this.getUpdatedData();
+
+    setInterval(this.getUpdatedData, 60000);
+  },
+  methods: {
+    async getUpdatedData() {
+      this.assets = await getAssets({ sort_by: "market_cap" });
+    },
   },
 };
 </script>

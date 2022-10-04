@@ -20,7 +20,7 @@ class CoingeckoPrice extends Command
    *
    * @var string
    */
-  protected $description = 'Fetch current price of all assets';
+  protected $description = 'Fetch current price of all coingecko assets';
 
   /**
    * Create a new command instance.

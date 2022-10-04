@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Asset;
+use App\Http\Controllers\AssetMarketDataController;
 
 class CoingeckoController extends Controller
 {
@@ -24,14 +25,23 @@ class CoingeckoController extends Controller
 
   public function updateCoingeckoPrices()
   {
+    $assetMarketDataController = new AssetMarketDataController();
+
     $ids = $this->getAllCoingeckoIds();
 
     $result = $this->getCoingeckoData($ids);
 
     foreach ($result as $data) {
       $asset = Asset::where('coingecko_id', $data->id)->first();
-      $asset->current_price = $data->current_price;
-      $asset->save();
+
+      $assetData = (object) array(
+        'asset_id' => $asset->id,
+        'current_price' => $data->current_price,
+        'market_cap' => $data->market_cap,
+        'price_change_24h' => $data->price_change_percentage_24h
+      );
+
+      $assetMarketDataController->update($assetData);
     }
 
     return $result;
