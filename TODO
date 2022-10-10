@@ -27,6 +27,8 @@ IDEAS:
       https://www.coinglass.com/FundingRate
 
 Archive:
+  ✔ Fix PNL on closed group positions @created(22-10-10 14:34) @done(22-10-10 15:11) @project(TODO)
+    http://127.0.0.1:8000/positions/closed
   ✔ Fix EventController passed param @created(22-09-23 00:20) @done(22-09-23 00:20) @project(TODO)
   ✔ Create an simple event calendar @created(22-09-14 13:55) @done(22-09-15 10:19) @project(TODO)
   ✔ Track FED meetings, bitcoin halving etc @created(22-09-14 13:55) @done(22-09-15 10:19) @project(TODO)

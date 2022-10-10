@@ -53,9 +53,13 @@ class PositionsController extends Controller
     }
 
     if ($closed === "true") {
-      $positions
-        ->selectRaw('(close_amount - sell_amount) AS profit')
-        ->where([['user_id', $user_id], ['close_amount', '!=', null]]);
+      if ($grouped === "true") {
+        $positions->selectRaw('(SUM(close_amount) - SUM(sell_amount)) AS profit');
+      } else {
+        $positions->selectRaw('(close_amount - sell_amount) AS profit');
+      }
+
+      $positions->where([['user_id', $user_id], ['close_amount', '!=', null]]);
     } else {
       $positions
         ->where([['user_id', $user_id], ['close_amount', '=', null]]);
