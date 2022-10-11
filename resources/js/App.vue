@@ -39,8 +39,13 @@ export default {
     if (localStorage.getItem("access_token")) {
       let res = await getUser();
 
-      this.$store.commit("setUser", res.data);
-      this.loaded = true;
+      if (res !== undefined) {
+        this.$store.commit("setUser", res.data);
+        this.loaded = true;
+      } else {
+        localStorage.removeItem("access_token");
+        this.$router.push("/");
+      }
     } else {
       this.loaded = true;
     }

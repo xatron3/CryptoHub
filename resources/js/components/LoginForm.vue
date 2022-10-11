@@ -1,6 +1,10 @@
 <template>
-  <div class="max-w-sm w-full bg-gray-100 rounded-md shadow-sm p-4">
-    <h2 class="text-center text-lg mb-4 uppercase font-bold">Sign In</h2>
+  <div
+    class="max-w-sm w-full bg-gray-100 dark:bg-gray-700 rounded-md shadow-sm p-4"
+  >
+    <h2 class="text-center text-lg mb-4 uppercase font-bold dark:text-white">
+      Sign In
+    </h2>
     <Alert
       :content="this.error"
       class="mb-2"
