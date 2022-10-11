@@ -1,6 +1,6 @@
 <template>
   <div
-    class="h-screen w-screen flex bg-gray-200 dark:bg-gray-800"
+    class="min-h-screen w-screen flex bg-gray-200 dark:bg-gray-800"
     v-if="loaded"
   >
     <Navigation v-if="hasUser"></Navigation>
