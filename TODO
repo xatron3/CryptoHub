@@ -1,4 +1,9 @@
 TODO:
+  ☐ Paginate endpoints and fix table to support pagination @created(22-09-26 16:24)
+  ☐ Enhance the add new asset admin page @created(22-09-25 18:45)
+    ☐ Make it possible to add different chain addresses to asset @created(22-09-25 18:45)
+      This is good for future potential of having swap support
+      Make model for chains to be able to use them more broadly?
   ☐ Implement spatie user roles to user model @created(22-09-14 04:11)
   ☐ Asset Portfolio @created(22-09-23 00:21)
     Need to split up assets between platforms (ex. FTM Address, FTX, Binance)
@@ -11,12 +16,13 @@ TODO:
       ☐ Amount @created(22-09-23 03:17)
       ☐ Platform @created(22-09-23 03:17)
   ☐ Dispatch events when price updates so we can update frontend @created(22-09-25 18:44)
-    ☐ Maybe store all assets in storage to be able to update it only at once place @created(22-09-25 18:44)
-  ☐ Enhance the add new asset admin page @created(22-09-25 18:45)
-    ☐ Make it possible to add different chain addresses to asset @created(22-09-25 18:45)
-  ☐ Paginate endpoints and fix table to support pagination @created(22-09-26 16:24)
+    ☐ Maybe store all assets in vue storage to be able to update it only at once place @created(22-09-25 18:44)
+  
 
 IDEAS:
+  ☐ 0x Integration for closing/opening positions @created(22-10-11 04:08)
+    https://docs.0x.org/introduction/welcome
+    ☐ This could then "automate" the positions created with the swap @created(22-10-11 04:08)
   ☐ Resources @created(22-09-23 03:09)
     ☐ Books @created(22-09-23 00:20)
     ☐ Terms? @created(22-09-23 00:20)
@@ -25,6 +31,9 @@ IDEAS:
       https://blockchainwhispers.com/bitmex-position-calculator
       https://www.coinglass.com/LiquidationData
       https://www.coinglass.com/FundingRate
+
+READ:
+  0xSwap: https://github.com/net2devcrypto/0x-Protocol-DeFI-Swap-NextJS
 
 Archive:
   ✔ Fix PNL on closed group positions @created(22-10-10 14:34) @done(22-10-10 15:11) @project(TODO)
