@@ -119,6 +119,8 @@ export default {
         this.filter.grouped = false;
       } else if (data.id === 3) {
         this.filter.sell_asset = data.asset;
+      } else if (data.id === 4) {
+        this.filter.buy_asset = data.asset;
       }
 
       await this.refreshPositions();

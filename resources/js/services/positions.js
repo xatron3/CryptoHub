@@ -10,6 +10,7 @@ export async function getPosition(params = {}) {
       grouped: params.grouped ? params.grouped : false,
       closed: params.closed ? params.closed : false,
       sell_asset: params.sell_asset ? params.sell_asset : null,
+      buy_asset: params.buy_asset ? params.buy_asset : null,
     },
   });
 

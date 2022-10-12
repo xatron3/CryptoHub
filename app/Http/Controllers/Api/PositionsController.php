@@ -41,6 +41,7 @@ class PositionsController extends Controller
     $closed = $request->closed;
     $grouped = $request->grouped;
     $sell_asset = $request->sell_asset;
+    $buy_asset = $request->buy_asset;
 
     if ($grouped === "true") {
       $positions = ActivePosition::groupBy('buy_asset_id', 'sell_asset_id')
@@ -72,6 +73,15 @@ class PositionsController extends Controller
         return response()->json(['message' => 'Could not find sell asset: ' . $sell_asset, 'status' => 400], 200);
 
       $positions->where('sell_asset_id', $asset->id);
+    }
+
+    if ($request->has('buy_asset')) {
+      $asset = Asset::where('symbol', strtolower($buy_asset))->first();
+
+      if ($asset === null)
+        return response()->json(['message' => 'Could not find buy asset: ' . $buy_asset, 'status' => 400], 200);
+
+      $positions->where('buy_asset_id', $asset->id);
     }
 
     $positions = $positions->get();

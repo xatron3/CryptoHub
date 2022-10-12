@@ -10,14 +10,30 @@
       @click="$emit('filterChange', { id: 2 })"
       class="bg-yellow-500 hover:bg-yellow-400"
     />
-    <Select
-      :items="this.assets"
-      :keys="selectKeys"
-      v-model="this.asset"
-      :value="this.asset"
-      class="h-11 self-end"
-      @change="$emit('filterChange', { id: 3, asset: this.asset })"
-    />
+
+    <div class="flex flex-col space-y-1">
+      <p class="text-black dark:text-white uppercase text-xs">Sell Asset</p>
+      <Select
+        :items="this.assets"
+        :keys="selectKeys"
+        v-model="this.sell_asset"
+        :value="this.sell_asset"
+        class="h-7 self-end"
+        @change="$emit('filterChange', { id: 3, asset: this.sell_asset })"
+      />
+    </div>
+
+    <div class="flex flex-col space-y-1">
+      <p class="text-black dark:text-white uppercase text-xs">Buy Asset</p>
+      <Select
+        :items="this.assets"
+        :keys="selectKeys"
+        v-model="this.buy_asset"
+        :value="this.buy_asset"
+        class="h-7 self-end"
+        @change="$emit('filterChange', { id: 4, asset: this.buy_asset })"
+      />
+    </div>
   </div>
 </template>
 
@@ -29,7 +45,8 @@ export default {
   data() {
     return {
       assets: null,
-      asset: null,
+      sell_asset: null,
+      buy_asset: null,
       selectKeys: ["symbol", "symbol"],
     };
   },
