@@ -54,23 +54,12 @@ class AssetsController extends Controller
     $id = $request->id;
     $sort_by = $request->sort_by;
 
-    $fileds = ['id', 'name', 'symbol', 'logo', 'current_price', 'market_cap', 'coingecko_id'];
+    $fileds = ['id', 'name', 'symbol', 'logo', 'coingecko_id'];
 
     $assets = Asset::select($fileds);
 
     if ($request->has('id')) {
       $assets->where('id', $id);
-    }
-
-    if ($request->has('sort_by')) {
-      if (in_array($sort_by, $fileds)) {
-        if ($sort_by == "market_cap") $direction = 'desc';
-        else $direction = 'asc';
-
-        $assets->orderBy($sort_by, $direction);
-      } else {
-        return response()->json(['message' => 'Sort by key does not exist.', 'status' => 400], 200);
-      }
     }
 
     $assets = $assets->get();
