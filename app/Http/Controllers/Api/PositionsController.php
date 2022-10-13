@@ -51,7 +51,7 @@ class PositionsController extends Controller
     }
 
     if ($grouped === "true") {
-      $positions = ActivePosition::select(['buy_asset_id', 'sell_asset_id', 'id'])
+      $positions = ActivePosition::select(['buy_asset_id', 'sell_asset_id'])
         ->selectRaw("SUM(sell_amount) as sell_amount")
         ->selectRaw("SUM(buy_amount) as buy_amount")
         ->selectRaw('SUM(close_amount) AS close_amount')
