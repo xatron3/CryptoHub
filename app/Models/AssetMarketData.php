@@ -15,6 +15,7 @@ class AssetMarketData extends Model
    * @var array<int, string>
    */
   protected $fillable = [
+    'asset_id',
     'current_price',
     'market_cap',
     'price_change_24h'

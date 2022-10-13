@@ -47,7 +47,9 @@ export default {
         this.coins = [];
 
         this.coin_list.filter((o) => {
-          if (o.id.indexOf(this.coingecko_id) !== -1) {
+          var name = o.name.toLowerCase();
+
+          if (name.indexOf(this.coingecko_id.toLowerCase()) !== -1) {
             this.coins.push(o);
           }
         });

@@ -7,6 +7,7 @@ use App\Models\Asset;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\AssetResource;
+use App\Models\AssetMarketData;
 
 class AssetsController extends Controller
 {
@@ -27,9 +28,14 @@ class AssetsController extends Controller
         $asset->name = $result->name;
         $asset->symbol = $result->symbol;
         $asset->logo = $result->image;
-        $asset->current_price = $result->current_price;
-        $asset->market_cap = $result->market_cap;
         $asset->save();
+
+        $marketData = new AssetMarketData();
+        $marketData->asset_id = $asset->id;
+        $marketData->current_price = $result->current_price;
+        $marketData->market_cap = $result->market_cap;
+        $marketData->price_change_24h = $result->price_change_percentage_24h;
+        $marketData->save();
 
         return response()->json(['message' => 'Asset was added.', 'status' => 200], 200);
       } else {
