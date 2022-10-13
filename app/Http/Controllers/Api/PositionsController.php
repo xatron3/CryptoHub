@@ -43,8 +43,11 @@ class PositionsController extends Controller
     $sell_asset = $request->sell_asset;
     $buy_asset = $request->buy_asset;
 
-    if (ActivePosition::all()->count() <= 0) {
-      return 'No Positions';
+    if (
+      ActivePosition::where([['user_id', $user_id], ['close_amount', '=', null]])->count() <= 0 && $closed !== "true" ||
+      ActivePosition::where([['user_id', $user_id], ['close_amount', '!=', null]])->count() <= 0 && $closed === "true"
+    ) {
+      return response()->json(['data' => []], 200);
     }
 
     if ($grouped === "true") {
