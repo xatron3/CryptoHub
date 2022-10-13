@@ -51,11 +51,11 @@ class PositionsController extends Controller
     }
 
     if ($grouped === "true") {
-      $positions = ActivePosition::groupBy('buy_asset_id', 'sell_asset_id')
-        ->select(['buy_asset_id', 'sell_asset_id', 'id'])
+      $positions = ActivePosition::select(['buy_asset_id', 'sell_asset_id', 'id'])
         ->selectRaw("SUM(sell_amount) as sell_amount")
         ->selectRaw("SUM(buy_amount) as buy_amount")
-        ->selectRaw('SUM(close_amount) AS close_amount');
+        ->selectRaw('SUM(close_amount) AS close_amount')
+        ->groupBy('buy_asset_id', 'sell_asset_id');
     } else {
       $positions = ActivePosition::select(['buy_asset_id', 'sell_asset_id', 'id', 'sell_amount', 'buy_amount', 'close_amount']);
     }
