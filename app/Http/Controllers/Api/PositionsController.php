@@ -43,6 +43,10 @@ class PositionsController extends Controller
     $sell_asset = $request->sell_asset;
     $buy_asset = $request->buy_asset;
 
+    if (ActivePosition::all()->count() <= 0) {
+      return 'No Positions';
+    }
+
     if ($grouped === "true") {
       $positions = ActivePosition::groupBy('buy_asset_id', 'sell_asset_id')
         ->select(['buy_asset_id', 'sell_asset_id', 'id'])
