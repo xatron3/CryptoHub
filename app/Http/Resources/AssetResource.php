@@ -18,6 +18,13 @@ class AssetResource extends JsonResource
   {
     $marketData = AssetMarketData::where('asset_id', $this->id)->first();
 
+    if ($marketData === null) {
+      $marketData = (object) $marketData;
+      $marketData->current_price = 0;
+      $marketData->price_change_24h = 0;
+      $marketData->market_cap = 0;
+    }
+
     return [
       'id' => $this->id,
       'name' => $this->name,
