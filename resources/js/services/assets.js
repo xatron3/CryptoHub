@@ -4,21 +4,43 @@
  * @returns {array}
  */
 export async function getAssets(params = {}) {
-  let sort_by;
-
-  if (params.sort_by !== undefined) {
-    sort_by = params.sort_by;
-  } else {
-    sort_by = null;
-  }
-
   let res = await axios.get("/api/assets", {
     params: {
-      sort_by: sort_by,
+      id: params.id ? params.id : null,
     },
   });
 
-  return res.data.data;
+  if (params.sort_by === "price_change") {
+    if (params.sort_order === "desc") {
+      res = res.data.data.sort(function (a, b) {
+        return a.price_change_24h - b.price_change_24h;
+      });
+    } else {
+      res = res.data.data.sort(function (a, b) {
+        return b.price_change_24h - a.price_change_24h;
+      });
+    }
+  } else if (params.sort_by === "market_cap") {
+    if (params.sort_order === "desc") {
+      res = res.data.data.sort(function (a, b) {
+        return a.market_cap - b.market_cap;
+      });
+    } else {
+      res = res.data.data.sort(function (a, b) {
+        return b.market_cap - a.market_cap;
+      });
+    }
+  } else {
+    res = res.data.data;
+  }
+
+  return res;
+}
+
+export async function updateAsset(data) {
+  let res = await axios.post("/api/asset/update", data);
+
+  return res;
 }
 
 /**

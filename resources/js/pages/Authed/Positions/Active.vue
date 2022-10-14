@@ -69,6 +69,7 @@ export default {
       filter: {
         grouped: true,
         sell_asset: null,
+        sort_by: "profit",
       },
       showPositionModal: false,
       showClosePositionModal: false,
@@ -80,19 +81,12 @@ export default {
       let columns;
 
       if (this.filter.grouped) {
-        columns = [
-          "sell_amount",
-          "buy_amount",
-          "buy_price",
-          "current_sell_price",
-          "profit",
-        ];
+        columns = ["sell_amount", "buy_amount", "buy_price", "profit"];
       } else {
         columns = [
           "sell_amount",
           "buy_amount",
           "buy_price",
-          "current_sell_price",
           "profit",
           "button",
         ];

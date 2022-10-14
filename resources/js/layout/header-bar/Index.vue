@@ -2,6 +2,10 @@
   <div
     class="h-14 bg-gray-100 shadow-sm flex-row flex items-center px-3 dark:bg-gray-700"
   >
+    <div class="block md:hidden">
+      <span @click="toggleNavigation">HIDE</span>
+    </div>
+
     <div class="ml-auto relative">
       <div class="flex flex-row space-x-2">
         <UserCircleIcon
@@ -64,6 +68,10 @@ export default {
     };
   },
   methods: {
+    toggleNavigation() {
+      this.$store.state.settings.showMobileNav =
+        !this.$store.state.settings.showMobileNav;
+    },
     logout() {
       localStorage.removeItem("access_token");
       this.$store.commit("setUser", null);

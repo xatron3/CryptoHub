@@ -12,7 +12,7 @@
       :columns="this.columns"
       :items="this.assets"
       buttonTitle="Edit"
-      @button_clicked="test"
+      @button_clicked="edit_asset"
     />
   </div>
 </template>
@@ -33,8 +33,8 @@ export default {
     this.assets = await getAssets({ sort_by: "name" });
   },
   methods: {
-    test(data) {
-      console.log(data.id);
+    edit_asset(data) {
+      this.$router.push(`/admin/asset/edit/${data.id}`);
     },
   },
   components: { Table },

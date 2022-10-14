@@ -1,26 +1,28 @@
 <template>
-  <Input
-    :showLabel="true"
-    name="coingecko_id"
-    autocomplete="off"
-    type="text"
-    placeholder="Coingecko ID"
-    :value="this.coingecko_id"
-    v-model="this.coingecko_id"
-    v-on:keyup="getCoinList"
-  />
+  <div class="relative">
+    <Input
+      :showLabel="true"
+      name="coingecko_id"
+      autocomplete="off"
+      type="text"
+      placeholder="Coingecko ID"
+      :value="this.coingecko_id"
+      v-model="this.coingecko_id"
+      v-on:keyup="getCoinList"
+    />
 
-  <div
-    v-if="this.coins.length > 0"
-    class="h-40 overflow-y-scroll overflow-x-hidden rounded-md bg-gray-100 p-2"
-  >
     <div
-      v-for="coin in this.coins"
-      v-bind:key="coin.id"
-      @click="setCoingeckoId(coin.id)"
-      class="hover:bg-gray-300 cursor-pointer"
+      v-if="this.coins.length > 0"
+      class="h-40 overflow-y-scroll w-full z-10 absolute overflow-x-hidden rounded-md bg-gray-100 p-2"
     >
-      {{ coin.name }} ({{ coin.symbol }})
+      <div
+        v-for="coin in this.coins"
+        v-bind:key="coin.id"
+        @click="setCoingeckoId(coin.id)"
+        class="hover:bg-gray-300 cursor-pointer"
+      >
+        {{ coin.name }} ({{ coin.symbol }})
+      </div>
     </div>
   </div>
 </template>

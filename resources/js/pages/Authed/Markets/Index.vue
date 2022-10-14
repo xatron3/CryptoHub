@@ -32,7 +32,10 @@ export default {
   },
   methods: {
     async getUpdatedData() {
-      this.assets = await getAssets({ sort_by: "market_cap" });
+      this.assets = await getAssets({
+        sort_by: "price_change",
+        sort_order: "desc",
+      });
     },
   },
 };

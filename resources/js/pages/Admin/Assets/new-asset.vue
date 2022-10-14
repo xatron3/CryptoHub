@@ -1,7 +1,40 @@
 <template>
   <div class="max-w-xl">
     <div class="space-y-2 flex flex-col">
-      <CoingeckoInput @inputUpdate="setCoingeckoId"></CoingeckoInput>
+      <div class="grid grid-cols-2 space-x-2">
+        <CoingeckoInput @inputUpdate="setCoingeckoId"></CoingeckoInput>
+
+        <Input
+          :showLabel="true"
+          name="logo"
+          autocomplete="off"
+          type="text"
+          placeholder="Logo"
+          :value="this.assetData.logo"
+          v-model="this.assetData.logo"
+        />
+      </div>
+      <div class="grid grid-cols-2 space-x-2">
+        <Input
+          :showLabel="true"
+          name="name"
+          autocomplete="off"
+          type="text"
+          placeholder="Name"
+          :value="this.assetData.name"
+          v-model="this.assetData.name"
+        />
+
+        <Input
+          :showLabel="true"
+          name="symbol"
+          autocomplete="off"
+          type="text"
+          placeholder="Symbol"
+          :value="this.assetData.symbol"
+          v-model="this.assetData.symbol"
+        />
+      </div>
 
       <div class="self-end">
         <Button title="Add Asset" @click="addNewAsset()" />

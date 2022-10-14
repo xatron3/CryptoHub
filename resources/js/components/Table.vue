@@ -90,9 +90,7 @@ export default {
 
         return `<span class="${_class}">${nums.formatPrice(
           data[column]
-        )}</span> <span class="text-xs">(${parseFloat(
-          nums.getPercentageIncrease(data[column], data["buy_price"])
-        ).toFixed(2)}%)</span>`;
+        )}</span>`;
       }
 
       if (column === "close_amount") {
@@ -113,7 +111,12 @@ export default {
         }" class="w-5 h-5"> <span class="${_class}">${nums.formatPrice(
           data[column],
           2
-        )} ${data["sell_symbol"]}</span></div>`;
+        )} ${data["sell_symbol"]}</span> <span class="text-xs">(${parseFloat(
+          nums.getPercentageIncrease(
+            data["current_sell_price"],
+            data["buy_price"]
+          )
+        ).toFixed(2)}%)</span></div>`;
       }
 
       if (column === "buy_price") {

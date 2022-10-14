@@ -4,6 +4,9 @@ import { createStore } from "vuex";
 const store = createStore({
   state() {
     return {
+      settings: {
+        showMobileNav: true,
+      },
       user: null,
       assets: {
         crypto: null,

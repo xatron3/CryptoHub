@@ -1,7 +1,8 @@
 <template>
   <div class="min-h-screen bg-gray-100 dark:bg-gray-700">
     <div
-      class="sidebar min-h-screen overflow-hidden border-r w-56 shadow-sm dark:border-gray-600"
+      class="sidebar min-h-screen overflow-hidden border-r shadow-sm dark:border-gray-600"
+      :class="showMobileNavigation"
     >
       <div class="flex h-screen flex-col justify-between pt-2 pb-6">
         <div>
@@ -58,9 +59,17 @@ export default {
       title: "Navigation",
     };
   },
+  mounted() {},
   computed: {
     logo() {
       return import.meta.env.VITE_APP_NAME;
+    },
+    showMobileNavigation() {
+      if (this.$store.state.settings.showMobileNav) {
+        return "w-56";
+      } else {
+        return "w-0";
+      }
     },
   },
   components: {

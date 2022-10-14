@@ -48,7 +48,10 @@ export default {
   },
   methods: {
     async loadAndSortPositions() {
-      this.positions.all = await getPosition({ grouped: true });
+      this.positions.all = await getPosition({
+        grouped: true,
+        sort_by: "profit",
+      });
 
       this.positions.profit = this.positions.all.filter((item) => {
         return item.current_sell_price >= item.buy_price;

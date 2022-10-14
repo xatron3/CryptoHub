@@ -12,6 +12,7 @@
       <input
         :type="fieldType"
         :autocomplete="_autocomplete"
+        :disabled="_disabled"
         class="w-full border p-2 rounded-md focus:border-0"
         :class="[_class, iconClass]"
         :name="name"
@@ -36,6 +37,7 @@ export default {
     "class",
     "icon",
     "autocomplete",
+    "disabled",
   ],
   name: "InputField",
   computed: {
@@ -44,6 +46,13 @@ export default {
         return "on";
       } else {
         return this.autocomplete;
+      }
+    },
+    _disabled() {
+      if (this.disabled === undefined) {
+        return false;
+      } else {
+        return true;
       }
     },
     iconClass() {
