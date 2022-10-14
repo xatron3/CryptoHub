@@ -18,6 +18,8 @@ TODO:
   ☐ Dispatch events when price updates so we can update frontend @created(22-09-25 18:44)
     ☐ Maybe store all assets in vue storage to be able to update it only at once place @created(22-09-25 18:44)
   
+BUGS:
+  ☐ @created(22-10-14 15:16)
 
 IDEAS:
   ☐ 0x Integration for closing/opening positions @created(22-10-11 04:08)
@@ -32,10 +34,9 @@ IDEAS:
       https://www.coinglass.com/LiquidationData
       https://www.coinglass.com/FundingRate
 
-READ:
-  0xSwap: https://github.com/net2devcrypto/0x-Protocol-DeFI-Swap-NextJS
 
 Archive:
+  ✔ Coingecko ID input not updating on list click @created(22-10-13 21:53) @done(22-10-14 15:16) @project(BUGS)
   ✔ Fix PNL on closed group positions @created(22-10-10 14:34) @done(22-10-10 15:11) @project(TODO)
     http://127.0.0.1:8000/positions/closed
   ✔ Fix EventController passed param @created(22-09-23 00:20) @done(22-09-23 00:20) @project(TODO)

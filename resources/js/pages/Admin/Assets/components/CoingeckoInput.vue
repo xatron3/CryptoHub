@@ -57,6 +57,7 @@ export default {
     },
     setCoingeckoId(id) {
       this.coins = [];
+      this.coingecko_id = id;
       this.$emit("inputUpdate", id);
     },
   },

@@ -25,7 +25,7 @@ const formatPrice = (number, decimals = 4) => {
   if (number > 0) m = -Math.floor(Math.log10(number) + 1);
   else m = 0;
 
-  if (number < 0.01) {
+  if (number < 0.99) {
     formattedNumber = number.toFixed(m + decimals);
   } else {
     formattedNumber = number.toFixed(2);
