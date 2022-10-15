@@ -5,7 +5,7 @@ const store = createStore({
   state() {
     return {
       settings: {
-        showMobileNav: true,
+        showNavigation: true,
       },
       user: null,
       assets: {
@@ -19,6 +19,9 @@ const store = createStore({
     },
     setCryptoAssets(state, assets) {
       state.assets.crypto = assets;
+    },
+    toggleNavigation(state) {
+      state.settings.showNavigation = !state.settings.showNavigation;
     },
   },
 });

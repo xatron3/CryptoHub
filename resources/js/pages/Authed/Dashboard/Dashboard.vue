@@ -4,7 +4,9 @@
       Last Updated: {{ this.lastUpdated }}
     </div>
     <div class="space-y-4">
-      <div class="flex space-x-4 mt-4">
+      <div
+        class="grid grid-cols-1 md:grid-cols-4 space-y-2 space-x-0 md:space-y-0 md:space-x-4 mt-4"
+      >
         <PositionCard :positions="this.positions.losses" title="Losses" />
         <PositionCard :positions="this.positions.profit" title="Profit" />
         <EventCard :events="this.events.upcoming" title="Upcoming Events" />

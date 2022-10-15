@@ -3,7 +3,9 @@
     class="h-14 bg-gray-100 shadow-sm flex-row flex items-center px-3 dark:bg-gray-700"
   >
     <div class="block md:hidden">
-      <span @click="toggleNavigation">HIDE</span>
+      <span @click="toggleNavigation"
+        ><Bars3Icon class="h-6 dark:text-white text-black"
+      /></span>
     </div>
 
     <div class="ml-auto relative">
@@ -51,6 +53,7 @@
 import {
   ArrowRightOnRectangleIcon,
   UserCircleIcon,
+  Bars3Icon,
 } from "@heroicons/vue/24/outline";
 
 import { Transition } from "vue";
@@ -61,6 +64,7 @@ export default {
     ArrowRightOnRectangleIcon,
     UserCircleIcon,
     Transition,
+    Bars3Icon,
   },
   data() {
     return {
@@ -69,8 +73,7 @@ export default {
   },
   methods: {
     toggleNavigation() {
-      this.$store.state.settings.showMobileNav =
-        !this.$store.state.settings.showMobileNav;
+      this.$store.commit("toggleNavigation");
     },
     logout() {
       localStorage.removeItem("access_token");
