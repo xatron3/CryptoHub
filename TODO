@@ -15,13 +15,14 @@ TODO:
       ☐ Asset ID @created(22-09-23 03:17)
       ☐ Amount @created(22-09-23 03:17)
       ☐ Platform @created(22-09-23 03:17)
-  ☐ Dispatch events when price updates so we can update frontend @created(22-09-25 18:44)
-    ☐ Maybe store all assets in vue storage to be able to update it only at once place @created(22-09-25 18:44)
+  
   
 BUGS:
   ☐ @created(22-10-14 15:16)
 
 IDEAS:
+  ☐ Dispatch events when price updates so we can update frontend @created(22-09-25 18:44)
+    ☐ Maybe store all assets in vue storage to be able to update it only at once place @created(22-09-25 18:44)
   ☐ 0x Integration for closing/opening positions @created(22-10-11 04:08)
     https://docs.0x.org/introduction/welcome
     ☐ This could then "automate" the positions created with the swap @created(22-10-11 04:08)
