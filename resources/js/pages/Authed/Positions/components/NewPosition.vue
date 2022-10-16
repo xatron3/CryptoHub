@@ -1,41 +1,50 @@
 <template>
   <Modal v-model="show" @closed="$emit('hideModal')">
     <template v-slot:title>New Position</template>
-    <div class="space-y-2 max-w-sm mx-auto">
-      <div class="flex space-x-2">
-        <Input
-          v-model="this.newPosition.sell_amount"
-          :value="this.newPosition.sell_amount"
-          id="sell_amount"
-          name="buy_amount"
-          placeholder="Sell amount"
-        />
+    <div class="space-y-2 mx-auto">
+      <div class="grid space-x-2 w-full grid-cols-4 items-end">
+        <div class="col-span-3">
+          <Input
+            v-model="this.newPosition.sell_amount"
+            :value="this.newPosition.sell_amount"
+            class="w-full"
+            id="sell_amount"
+            name="buy_amount"
+            placeholder="Sell amount"
+          />
+        </div>
 
-        <Select
-          :items="this.assets"
-          :keys="selectKeys"
-          v-model="this.newPosition.sell_asset_id"
-          :value="this.newPosition.sell_asset_id"
-          class="h-11 self-end"
-        />
+        <div class="col-span-1">
+          <Select
+            :items="this.assets"
+            :keys="selectKeys"
+            v-model="this.newPosition.sell_asset_id"
+            :value="this.newPosition.sell_asset_id"
+            class="h-11 self-end"
+          />
+        </div>
       </div>
 
-      <div class="flex space-x-2">
-        <Input
-          v-model="this.newPosition.buy_amount"
-          :value="this.newPosition.buy_amount"
-          id="buy_amount"
-          name="buy_amount"
-          placeholder="Buy amount"
-        />
+      <div class="grid space-x-2 w-full grid-cols-4 items-end">
+        <div class="col-span-3">
+          <Input
+            v-model="this.newPosition.buy_amount"
+            :value="this.newPosition.buy_amount"
+            id="buy_amount"
+            name="buy_amount"
+            placeholder="Buy amount"
+          />
+        </div>
 
-        <Select
-          :items="this.assets"
-          :keys="selectKeys"
-          v-model="this.newPosition.buy_asset_id"
-          :value="this.newPosition.buy_asset_id"
-          class="h-10 self-end"
-        />
+        <div class="col-span-1">
+          <Select
+            :items="this.assets"
+            :keys="selectKeys"
+            v-model="this.newPosition.buy_asset_id"
+            :value="this.newPosition.buy_asset_id"
+            class="h-10 self-end"
+          />
+        </div>
       </div>
 
       <div class="flex">

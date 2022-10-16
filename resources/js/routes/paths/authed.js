@@ -3,8 +3,8 @@ import auth from "../middleware/auth";
 
 // Pages
 import Dashboard from "@/pages/Authed/Dashboard/Dashboard.vue";
-import ActivePositions from "@/pages/Authed/Positions/Active.vue";
-import ClosedPositions from "@/pages/Authed/Positions/Closed.vue";
+import ActivePositions from "@/pages/Authed/Positions/active-positions.vue";
+import ClosedPositions from "@/pages/Authed/Positions/closed-positions.vue";
 
 import ProfileSettings from "@/pages/Authed/Profile/Settings/Index.vue";
 

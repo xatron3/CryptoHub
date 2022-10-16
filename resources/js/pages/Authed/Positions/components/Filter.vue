@@ -14,6 +14,7 @@
     <div class="flex flex-col space-y-1">
       <p class="text-black dark:text-white uppercase text-xs">Sell Asset</p>
       <Select
+        startValue="te"
         :items="this.assets"
         :keys="selectKeys"
         v-model="this.sell_asset"

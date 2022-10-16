@@ -1,7 +1,7 @@
 <template>
   <select
     @input="$emit('update:modelValue', $event.target.value)"
-    class="border"
+    class="border w-full rounded-md"
   >
     <option></option>
     <option
@@ -17,9 +17,17 @@
 
 <script>
 export default {
-  props: ["items", "keys", "modelValue"],
+  props: ["items", "keys", "modelValue", "startValue"],
   name: "Select",
   mounted() {},
-  computed: {},
+  computed: {
+    _startValue() {
+      if (this.startValue === undefined) {
+        return "";
+      } else {
+        return this.startValue;
+      }
+    },
+  },
 };
 </script>
