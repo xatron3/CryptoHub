@@ -16,7 +16,7 @@
 
         <div class="col-span-1">
           <Select
-            :items="this.assets"
+            :items="this.assets.data"
             :keys="selectKeys"
             v-model="this.newPosition.sell_asset_id"
             :value="this.newPosition.sell_asset_id"
@@ -38,7 +38,7 @@
 
         <div class="col-span-1">
           <Select
-            :items="this.assets"
+            :items="this.assets.data"
             :keys="selectKeys"
             v-model="this.newPosition.buy_asset_id"
             :value="this.newPosition.buy_asset_id"

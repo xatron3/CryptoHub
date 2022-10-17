@@ -1,10 +1,11 @@
 TODO:
-  ☐ Paginate endpoints and fix table to support pagination @created(22-09-26 16:24)
+  ☐ Implement spatie user roles to user model @created(22-09-14 04:11)
+  ☐ Add command page to adminpanel @created(22-10-17 07:37)
+    ☐ Make it possible to call price fetch from here @created(22-10-17 07:37)
   ☐ Enhance the add new asset admin page @created(22-09-25 18:45)
     ☐ Make it possible to add different chain addresses to asset @created(22-09-25 18:45)
       This is good for future potential of having swap support
       Make model for chains to be able to use them more broadly?
-  ☐ Implement spatie user roles to user model @created(22-09-14 04:11)
   ☐ Asset Portfolio @created(22-09-23 00:21)
     Need to split up assets between platforms (ex. FTM Address, FTX, Binance)
     The split is needed for future automation and just to keep it "clean"?
@@ -15,7 +16,6 @@ TODO:
       ☐ Asset ID @created(22-09-23 03:17)
       ☐ Amount @created(22-09-23 03:17)
       ☐ Platform @created(22-09-23 03:17)
-  
   
 BUGS:
   ☐ @created(22-10-14 15:16)
@@ -35,8 +35,8 @@ IDEAS:
       https://www.coinglass.com/LiquidationData
       https://www.coinglass.com/FundingRate
 
-
 Archive:
+  ✔ Paginate endpoints and fix table to support pagination @created(22-09-26 16:24) @done(22-10-17 07:36) @project(TODO)
   ✔ Coingecko ID input not updating on list click @created(22-10-13 21:53) @done(22-10-14 15:16) @project(BUGS)
   ✔ Fix PNL on closed group positions @created(22-10-10 14:34) @done(22-10-10 15:11) @project(TODO)
     http://127.0.0.1:8000/positions/closed

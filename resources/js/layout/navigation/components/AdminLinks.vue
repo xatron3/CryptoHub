@@ -2,12 +2,13 @@
   <div v-if="this.$store.getters.isAdmin === 1">
     <NavigationHeader class="text-lg border-b-0" title="ADMINPANEL" />
     <NavigationHeader class="mt-0.5" title="General" />
-    <NavigationLink path="/admin/assets/" title="Assets"></NavigationLink>
-    <NavigationLink path="/admin/events/" title="Events"></NavigationLink>
 
     <NavigationHeader title="Assets" />
     <NavigationLink path="/admin/assets/" title="All Assets"></NavigationLink>
     <NavigationLink path="/admin/assets/new" title="New Asset"></NavigationLink>
+
+    <NavigationHeader title="Events" />
+    <NavigationLink path="/admin/events/" title="Events"></NavigationLink>
   </div>
 </template>
 

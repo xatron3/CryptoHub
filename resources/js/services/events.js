@@ -17,6 +17,7 @@ export async function getEvents(params = {}) {
     params: {
       limit: params.limit ? params.limit : null,
       passed: passed,
+      page: params.page ? params.page : 1,
     },
   });
 

@@ -15,6 +15,7 @@
         :meta="this.meta"
         buttonTitle="Delete"
         @button_clicked="deleteEvent"
+        @change_page="change_page"
       />
     </div>
 
@@ -44,6 +45,7 @@ export default {
   data() {
     return {
       showNewEventModal: false,
+      page: 1,
       events: null,
       meta: null,
       columns: ["title", "start_date", "end_date", "button"],
@@ -54,8 +56,7 @@ export default {
   },
   methods: {
     async getEvents() {
-      const eventData = await getEvents();
-
+      const eventData = await getEvents({ page: this.page });
       this.events = eventData.data;
       this.meta = eventData.meta;
     },
@@ -69,6 +70,15 @@ export default {
       }
 
       this.getEvents();
+    },
+    change_page(page) {
+      var newPage = xa.setPaginationPage(this.page, page);
+
+      if (this.page !== newPage && newPage <= this.meta.last_page) {
+        console.log("test");
+        this.page = newPage;
+        this.getEvents();
+      }
     },
   },
   components: { Table, NewEvent },
