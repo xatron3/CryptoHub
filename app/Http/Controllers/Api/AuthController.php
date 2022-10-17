@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use App\Http\Resources\UserResource;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -52,17 +53,23 @@ class AuthController extends Controller
 
   protected function createNewToken($token)
   {
+    $user = User::where('id', auth()->user()->id)->get();
+
     return response()->json([
       'status' => 200,
       'access_token' => $token,
       'token_type' => 'bearer',
-      'user' => auth()->user()
+      'user' => UserResource::collection($user)
     ]);
   }
 
   public function getUser(Request $request)
   {
-    return response()->json($request->user());
+    // return $request->user();
+
+    $user = User::where('id', $request->user()->id)->get();
+
+    return UserResource::collection($user);
   }
 
   public function refresh()

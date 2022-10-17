@@ -1,5 +1,5 @@
 <template>
-  <div v-if="this.$store.state.user.is_admin === 1">
+  <div v-if="this.$store.getters.isAdmin === 1">
     <NavigationHeader title="ADMINPANEL" />
     <NavigationLink path="/admin/assets/" title="Assets"></NavigationLink>
     <NavigationLink path="/admin/events/" title="Events"></NavigationLink>

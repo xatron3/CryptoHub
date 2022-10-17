@@ -16,5 +16,7 @@ export async function auth(data) {
 export async function getUser() {
   let res = await axios.get("/api/user");
 
-  return res;
+  let user = res.data.data[0];
+
+  return user;
 }

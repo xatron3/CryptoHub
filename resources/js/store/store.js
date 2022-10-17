@@ -26,6 +26,13 @@ const store = createStore({
       state.settings.showNavigation = !state.settings.showNavigation;
     },
   },
+  getters: {
+    isAdmin(state, getters) {
+      const isAdmin = state.user !== null ? state.user.is_admin : 0;
+
+      return isAdmin;
+    },
+  },
   actions: {
     getUser(context, data) {
       return new Promise(async (resolve, reject) => {
@@ -33,14 +40,17 @@ const store = createStore({
           if (context.state.user === null) {
             let res = await getUser();
 
+            console.log("ACTION CALLED");
+
             if (res !== undefined) {
-              context.commit("setUser", res.data);
-              resolve(res.data);
+              context.commit("setUser", res);
+              resolve(res);
             } else {
               localStorage.removeItem("access_token");
               reject("No user found");
             }
           } else {
+            console.log("ACTION CALLED1");
             resolve(context.state.user);
           }
         } else {
