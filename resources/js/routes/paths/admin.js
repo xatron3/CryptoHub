@@ -9,6 +9,9 @@ import Assets from "@/pages/Admin/Assets/all-assets.vue";
 import EditAsset from "@/pages/Admin/Assets/edit-asset.vue";
 import NewAsset from "@/pages/Admin/Assets/new-asset.vue";
 
+// Commands
+import Commands from "@/pages/Admin/Commands/all-commands.vue";
+
 const routes = [
   {
     path: "/admin/assets",
@@ -32,6 +35,12 @@ const routes = [
     path: "/admin/events",
     name: "Events",
     component: Events,
+    beforeEnter: admin,
+  },
+  {
+    path: "/admin/commands",
+    name: "Commands",
+    component: Commands,
     beforeEnter: admin,
   },
 ];

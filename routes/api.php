@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\EventsController;
 use App\Http\Controllers\Api\PositionsController;
+use App\Http\Controllers\CoingeckoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,7 @@ Route::group(['middleware' => 'jwt.verify'], function () {
     // Should be protected under admin middleware
     Route::post('asset/add', [AssetsController::class, 'store']);
     Route::post('asset/update', [AssetsController::class, 'update']);
+    Route::post('price/coingecko', [CoingeckoController::class, 'updateCoingeckoPrices']);
 
     Route::post('event/add', [EventsController::class, 'store']);
     Route::post('event/delete', [EventsController::class, 'destroy']);

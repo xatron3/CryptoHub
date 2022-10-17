@@ -1,5 +1,5 @@
 <template>
-  <Modal v-model="show" @closed="$emit('hideModal')">
+  <Modal v-model="show" @closed="$emit('hideModal')" v-if="this.assets">
     <template v-slot:title>New Position</template>
     <div class="space-y-2 mx-auto">
       <div class="grid space-x-2 w-full grid-cols-4 items-end">
