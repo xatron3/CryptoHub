@@ -52,7 +52,9 @@ export default {
     };
   },
   async mounted() {
-    this.assets = await getAssets({ sort_by: "name" });
+    const assets = await getAssets({ sort_by: "name" });
+
+    this.assets = assets.data;
   },
 };
 </script>

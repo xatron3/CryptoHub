@@ -90,7 +90,7 @@ export default {
   components: { Alert, CoingeckoInput },
   async mounted() {
     var asset = await getAssets({ id: this.$route.params.id });
-    this.asset = asset[0];
+    this.asset = asset.data[0];
   },
   methods: {
     setCoingeckoId(data) {

@@ -5,7 +5,7 @@
  * @returns
  */
 export async function getEvents(params = {}) {
-  let passed, limit;
+  let passed, limit, data, response;
 
   if (params.passed !== undefined) {
     passed = params.passed;
@@ -20,7 +20,14 @@ export async function getEvents(params = {}) {
     },
   });
 
-  return res.data.data;
+  data = res.data.data;
+
+  response = {
+    data: data,
+    meta: res.data.meta,
+  };
+
+  return response;
 }
 
 /**

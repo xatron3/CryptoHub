@@ -82,7 +82,6 @@ class AssetsController extends Controller
   public function get(Request $request)
   {
     $id = $request->id;
-    $sort_by = $request->sort_by;
 
     $fileds = ['id', 'name', 'symbol', 'logo', 'coingecko_id'];
 
@@ -92,7 +91,7 @@ class AssetsController extends Controller
       $assets->where('id', $id);
     }
 
-    $assets = $assets->get();
+    $assets = $assets->paginate();
 
     return AssetResource::collection($assets);
   }

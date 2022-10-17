@@ -12,6 +12,7 @@
       <Table
         :columns="this.columns"
         :items="this.events"
+        :meta="this.meta"
         buttonTitle="Delete"
         @button_clicked="deleteEvent"
       />
@@ -44,6 +45,7 @@ export default {
     return {
       showNewEventModal: false,
       events: null,
+      meta: null,
       columns: ["title", "start_date", "end_date", "button"],
     };
   },
@@ -52,7 +54,10 @@ export default {
   },
   methods: {
     async getEvents() {
-      this.events = await getEvents();
+      const eventData = await getEvents();
+
+      this.events = eventData.data;
+      this.meta = eventData.meta;
     },
     async deleteEvent(data) {
       const result = await deleteEvent({ id: data.id });

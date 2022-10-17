@@ -7,34 +7,42 @@ export async function getAssets(params = {}) {
   let res = await axios.get("/api/assets", {
     params: {
       id: params.id ? params.id : null,
+      page: params.page ? params.page : 1,
     },
   });
 
+  let data;
+
   if (params.sort_by === "price_change") {
     if (params.sort_order === "desc") {
-      res = res.data.data.sort(function (a, b) {
+      data = res.data.data.sort(function (a, b) {
         return a.price_change_24h - b.price_change_24h;
       });
     } else {
-      res = res.data.data.sort(function (a, b) {
+      data = res.data.data.sort(function (a, b) {
         return b.price_change_24h - a.price_change_24h;
       });
     }
   } else if (params.sort_by === "market_cap") {
     if (params.sort_order === "desc") {
-      res = res.data.data.sort(function (a, b) {
+      data = res.data.data.sort(function (a, b) {
         return a.market_cap - b.market_cap;
       });
     } else {
-      res = res.data.data.sort(function (a, b) {
+      data = res.data.data.sort(function (a, b) {
         return b.market_cap - a.market_cap;
       });
     }
   } else {
-    res = res.data.data;
+    data = res.data.data;
   }
 
-  return res;
+  let response = {
+    data: data,
+    meta: res.data.meta,
+  };
+
+  return response;
 }
 
 export async function updateAsset(data) {

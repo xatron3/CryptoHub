@@ -1,7 +1,7 @@
 <template>
   <select
     @input="$emit('update:modelValue', $event.target.value)"
-    class="border w-full rounded-md"
+    class="border w-full rounded-md text-black"
   >
     <option></option>
     <option

@@ -14,7 +14,7 @@
           >Description</label
         >
         <textarea
-          class="border w-full rounded-md p-2"
+          class="border w-full rounded-md p-2 text-black"
           id="test"
           placeholder="Description"
         ></textarea>

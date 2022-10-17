@@ -16,13 +16,7 @@ export default {
   data() {
     return {
       assets: null,
-      columns: [
-        "name",
-        "symbol",
-        "current_price",
-        "price_change_24h",
-        "market_cap",
-      ],
+      columns: ["name", "current_price", "price_change_24h", "market_cap"],
     };
   },
   async mounted() {
@@ -32,10 +26,12 @@ export default {
   },
   methods: {
     async getUpdatedData() {
-      this.assets = await getAssets({
+      const assets = await getAssets({
         sort_by: "price_change",
         sort_order: "desc",
       });
+
+      this.assets = assets.data;
     },
   },
 };

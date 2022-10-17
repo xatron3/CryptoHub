@@ -11,6 +11,12 @@ use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
+  /**
+   * login
+   *
+   * @param  mixed $request
+   * @return void
+   */
   public function login(Request $request)
   {
     $validator = Validator::make($request->all(), [
@@ -28,6 +34,12 @@ class AuthController extends Controller
     return $this->createNewToken($token);
   }
 
+  /**
+   * register
+   *
+   * @param  mixed $request
+   * @return void
+   */
   public function register(Request $request)
   {
     $validator = Validator::make($request->all(), [
@@ -51,6 +63,12 @@ class AuthController extends Controller
     return $this->createNewToken($token);
   }
 
+  /**
+   * createNewToken
+   *
+   * @param  mixed $token
+   * @return void
+   */
   protected function createNewToken($token)
   {
     $user = User::where('id', auth()->user()->id)->get();
@@ -63,15 +81,24 @@ class AuthController extends Controller
     ]);
   }
 
+  /**
+   * getUser
+   *
+   * @param  mixed $request
+   * @return void
+   */
   public function getUser(Request $request)
   {
-    // return $request->user();
-
     $user = User::where('id', $request->user()->id)->get();
 
     return UserResource::collection($user);
   }
 
+  /**
+   * refresh
+   *
+   * @return void
+   */
   public function refresh()
   {
     return $this->createNewToken(auth()->refresh());

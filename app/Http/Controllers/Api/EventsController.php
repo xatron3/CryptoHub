@@ -49,9 +49,9 @@ class EventsController extends Controller
 
         if ($passed !== null) {
             $passed = $request->passed === "true" ? '<' : '>';
-            $event = Event::limit($limit)->orderBy('start_date')->whereDate('start_date', $passed, now())->get();
+            $event = Event::limit($limit)->orderBy('start_date')->whereDate('start_date', $passed, now())->paginate();
         } else {
-            $event = Event::limit($limit)->orderBy('start_date')->get();
+            $event = Event::limit($limit)->orderBy('start_date')->paginate();
         }
 
         return EventResource::collection($event);

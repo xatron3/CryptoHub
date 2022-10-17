@@ -67,8 +67,11 @@ export default {
       this.lastUpdated = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
     },
     async loadEvents() {
-      this.events.upcoming = await getEvents({ limit: 6, passed: false });
-      this.events.passed = await getEvents({ limit: 6, passed: true });
+      const upcomingEvents = await getEvents({ limit: 6, passed: false });
+      this.events.upcoming = upcomingEvents.data;
+
+      const passedEvents = await getEvents({ limit: 6, passed: true });
+      this.events.passed = passedEvents.data;
     },
   },
 };

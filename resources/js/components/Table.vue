@@ -44,17 +44,32 @@
       </tbody>
     </table>
   </div>
+  <div
+    class="mt-3 mx-auto rounded-md overflow-hidden flex justify-center"
+    v-if="this.meta"
+  >
+    <div
+      v-for="meta in this.meta.links"
+      v-bind:key="meta.label"
+      class="px-2 py-1 cursor-pointer hover:bg-slate-500"
+      :class="{ 'bg-slate-600': meta.active, 'bg-slate-700': !meta.active }"
+      v-on:click="$emit('change_page', getPaginationPage(meta.label))"
+    >
+      <span v-html="meta.label"></span>
+    </div>
+  </div>
 </template>
 
 <script>
-import Button from "./Button.vue";
+import LaravelVuePagination from "laravel-vue-pagination";
 
 export default {
-  props: ["columns", "items", "buttonTitle"],
-  name: "Table",
   components: {
-    Button,
+    LaravelVuePagination,
   },
+  props: ["columns", "items", "buttonTitle", "meta"],
+  emits: ["button_clicked", "change_page"],
+  name: "Table",
   methods: {
     formatColumn(data, column) {
       var _class;
@@ -179,6 +194,9 @@ export default {
       }
 
       return column;
+    },
+    getPaginationPage(label) {
+      return xa.getPaginationPage(label);
     },
   },
 };
