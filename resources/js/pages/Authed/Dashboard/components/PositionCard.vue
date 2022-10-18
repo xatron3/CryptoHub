@@ -12,11 +12,21 @@
       :key="item"
       class="grid grid-cols-3 border-b py-0.5 dark:border-slate-600"
     >
-      <span class="col-span-2 flex items-center space-x-1.5">
-        <img :src="item.buy_logo" class="h-4" />
-        <span class="dark:text-gray-200">{{
-          `${nums.formatPrice(item.buy_amount)} ${item.buy_symbol}`
-        }}</span>
+      <span class="col-span-2">
+        <div class="group">
+          <div class="group-hover:hidden flex items-center space-x-1.5">
+            <img :src="item.buy_logo" class="h-4" />
+            <span class="dark:text-gray-200">{{
+              `${nums.formatPrice(item.buy_amount)} ${item.buy_symbol}`
+            }}</span>
+          </div>
+          <span class="hidden group-hover:flex items-center space-x-1.5">
+            <img :src="item.sell_logo" class="h-4" />
+            <span class="dark:text-gray-200">{{
+              `${nums.formatPrice(item.sell_amount)} ${item.sell_symbol}`
+            }}</span>
+          </span>
+        </div>
       </span>
       <span
         class="col-span-1"

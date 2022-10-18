@@ -8,6 +8,7 @@ export async function getAssets(params = {}) {
     params: {
       id: params.id ? params.id : null,
       page: params.page ? params.page : 1,
+      paginate: params.paginate ? params.paginate : null,
     },
   });
 
@@ -35,6 +36,11 @@ export async function getAssets(params = {}) {
     }
   } else {
     data = res.data.data;
+  }
+
+  // Used to limit amout of assets returned
+  if (params.limit !== undefined) {
+    data = data.slice(0, parseInt(params.limit));
   }
 
   let response = {

@@ -43,7 +43,11 @@ export default {
   },
   methods: {
     async getAssetData() {
-      const assetData = await getAssets({ sort_by: "name", page: this.page });
+      const assetData = await getAssets({
+        sort_by: "name",
+        page: this.page,
+        paginate: true,
+      });
 
       this.assets = assetData.data;
       this.meta = assetData.meta;

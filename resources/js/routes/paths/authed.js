@@ -10,7 +10,7 @@ import ProfileSettings from "@/pages/Authed/Profile/Settings/Index.vue";
 
 import Portfolio from "@/pages/Authed/Portfolio/Index.vue";
 
-import Markets from "@/pages/Authed/Markets/Index.vue";
+import Markets from "@/pages/Authed/Markets/overview.vue";
 
 const routes = [
   {

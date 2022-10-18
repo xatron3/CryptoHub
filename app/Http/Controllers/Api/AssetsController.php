@@ -82,6 +82,7 @@ class AssetsController extends Controller
   public function get(Request $request)
   {
     $id = $request->id;
+    $paginate = $request->paginate;
 
     $fileds = ['id', 'name', 'symbol', 'logo', 'coingecko_id'];
 
@@ -91,7 +92,11 @@ class AssetsController extends Controller
       $assets->where('id', $id);
     }
 
-    $assets = $assets->paginate();
+    if ($request->has('paginate')) {
+      $assets = $assets->paginate();
+    } else {
+      $assets = $assets->get();
+    }
 
     return AssetResource::collection($assets);
   }
