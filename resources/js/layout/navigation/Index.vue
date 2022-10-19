@@ -65,7 +65,7 @@ export default {
       return import.meta.env.VITE_APP_NAME;
     },
     showMobileNavigation() {
-      if (this.$store.state.settings.showNavigation) {
+      if (this.$store.state.app.settings.showNavigation) {
         return "w-56";
       } else {
         return "w-0";

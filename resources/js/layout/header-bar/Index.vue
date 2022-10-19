@@ -23,7 +23,7 @@
         >
           <div class="flex flex-col space-y-1 pb-2">
             <div class="w-full font-bold dark:text-white">
-              {{ this.$store.state.user.name }}
+              {{ this.$store.state.user.info.name }}
             </div>
 
             <router-link
@@ -77,7 +77,7 @@ export default {
     },
     logout() {
       localStorage.removeItem("access_token");
-      this.$store.commit("setUser", null);
+      this.$store.commit("user/setUser", {});
       this.$router.push({ name: "Login" });
     },
     showDropDown() {

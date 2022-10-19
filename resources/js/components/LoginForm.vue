@@ -65,7 +65,7 @@ export default {
 
       if (res.data.status === 200) {
         localStorage.setItem("access_token", res.data.access_token);
-        this.$store.dispatch("getUser");
+        await this.$store.dispatch("app/loadAppData");
         this.$router.push({ name: "Dashboard" });
       } else {
         this.toast.error(res.data.message);
