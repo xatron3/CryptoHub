@@ -5,9 +5,7 @@
  * @returns {float}
  */
 const getPercentageIncrease = (numA, numB) => {
-  numA = numA.split(",").join("");
-  numB = numB.split(",").join("");
-
+  console.log(`${numA} | ${numB}`);
   return ((numA - numB) / numB) * 100;
 };
 

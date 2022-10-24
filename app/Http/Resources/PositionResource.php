@@ -29,14 +29,9 @@ class PositionResource extends JsonResource
      */
     public function toArray($request)
     {
-        $buySymbol = strtoupper($this->getAssetData($this->buy_asset_id)->symbol);
-        $sellSymbol = strtoupper($this->getAssetData($this->sell_asset_id)->symbol);
-
         $priceEach = $this->sell_amount / $this->buy_amount;
-        $priceEachFormatted = number_format($priceEach, zeros_after_dot($priceEach));
 
         $currentPriceEach = $this->getAssetMarketData($this->buy_asset_id)->current_price / $this->getAssetMarketData($this->sell_asset_id)->current_price;
-        $currentPriceEachFormatted =  number_format($currentPriceEach, zeros_after_dot($currentPriceEach));
 
         if ($this->profit === null) {
             $this->profit = ($this->buy_amount * $currentPriceEach) - ($this->sell_amount);
@@ -44,14 +39,11 @@ class PositionResource extends JsonResource
 
         return [
             'id' => $this->id,
-            'buy_logo' => $this->getAssetData($this->buy_asset_id)->logo,
-            'buy_symbol' => $buySymbol,
+            'buy_asset_id' => $this->buy_asset_id,
             'buy_amount' => $this->buy_amount,
-            'buy_price' => $priceEachFormatted,
-            'sell_logo' => $this->getAssetData($this->sell_asset_id)->logo,
-            'sell_symbol' => $sellSymbol,
+            'buy_price' => $priceEach,
+            'sell_asset_id' => $this->sell_asset_id,
             'sell_amount' => $this->sell_amount,
-            'current_sell_price' => $currentPriceEachFormatted,
             'close_amount' => $this->close_amount,
             'profit' => $this->profit
         ];

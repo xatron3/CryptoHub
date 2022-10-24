@@ -1,3 +1,5 @@
+import store from "../store/store.js";
+
 /**
  * Get all positions
  * @param {boolean} grouped
@@ -12,6 +14,23 @@ export async function getPosition(params = {}) {
       sell_asset: params.sell_asset ? params.sell_asset : null,
       buy_asset: params.buy_asset ? params.buy_asset : null,
     },
+  });
+
+  // Add data from asset state to position
+  res.data.data.forEach((obj) => {
+    // Buy asset data
+    let buyAssset = store.getters["assets/get"](obj.buy_asset_id);
+    // Sell asset data
+    let sellAsset = store.getters["assets/get"](obj.sell_asset_id);
+
+    // Assign current sell price to position
+    Object.assign(obj, {
+      current_sell_price: buyAssset.current_price / sellAsset.current_price,
+      buy_logo: buyAssset.logo,
+      buy_symbol: buyAssset.symbol,
+      sell_logo: sellAsset.logo,
+      sell_symbol: sellAsset.symbol,
+    });
   });
 
   if (params.sort_by === "profit") {

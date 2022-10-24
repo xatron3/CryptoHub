@@ -1,10 +1,10 @@
 <template>
   <div class="flex space-x-4">
-    <div class="w-full md:w-1/3">
+    <div class="w-full md:w-2/5">
       <h2 class="text-lg font-bold dark:text-white">24h Gainers</h2>
       <Table :items="this.gainers" :columns="columns" />
     </div>
-    <div class="w-full md:w-1/3">
+    <div class="w-full md:w-2/5">
       <h2 class="text-lg font-bold dark:text-white">24h Loosers</h2>
       <Table :items="this.loosers" :columns="columns" />
     </div>
