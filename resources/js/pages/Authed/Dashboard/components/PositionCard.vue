@@ -28,10 +28,7 @@
           </span>
         </div>
       </span>
-      <span
-        class="col-span-1"
-        v-html="getPercentageIncrease(item.current_sell_price, item.buy_price)"
-      ></span>
+      <span class="col-span-1" v-html="getPercentageIncrease(item)"></span>
     </div>
   </div>
 </template>
@@ -49,8 +46,12 @@ export default {
     this.nums = nums;
   },
   methods: {
-    getPercentageIncrease(a, b) {
-      const number = nums.getPercentageIncrease(a, b);
+    getPercentageIncrease(item) {
+      let sellPrice =
+        this.$store.getters["assets/get"](item.buy_asset_id).current_price /
+        this.$store.getters["assets/get"](item.sell_asset_id).current_price;
+
+      const number = nums.getPercentageIncrease(sellPrice, item.buy_price);
       let _class;
 
       if (number === 0) {

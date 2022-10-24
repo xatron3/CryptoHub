@@ -1,10 +1,10 @@
 <template>
   <div class="flex space-x-4">
-    <div class="w-full md:w-1/3">
+    <div class="w-full md:w-2/5">
       <h2 class="text-lg font-bold dark:text-white">24h Gainers</h2>
       <Table :items="this.gainers" :columns="columns" />
     </div>
-    <div class="w-full md:w-1/3">
+    <div class="w-full md:w-2/5">
       <h2 class="text-lg font-bold dark:text-white">24h Loosers</h2>
       <Table :items="this.loosers" :columns="columns" />
     </div>
@@ -12,7 +12,6 @@
 </template>
 
 <script>
-import { getAssets } from "@/services/assets";
 import Table from "@/components/Table.vue";
 
 export default {
@@ -28,27 +27,8 @@ export default {
     };
   },
   async mounted() {
-    this.getUpdatedData();
-
-    setInterval(this.getUpdatedData, 60000);
-  },
-  methods: {
-    async getUpdatedData() {
-      const gainers = await getAssets({
-        sort_by: "price_change",
-        limit: 10,
-      });
-
-      this.gainers = gainers.data;
-
-      const loosers = await getAssets({
-        sort_by: "price_change",
-        sort_order: "desc",
-        limit: 10,
-      });
-
-      this.loosers = loosers.data;
-    },
+    this.gainers = this.$store.getters["assets/gainers"].splice(0, 10);
+    this.loosers = this.$store.getters["assets/loosers"].splice(0, 10);
   },
 };
 </script>

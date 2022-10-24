@@ -1,8 +1,11 @@
 <template>
-  <div class="min-h-screen w-full flex bg-gray-200 dark:bg-gray-800">
-    <Navigation v-if="hasUser"></Navigation>
+  <div
+    class="min-h-screen w-full flex bg-gray-200 dark:bg-gray-800"
+    v-if="this.$store.getters['app/isLoaded']"
+  >
+    <Navigation v-if="this.$store.getters['user/loggedIn']"></Navigation>
     <div class="w-full">
-      <HeaderBar v-if="hasUser"></HeaderBar>
+      <HeaderBar v-if="this.$store.getters['user/loggedIn']"></HeaderBar>
       <router-view class="p-4"></router-view>
     </div>
   </div>
@@ -23,16 +26,11 @@ export default {
     Navigation,
     HeaderBar,
   },
-  computed: {
-    hasUser() {
-      return (
-        this.$store.state.user !== null && this.$store.state.user !== false
-      );
-    },
-  },
   async beforeMount() {
     if (localStorage.getItem("access_token")) {
-      this.$store.dispatch("getUser").then(() => {});
+      await this.$store.dispatch("app/loadAppData");
+    } else {
+      this.$store.commit("app/setLoaded", true);
     }
   },
 };

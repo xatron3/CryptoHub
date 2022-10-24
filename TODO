@@ -1,4 +1,6 @@
 TODO:
+  ✔ Vuex split up files @created(22-10-18 18:29) @done(22-10-25 00:23)
+    https://vuex.vuejs.org/guide/modules.html
   ☐ Implement spatie user roles to user model @created(22-09-14 04:11)
   ☐ Add command page to adminpanel @created(22-10-17 07:37)
     ☐ Make it possible to call price fetch from here @created(22-10-17 07:37)
