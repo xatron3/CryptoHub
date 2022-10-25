@@ -46,7 +46,6 @@ export default {
   async mounted() {
     this.loadAndSortPositions();
     this.loadEvents();
-    setInterval(this.loadAndSortPositions, 60000);
   },
   methods: {
     async loadAndSortPositions() {

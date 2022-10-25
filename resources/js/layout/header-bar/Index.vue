@@ -3,9 +3,13 @@
     class="h-14 bg-gray-100 shadow-sm flex-row flex items-center px-3 dark:bg-gray-700"
   >
     <div class="block md:hidden">
-      <span @click="toggleNavigation"
+      <span @click="this.$store.commit('app/toggleNavigation')"
         ><Bars3Icon class="h-6 dark:text-white text-black"
       /></span>
+    </div>
+
+    <div class="hidden md:block">
+      <UpdateCoingecko />
     </div>
 
     <div class="ml-auto relative">
@@ -56,6 +60,8 @@ import {
   Bars3Icon,
 } from "@heroicons/vue/24/outline";
 
+import UpdateCoingecko from "@/pages/Admin/Commands/commands/update-coingecko.vue";
+
 import { Transition } from "vue";
 
 export default {
@@ -65,6 +71,7 @@ export default {
     UserCircleIcon,
     Transition,
     Bars3Icon,
+    UpdateCoingecko,
   },
   data() {
     return {
@@ -72,9 +79,6 @@ export default {
     };
   },
   methods: {
-    toggleNavigation() {
-      this.$store.commit("toggleNavigation");
-    },
     logout() {
       localStorage.removeItem("access_token");
       this.$store.commit("user/setUser", {});
