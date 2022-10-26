@@ -30,7 +30,6 @@ export default {
   components: { PositionCard, EventCard },
   data() {
     return {
-      symbol: "BITSTAMP:BTCUSD",
       positions: {
         all: null,
         profit: null,
