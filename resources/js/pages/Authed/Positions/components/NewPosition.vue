@@ -1,5 +1,5 @@
 <template>
-  <Modal v-model="show" @closed="$emit('hideModal')" v-if="this.assets">
+  <Modal v-model="show" @closed="$emit('hideModal')">
     <template v-slot:title>New Position</template>
     <div class="space-y-2 mx-auto">
       <div class="grid space-x-2 w-full grid-cols-4 items-end">
@@ -16,7 +16,7 @@
 
         <div class="col-span-1">
           <Select
-            :items="this.assets.data"
+            :items="this.$store.getters['assets/all']"
             :keys="selectKeys"
             v-model="this.newPosition.sell_asset_id"
             :value="this.newPosition.sell_asset_id"
@@ -38,7 +38,7 @@
 
         <div class="col-span-1">
           <Select
-            :items="this.assets.data"
+            :items="this.$store.getters['assets/all']"
             :keys="selectKeys"
             v-model="this.newPosition.buy_asset_id"
             :value="this.newPosition.buy_asset_id"
@@ -59,7 +59,6 @@
 </template>
 
 <script>
-import { getAssets } from "@/services/assets";
 import { addPosition } from "@/services/positions";
 import { useToast } from "vue-toastification";
 
@@ -75,7 +74,6 @@ export default {
   data() {
     return {
       selectKeys: ["id", "symbol"],
-      assets: null,
       newPosition: {
         buy_amount: null,
         buy_asset_id: null,
@@ -83,9 +81,6 @@ export default {
         sell_asset_id: null,
       },
     };
-  },
-  async mounted() {
-    this.assets = await getAssets();
   },
   methods: {
     async addPosition() {
