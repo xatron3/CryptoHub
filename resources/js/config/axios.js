@@ -11,6 +11,7 @@ axios.interceptors.request.use(
     return config;
   },
   (error) => {
+    alert(error);
     return error;
   }
 );
