@@ -13,13 +13,13 @@
 
     <div
       v-if="this.coins.length > 0"
-      class="h-40 overflow-y-scroll w-full z-10 absolute overflow-x-hidden rounded-md bg-gray-100 dark:bg-slate-500 dark:text-white p-2"
+      class="h-40 overflow-y-scroll w-full z-10 absolute overflow-x-hidden rounded-md bg-gray-100 dark:bg-gray-500 dark:text-white p-2"
     >
       <div
         v-for="coin in this.coins"
         v-bind:key="coin.id"
         @click="setCoingeckoId(coin.id)"
-        class="hover:bg-gray-300 dark:hover:bg-slate-700 cursor-pointer py-0.5 pl-1 rounded-md"
+        class="hover:bg-gray-300 dark:hover:bg-gray-700 cursor-pointer py-0.5 pl-1 rounded-md"
       >
         {{ coin.name }} ({{ coin.symbol }})
       </div>

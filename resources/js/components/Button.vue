@@ -10,7 +10,7 @@ export default {
   name: "Button",
   computed: {
     bgColor() {
-      return "bg-green-500 text-white hover:bg-green-600";
+      return "bg-green-500 text-white hover:bg-green-600 transition-all";
     },
   },
 };

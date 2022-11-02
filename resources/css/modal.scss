@@ -7,7 +7,7 @@
   .vfm__content {
     position: relative;
     width: 100%;
-    max-width: theme('maxWidth.lg');
+    max-width: theme("maxWidth.lg");
     height: auto;
     max-height: 800px;
     padding: 16px;
@@ -28,15 +28,13 @@
     margin: 8px 8px 0 0;
     cursor: pointer;
   }
-
-  
 }
 
 .dark {
   .vfm__container {
     .vfm__content {
       --tw-bg-opacity: 1;
-      background-color: rgb(51 65 85 / var(--tw-bg-opacity));
+      background-color: rgb(26 27 30 / var(--tw-bg-opacity));
     }
   }
 }

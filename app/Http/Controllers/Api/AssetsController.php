@@ -82,7 +82,6 @@ class AssetsController extends Controller
   public function get(Request $request)
   {
     $id = $request->id;
-    $paginate = $request->paginate;
 
     $fileds = ['id', 'name', 'symbol', 'logo', 'coingecko_id'];
 

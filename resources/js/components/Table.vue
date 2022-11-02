@@ -25,8 +25,8 @@
             :key="indexColumn"
             class="py-3 px-6 text-left whitespace-nowrap"
             :class="{
-              'bg-gray-100 dark:bg-slate-800': index % 2 === 0,
-              'bg-white dark:bg-slate-700': index % 2 !== 0,
+              'bg-gray-100 dark:bg-gray-800': index % 2 === 0,
+              'bg-white dark:bg-gray-700': index % 2 !== 0,
             }"
           >
             <div v-if="column === 'button'">
@@ -51,8 +51,11 @@
     <div
       v-for="meta in this.meta.links"
       v-bind:key="meta.label"
-      class="px-2 py-1 cursor-pointer hover:bg-slate-500"
-      :class="{ 'bg-slate-600': meta.active, 'bg-slate-700': !meta.active }"
+      class="px-2 py-1 cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-900 transition-all"
+      :class="{
+        'bg-gray-200 dark:bg-gray-600': meta.active,
+        'bg-gray-100 dark:bg-gray-700': !meta.active,
+      }"
       v-on:click="$emit('change_page', getPaginationPage(meta.label))"
     >
       <span v-html="meta.label"></span>
@@ -123,17 +126,34 @@ export default {
           _class = "text-red-500";
         }
 
-        return `<div class="flex space-x-1 items-center"><img src="${
-          data["sell_logo"]
-        }" class="w-5 h-5"> <span class="${_class}">${nums.formatPrice(
-          data[column],
-          2
-        )} ${data["sell_symbol"]}</span> <span class="text-xs">(${parseFloat(
-          nums.getPercentageIncrease(
-            data["current_sell_price"],
-            data["buy_price"]
-          )
-        ).toFixed(2)}%)</span></div>`;
+        if (data["close_amount"] === null) {
+          return `<div class="flex space-x-1 items-center"><img src="${
+            data["sell_logo"]
+          }" class="w-5 h-5"> <span class="${_class}">${nums.formatPrice(
+            data[column],
+            2
+          )} ${data["sell_symbol"]}</span> 
+          <span class="text-xs">
+            (${parseFloat(
+              nums.getPercentageIncrease(
+                data["current_sell_price"],
+                data["buy_price"]
+              )
+            ).toFixed(2)}%)
+            </span>
+            </div>`;
+        } else {
+          return `<div class="flex space-x-1 items-center"><img src="${
+            data["sell_logo"]
+          }" class="w-5 h-5"> <span class="${_class}">${nums.formatPrice(
+            data[column],
+            2
+          )} ${data["sell_symbol"]}</span> 
+          <span class="text-xs">
+           
+            </span>
+            </div>`;
+        }
       }
 
       if (column === "buy_price") {
