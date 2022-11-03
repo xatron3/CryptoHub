@@ -17,7 +17,7 @@ export async function getUser() {
   let res = await axios.get("/api/user");
   let user;
 
-  if (res.status === 200) {
+  if (res.data.hasOwnProperty("data")) {
     user = res.data.data[0];
   } else {
     user = undefined;
