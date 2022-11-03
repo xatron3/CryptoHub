@@ -15,8 +15,12 @@ export async function auth(data) {
 
 export async function getUser() {
   let res = await axios.get("/api/user");
+  let user;
 
-  let user = res.data.data[0];
-
+  if (res.status === 200) {
+    user = res.data.data[0];
+  } else {
+    user = undefined;
+  }
   return user;
 }
