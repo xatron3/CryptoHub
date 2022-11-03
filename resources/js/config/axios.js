@@ -27,6 +27,21 @@ axios.interceptors.response.use(
 
     const originalRequest = config;
 
+    console.log(data.message);
+
+    if (data.status === 500) {
+      localStorage.removeItem("access_token");
+    }
+
+    if (
+      data.message === "Token has expired and can no longer be refreshed" ||
+      data.message === "The token has been blacklisted"
+    ) {
+      // TODO: Send to login page if this happens
+      // Maybe just check for data.status if its 500 send to login and remove access_token.
+      localStorage.removeItem("access_token");
+    }
+
     if (status === 401 && data.message == "Token Expired") {
       localStorage.setItem("access_token", data.token);
 

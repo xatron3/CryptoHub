@@ -22,7 +22,7 @@
 
       <Transition>
         <div
-          class="absolute right-0 top-8 shadow-md rounded-md bg-slate-100 dark:bg-slate-800 z-50 p-2 w-52 text-center"
+          class="absolute right-0 top-8 shadow-md rounded-md bg-gray-100 dark:bg-gray-800 z-50 p-2 w-52 text-center"
           v-if="this._showDropDown"
         >
           <div class="flex flex-col space-y-1 pb-2">

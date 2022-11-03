@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col rounded-md bg-slate-300 dark:bg-slate-700 px-2 md:px-4 py-2"
+    class="flex flex-col rounded-md bg-gray-100 dark:bg-gray-700 px-2 md:px-4 py-2"
   >
     <h2 class="text-2xl dark:text-gray-100">{{ this.title }}</h2>
     <div class="grid grid-cols-1">
@@ -10,17 +10,19 @@
     <div
       v-for="item in positions"
       :key="item"
-      class="grid grid-cols-3 border-b py-0.5 dark:border-slate-600"
+      class="grid grid-cols-3 border-b py-0.5 dark:border-gray-600"
     >
       <span class="col-span-2">
         <div class="group">
-          <div class="group-hover:hidden flex items-center space-x-1.5">
+          <div class="flex group-hover:hidden items-center space-x-1.5">
             <img :src="item.buy_logo" class="h-4" />
             <span class="dark:text-gray-200">{{
               `${item.buy_amount} ${item.buy_symbol}`
             }}</span>
           </div>
-          <span class="hidden group-hover:flex items-center space-x-1.5">
+          <span
+            class="hidden group-hover:flex group-hover:opacity-100 items-center space-x-1.5"
+          >
             <img :src="item.sell_logo" class="h-4" />
             <span class="dark:text-gray-200">{{
               `${item.sell_amount} ${item.sell_symbol}`

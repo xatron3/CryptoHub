@@ -25,7 +25,7 @@ export default {
   },
   data() {
     return {
-      key_columns: ["sell_amount", "buy_amount", "close_amount", "profit"],
+      key_columns: ["sell_amount", "buy_amount", "profit"],
       closed_positions: null,
       filter: {
         closed: true,

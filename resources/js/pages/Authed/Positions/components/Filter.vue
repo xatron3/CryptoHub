@@ -15,7 +15,7 @@
       <p class="text-black dark:text-white uppercase text-xs">Sell Asset</p>
       <Select
         startValue="te"
-        :items="this.assets"
+        :items="this.$store.getters['assets/all']"
         :keys="selectKeys"
         v-model="this.sell_asset"
         :value="this.sell_asset"
@@ -27,7 +27,7 @@
     <div class="flex flex-col space-y-1">
       <p class="text-black dark:text-white uppercase text-xs">Buy Asset</p>
       <Select
-        :items="this.assets"
+        :items="this.$store.getters['assets/all']"
         :keys="selectKeys"
         v-model="this.buy_asset"
         :value="this.buy_asset"
@@ -39,22 +39,14 @@
 </template>
 
 <script>
-import { getAssets } from "@/services/assets";
-
 export default {
   name: "Filter",
   data() {
     return {
-      assets: null,
       sell_asset: null,
       buy_asset: null,
       selectKeys: ["symbol", "symbol"],
     };
-  },
-  async mounted() {
-    const assets = await getAssets({ sort_by: "name" });
-
-    this.assets = assets.data;
   },
 };
 </script>

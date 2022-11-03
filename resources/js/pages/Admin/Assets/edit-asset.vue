@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-xl" v-if="this.asset !== null">
+  <div class="max-w-xl" v-if="this.asset">
     <div class="space-y-2 flex flex-col">
       <div class="grid grid-cols-2 space-x-2">
         <Input
@@ -93,9 +93,6 @@ export default {
     this.asset = asset.data[0];
   },
   methods: {
-    setCoingeckoId(data) {
-      this.assetData.coingecko_id = data;
-    },
     async updateAsset() {
       var res = await updateAsset(this.asset);
 

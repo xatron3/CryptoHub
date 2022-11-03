@@ -1,6 +1,6 @@
 <template>
   <div
-    class="min-h-screen w-full flex bg-gray-200 dark:bg-gray-800"
+    class="min-h-screen w-full flex bg-gray-50 dark:bg-gray-800"
     v-if="this.$store.getters['app/isLoaded']"
   >
     <Navigation v-if="this.$store.getters['user/loggedIn']"></Navigation>
