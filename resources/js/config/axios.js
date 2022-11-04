@@ -27,17 +27,13 @@ axios.interceptors.response.use(
 
     const originalRequest = config;
 
-    console.log(data.message);
-
-    if (data.status === 500) {
-      localStorage.removeItem("access_token");
-    }
-
     if (
       data.message === "Token has expired and can no longer be refreshed" ||
-      data.message === "The token has been blacklisted"
+      data.message === "The token has been blacklisted" ||
+      data.message === "Server Error"
     ) {
       // TODO: Send to login page if this happens
+      // TODO: Remove "Server Error" just temp fix to fix production bug with getting user when token is blacklisted
       // Maybe just check for data.status if its 500 send to login and remove access_token.
       localStorage.removeItem("access_token");
     }
