@@ -7,7 +7,12 @@
       <div class="flex">
         <Filter @filterChange="updateFilter"></Filter>
 
-        <div class="ml-auto">
+        <div class="ml-auto space-x-2">
+          <Button
+            title="Export"
+            class="bg-yellow-600 hover:bg-yellow-700"
+            @click="this.showExportModal = true"
+          />
           <Button title="Add New" @click="this.showPositionModal = true" />
         </div>
       </div>
@@ -22,7 +27,7 @@
     </div>
 
     <!-- Close Modal -->
-    <ClosePosition
+    <ClosePositionModal
       :show="this.showClosePositionModal"
       :id="this.closeId"
       @hideModal="this.showClosePositionModal = false"
@@ -35,6 +40,13 @@
       @hideModal="this.showPositionModal = false"
       @refreshPositions="refreshPositions"
     />
+
+    <!-- Export Modal -->
+    <ExportModal
+      :show="this.showExportModal"
+      :jsonData="this.active_positions"
+      @hideModal="this.showExportModal = false"
+    />
   </div>
 </template>
 
@@ -43,9 +55,9 @@ import Table from "@/components/Table.vue";
 
 import Filter from "./components/Filter.vue";
 import NewPosition from "./components/NewPosition.vue";
-import ClosePosition from "./components/ClosePosition.vue";
 
-import { getPosition } from "@/services/positions";
+import ClosePositionModal from "./components/ClosePositionModal.vue";
+import ExportModal from "./components/ExportModal.vue";
 
 import { useToast } from "vue-toastification";
 
@@ -55,7 +67,8 @@ export default {
     Table,
     Filter,
     NewPosition,
-    ClosePosition,
+    ClosePositionModal,
+    ExportModal,
   },
   setup() {
     // Get toast interface
@@ -73,6 +86,7 @@ export default {
       },
       showPositionModal: false,
       showClosePositionModal: false,
+      showExportModal: false,
       closeId: 0,
     };
   },
