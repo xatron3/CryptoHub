@@ -11,6 +11,9 @@ use App\Models\Asset;
 
 class PositionsController extends Controller
 {
+  /**
+   * Store new position
+   */
   public function store(Request $request)
   {
     $position = new ActivePosition();
@@ -24,6 +27,9 @@ class PositionsController extends Controller
     return response()->json(['message' => 'Position was stored.'], 200);
   }
 
+  /**
+   * Close open position
+   */
   public function closePosition(Request $request)
   {
     $position_id = $request->id;
@@ -35,6 +41,9 @@ class PositionsController extends Controller
     return response()->json(['message' => 'Position was closed.'], 200);
   }
 
+  /**
+   * Get all positions
+   */
   public function getAll(Request $request)
   {
     $user_id = $request->user()->id;
@@ -94,5 +103,40 @@ class PositionsController extends Controller
     $positions = $positions->get();
 
     return PositionResource::collection($positions);
+  }
+
+  /**
+   * Import positions that got exported. 
+   */
+  public function importPositions(Request $request)
+  {
+    if ($request->has('import_data')) {
+      $import_data = json_decode($request->import_data);
+
+      if (!empty($import_data)) {
+        $import_amount = count($import_data);
+
+        foreach ($import_data as $data) {
+          $buy_asset = Asset::where('symbol', $data->buy_asset_symbol)->first();
+          $sell_asset = Asset::where('symbol', $data->sell_asset_symbol)->first();
+
+          if ($buy_asset) {
+            $position = new ActivePosition();
+            $position->user_id = $request->user()->id;
+            $position->buy_asset_id = $buy_asset->id;
+            $position->sell_asset_id = $sell_asset->id;
+            $position->buy_amount = $data->buy_amount;
+            $position->sell_amount = $data->sell_amount;
+            $position->save();
+          }
+        }
+      } else {
+        $import_data = response()->json(['message' => 'import_data can\'t be empty.', 'status' => 400], 200);
+      }
+    } else {
+      $import_data = response()->json(['message' => 'Please enter valid import_data', 'status' => 400], 200);
+    }
+
+    return $import_data;
   }
 }

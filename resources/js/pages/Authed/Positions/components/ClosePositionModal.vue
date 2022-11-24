@@ -26,7 +26,7 @@ import { closePosition } from "@/services/positions";
 
 export default {
   props: ["show", "id"],
-  name: "ClosePosition",
+  name: "ClosePositionModal",
   setup() {
     // Get toast interface
     const toast = useToast();

@@ -29,9 +29,19 @@ class PositionResource extends JsonResource
      */
     public function toArray($request)
     {
+        if ($request->has('kuk')) {
+            return 'kuj';
+        }
+
         $priceEach = $this->sell_amount / $this->buy_amount;
 
-        $currentPriceEach = $this->getAssetMarketData($this->buy_asset_id)->current_price / $this->getAssetMarketData($this->sell_asset_id)->current_price;
+        $buyAssetMarketData = $this->getAssetMarketData($this->buy_asset_id);
+        $buyAssetData = $this->getAssetData($this->buy_asset_id);
+
+        $sellAssetMarketData = $this->getAssetMarketData($this->sell_asset_id);
+        $sellAssetData = $this->getAssetData($this->sell_asset_id);
+
+        $currentPriceEach = $buyAssetMarketData->current_price / $sellAssetMarketData->current_price;
 
         if ($this->profit === null) {
             $this->profit = ($this->buy_amount * $currentPriceEach) - ($this->sell_amount);
@@ -40,9 +50,11 @@ class PositionResource extends JsonResource
         return [
             'id' => $this->id,
             'buy_asset_id' => $this->buy_asset_id,
+            'buy_asset_symbol' => $buyAssetData->symbol,
             'buy_amount' => $this->buy_amount,
             'buy_price' => $priceEach,
             'sell_asset_id' => $this->sell_asset_id,
+            'sell_asset_symbol' => $sellAssetData->symbol,
             'sell_amount' => $this->sell_amount,
             'close_amount' => $this->close_amount,
             'profit' => $this->profit
