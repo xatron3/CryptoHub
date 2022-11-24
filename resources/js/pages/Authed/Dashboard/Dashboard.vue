@@ -7,8 +7,16 @@
       <div
         class="grid grid-cols-1 mt-4 space-y-2 space-x-0 md:grid-cols-2 md:space-y-0 md:space-x-4 xl:grid-cols-4"
       >
-        <PositionCard :positions="this.positions.losses" title="Losses" />
-        <PositionCard :positions="this.positions.profit" title="Profit" />
+        <PositionCard
+          :positions="this.$store.getters['user/losingPositions']"
+          title="Losses"
+          v-if="this.$store.getters['user/losingPositions']"
+        />
+        <PositionCard
+          :positions="this.$store.getters['user/profitPositions']"
+          title="Profit"
+          v-if="this.$store.getters['user/profitPositions']"
+        />
         <EventCard :events="this.events.upcoming" title="Upcoming Events" />
         <EventCard :events="this.events.passed" title="Passed Events" />
       </div>
@@ -43,27 +51,9 @@ export default {
     };
   },
   async mounted() {
-    this.loadAndSortPositions();
     this.loadEvents();
   },
   methods: {
-    async loadAndSortPositions() {
-      this.positions.all = await getPosition({
-        grouped: true,
-        sort_by: "profit",
-      });
-
-      this.positions.profit = this.positions.all.filter((item) => {
-        return item.current_sell_price >= item.buy_price;
-      });
-
-      this.positions.losses = this.positions.all.filter((item) => {
-        return item.current_sell_price < item.buy_price;
-      });
-
-      const today = new Date();
-      this.lastUpdated = `${today.getHours()}:${today.getMinutes()}:${today.getSeconds()}`;
-    },
     async loadEvents() {
       const upcomingEvents = await getEvents({ limit: 6, passed: false });
       this.events.upcoming = upcomingEvents.data;

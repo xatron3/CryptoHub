@@ -100,7 +100,7 @@ export default {
   },
   methods: {
     async refreshPositions() {
-      this.active_positions = await getPosition(this.filter);
+      this.active_positions = await this.$store.getters["user/allPositions"];
     },
     showClosePosition(data) {
       this.showClosePositionModal = true;

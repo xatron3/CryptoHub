@@ -1,16 +1,25 @@
 import { getUser } from "../../services/auth";
+import { getPosition } from "../../services/positions";
 
 const user = {
   namespaced: true,
   state: () => ({
     info: {},
+    positions: {},
   }),
   mutations: {
     setUser(state, userInfo) {
       state.info = userInfo;
     },
+    setPositions(state, data) {
+      state.positions = data;
+    },
   },
   actions: {
+    async getUserData({ dispatch }) {
+      await dispatch("getUser");
+      await dispatch("getPositions");
+    },
     getUser(context, data) {
       return new Promise(async (resolve, reject) => {
         if (localStorage.getItem("access_token")) {
@@ -32,6 +41,11 @@ const user = {
         }
       });
     },
+    async getPositions(context, data) {
+      const res = await getPosition();
+
+      context.commit("setPositions", res);
+    },
   },
   getters: {
     loggedIn(state, getters) {
@@ -44,6 +58,45 @@ const user = {
         Object.keys(state.info).length !== 0 ? state.info.is_admin : 0;
 
       return isAdmin;
+    },
+    losingPositions: (state) =>
+      [...state.positions]
+        .filter((item) => {
+          return item.current_sell_price < item.buy_price;
+        })
+        .sort(function (a, b) {
+          const aPNL = nums.getPercentageIncrease(
+            a.current_sell_price,
+            a.buy_price
+          );
+
+          const bPNL = nums.getPercentageIncrease(
+            b.current_sell_price,
+            b.buy_price
+          );
+
+          return bPNL - aPNL;
+        }),
+    profitPositions: (state) =>
+      [...state.positions]
+        .filter((item) => {
+          return item.current_sell_price >= item.buy_price;
+        })
+        .sort(function (a, b) {
+          const aPNL = nums.getPercentageIncrease(
+            a.current_sell_price,
+            a.buy_price
+          );
+
+          const bPNL = nums.getPercentageIncrease(
+            b.current_sell_price,
+            b.buy_price
+          );
+
+          return bPNL - aPNL;
+        }),
+    allPositions(state, getters) {
+      return state.positions;
     },
   },
 };

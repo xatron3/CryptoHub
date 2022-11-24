@@ -17,7 +17,7 @@
           <div class="flex group-hover:hidden items-center space-x-1.5">
             <img :src="item.buy_logo" class="h-4" />
             <span class="dark:text-gray-200">{{
-              `${nums.formatPrice(item.buy_amount)} ${item.buy_symbol}`
+              `${item.buy_amount} ${item.buy_symbol}`
             }}</span>
           </div>
           <span
@@ -25,7 +25,7 @@
           >
             <img :src="item.sell_logo" class="h-4" />
             <span class="dark:text-gray-200">{{
-              `${nums.formatPrice(item.sell_amount)} ${item.sell_symbol}`
+              `${item.sell_amount} ${item.sell_symbol}`
             }}</span>
           </span>
         </div>
@@ -39,14 +39,6 @@
 export default {
   props: ["positions", "title"],
   name: "PositionCard",
-  data() {
-    return {
-      nums: null,
-    };
-  },
-  mounted() {
-    this.nums = nums;
-  },
   methods: {
     getPercentageIncrease(item) {
       let sellPrice =
