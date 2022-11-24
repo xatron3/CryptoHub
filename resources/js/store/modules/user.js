@@ -95,6 +95,9 @@ const user = {
 
           return bPNL - aPNL;
         }),
+    allPositions(state, getters) {
+      return state.positions;
+    },
   },
 };
 

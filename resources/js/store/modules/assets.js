@@ -15,7 +15,6 @@ const assets = {
       const assets = await getAssets();
 
       context.commit("setAssets", assets.data);
-      console.log("T");
     },
   },
   getters: {
