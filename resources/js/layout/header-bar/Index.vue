@@ -8,7 +8,7 @@
       /></span>
     </div>
 
-    <div class="hidden md:block">
+    <div class="hidden md:block" v-if="this.$store.getters['user/isAdmin']">
       <UpdateCoingecko />
     </div>
 

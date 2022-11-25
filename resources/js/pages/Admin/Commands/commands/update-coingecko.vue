@@ -24,6 +24,7 @@ export default {
     async updateCoingeckoPrice() {
       await updateCoingeckoPrice();
       await this.$store.dispatch("assets/load");
+      await this.$store.dispatch("user/getPositions");
       this.toast.success("Coingecko price updated");
     },
   },

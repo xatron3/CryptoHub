@@ -43,6 +43,7 @@ const user = {
     },
     async getPositions(context, data) {
       const res = await getPosition();
+      console.log('"sss');
 
       context.commit("setPositions", res);
     },
