@@ -82,7 +82,9 @@ export default {
       }
 
       if (column === "name") {
-        return `<div class="flex space-x-1 items-center"><img src="${data["logo"]}" class="w-7 h-7"> <span>${data[column]}</span></div>`;
+        if (data["logo"]) {
+          return `<div class="flex space-x-1 items-center"><img src="${data["logo"]}" class="w-7 h-7"> <span>${data[column]}</span></div>`;
+        }
       }
 
       if (column === "sell_amount") {

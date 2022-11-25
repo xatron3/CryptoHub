@@ -1,6 +1,4 @@
 import { createStore } from "vuex";
-import { getUser } from "../services/auth";
-import { router } from "../routes/index";
 
 import assets from "./modules/assets";
 import user from "./modules/user";

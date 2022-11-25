@@ -47,21 +47,6 @@ class User extends Authenticatable implements JWTSubject
         'email_verified_at' => 'datetime',
     ];
 
-    protected $appends = ['is_admin'];
-
-    protected function isAdmin(): Attribute
-    {
-        if ($this->id === 1) {
-            $admin = 1;
-        } else {
-            $admin = 0;
-        }
-
-        return new Attribute(
-            get: fn () => $admin,
-        );
-    }
-
     public function getJWTIdentifier()
     {
         return $this->getKey();

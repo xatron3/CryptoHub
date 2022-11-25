@@ -6,7 +6,7 @@ import Dashboard from "@/pages/Authed/Dashboard/Dashboard.vue";
 import ActivePositions from "@/pages/Authed/Positions/active-positions.vue";
 import ClosedPositions from "@/pages/Authed/Positions/closed-positions.vue";
 
-import ProfileSettings from "@/pages/Authed/Profile/Settings/Index.vue";
+import ProfileSettings from "@/pages/Authed/Profile/Settings/all-settings.vue";
 
 import Portfolio from "@/pages/Authed/Portfolio/Index.vue";
 

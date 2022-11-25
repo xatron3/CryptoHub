@@ -21,7 +21,7 @@
         <EventCard :events="this.events.passed" title="Passed Events" />
       </div>
 
-      <div class="flex">Wo</div>
+      <div class="flex">-</div>
     </div>
   </div>
 </template>

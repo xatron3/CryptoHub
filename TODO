@@ -16,6 +16,7 @@ TODO:
       ☐ Platform @created(22-09-23 03:17)
   ☐ Position State @created(22-11-01 04:01)
     ☐ Make sure you can get them grouped @created(22-11-01 04:01)
+      Strated with something small: https://playcode.io/1019797
   
 BUGS:
   ☐ Get asset from storage with route id in edit asset is not working @created(22-10-14 15:16)

@@ -8,6 +8,9 @@
     <NavigationLink path="/admin/assets/" title="All Assets"></NavigationLink>
     <NavigationLink path="/admin/assets/new" title="New Asset"></NavigationLink>
 
+    <NavigationHeader title="Users" />
+    <NavigationLink path="/admin/users/" title="Users"></NavigationLink>
+
     <NavigationHeader title="Events" />
     <NavigationLink path="/admin/events/" title="Events"></NavigationLink>
   </div>

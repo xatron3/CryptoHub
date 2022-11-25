@@ -82,19 +82,6 @@ class AuthController extends Controller
   }
 
   /**
-   * getUser
-   *
-   * @param  mixed $request
-   * @return void
-   */
-  public function getUser(Request $request)
-  {
-    $user = User::where('id', $request->user()->id)->get();
-
-    return UserResource::collection($user);
-  }
-
-  /**
    * refresh
    *
    * @return void

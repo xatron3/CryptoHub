@@ -1,0 +1,42 @@
+import store from "../store/store.js";
+
+export async function getUser() {
+  let res = await axios.get("/api/user");
+  let user;
+
+  if (res.data.hasOwnProperty("data")) {
+    user = res.data.data[0];
+  } else {
+    user = undefined;
+  }
+  return user;
+}
+
+export async function allUsers() {
+  let res = await axios.get("/api/users");
+  let user;
+
+  if (res.data.hasOwnProperty("data")) {
+    user = res.data.data;
+  } else {
+    user = undefined;
+  }
+  return user;
+}
+
+export async function updateUser(data) {
+  if (!data.name) {
+    return "Please fill all fields";
+  }
+
+  let res = await axios.post("/api/user/update", data);
+  let user;
+
+  if (res.data.hasOwnProperty("data")) {
+    user = res.data.data[0];
+  }
+
+  store.commit("user/setUser", user);
+
+  return res.data;
+}

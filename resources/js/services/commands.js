@@ -3,7 +3,7 @@
  * @returns {array} result
  */
 export async function updateCoingeckoPrice() {
-  let res = await axios.post("/api/price/coingecko");
+  let res = await axios.post("/api/commands/price/coingecko");
 
   return res;
 }

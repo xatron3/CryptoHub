@@ -1,4 +1,4 @@
-import { getUser } from "../../services/auth";
+import { getUser } from "../../services/user";
 import { getPosition } from "../../services/positions";
 
 const user = {
@@ -9,6 +9,7 @@ const user = {
   }),
   mutations: {
     setUser(state, userInfo) {
+      console.log(userInfo);
       state.info = userInfo;
     },
     setPositions(state, data) {
@@ -43,12 +44,14 @@ const user = {
     },
     async getPositions(context, data) {
       const res = await getPosition();
-      console.log('"sss');
 
       context.commit("setPositions", res);
     },
   },
   getters: {
+    userData(state, getters) {
+      return state.info;
+    },
     loggedIn(state, getters) {
       const loggedIn = Object.keys(state.info).length !== 0 ? true : false;
 

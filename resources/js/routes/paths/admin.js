@@ -2,7 +2,11 @@
 import admin from "../middleware/admin";
 
 // Pages
-import Events from "@/pages/Admin/Events/all-events.vue";
+import AllEvents from "@/pages/Admin/Events/all-events.vue";
+
+// Users
+import AllUsers from "@/pages/Admin/Users/all-users.vue";
+import AllRoles from "@/pages/Admin/Users/Permissions/all-roles.vue";
 
 // Assets
 import Assets from "@/pages/Admin/Assets/all-assets.vue";
@@ -34,13 +38,25 @@ const routes = [
   {
     path: "/admin/events",
     name: "Events",
-    component: Events,
+    component: AllEvents,
     beforeEnter: admin,
   },
   {
     path: "/admin/commands",
     name: "Commands",
     component: Commands,
+    beforeEnter: admin,
+  },
+  {
+    path: "/admin/users",
+    name: "Users",
+    component: AllUsers,
+    beforeEnter: admin,
+  },
+  {
+    path: "/admin/users/roles",
+    name: "User Roles",
+    component: AllRoles,
     beforeEnter: admin,
   },
 ];
