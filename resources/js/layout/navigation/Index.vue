@@ -32,18 +32,19 @@
               icon="BriefcaseIconOutlined"
             ></NavigationLink>
 
-            <NavigationHeader title="TRADES" />
-            <NavigationLink
-              path="/positions/active"
-              title="Active Positions"
-              icon="BriefcaseIconOutlined"
-            ></NavigationLink>
-            <NavigationLink
-              path="/positions/closed"
-              title="Closed Positions"
-              icon="BriefcaseIcon"
-            ></NavigationLink>
-
+            <div v-if="this.$store.getters['user/userRole'] >= 10">
+              <NavigationHeader title="TRADES" />
+              <NavigationLink
+                path="/positions/active"
+                title="Active Positions"
+                icon="BriefcaseIconOutlined"
+              ></NavigationLink>
+              <NavigationLink
+                path="/positions/closed"
+                title="Closed Positions"
+                icon="BriefcaseIcon"
+              ></NavigationLink>
+            </div>
             <AdminLinks />
           </div>
         </div>

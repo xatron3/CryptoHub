@@ -6,6 +6,7 @@ const user = {
   state: () => ({
     info: {},
     positions: {},
+    positionGrouped: false,
   }),
   mutations: {
     setUser(state, userInfo) {
@@ -14,6 +15,9 @@ const user = {
     },
     setPositions(state, data) {
       state.positions = data;
+    },
+    setPositionsGrouped(state, data) {
+      state.positionGrouped = data;
     },
   },
   actions: {
@@ -43,14 +47,21 @@ const user = {
       });
     },
     async getPositions(context, data) {
-      const res = await getPosition();
+      const res = await getPosition({ grouped: context.state.positionGrouped });
 
       context.commit("setPositions", res);
+    },
+    async updatePositions(context, data) {
+      context.commit("setPositionsGrouped", data);
+      await context.dispatch("getPositions");
     },
   },
   getters: {
     userData(state, getters) {
       return state.info;
+    },
+    userRole(state, getters) {
+      return state.info.permission.level;
     },
     loggedIn(state, getters) {
       const loggedIn = Object.keys(state.info).length !== 0 ? true : false;
@@ -59,7 +70,7 @@ const user = {
     },
     isAdmin(state, getters) {
       const isAdmin =
-        Object.keys(state.info).length !== 0 ? state.info.is_admin : 0;
+        Object.keys(state.info).length !== 0 ? state.info.role : 0;
 
       return isAdmin;
     },

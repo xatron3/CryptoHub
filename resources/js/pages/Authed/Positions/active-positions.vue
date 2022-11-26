@@ -79,24 +79,18 @@ export default {
   data() {
     return {
       active_positions: null,
-      filter: {
-        grouped: true,
-        sell_asset: null,
-        sort_by: "profit",
-      },
       showPositionModal: false,
       showClosePositionModal: false,
       showExportModal: false,
       closeId: 0,
+      grouped: false,
     };
   },
   computed: {
     keyColumns() {
       let columns;
 
-      if (this.filter.grouped) {
-        columns = ["sell_amount", "buy_amount", "buy_price", "profit"];
-      } else {
+      if (!this.grouped) {
         columns = [
           "sell_amount",
           "buy_amount",
@@ -104,6 +98,8 @@ export default {
           "profit",
           "button",
         ];
+      } else {
+        columns = ["sell_amount", "buy_amount", "buy_price", "profit"];
       }
 
       return columns;
@@ -122,9 +118,11 @@ export default {
     },
     async updateFilter(data) {
       if (data.id === 1) {
-        this.filter.grouped = true;
+        await this.$store.dispatch("user/updatePositions", true);
+        this.grouped = true;
       } else if (data.id === 2) {
-        this.filter.grouped = false;
+        await this.$store.dispatch("user/updatePositions", false);
+        this.grouped = false;
       } else if (data.id === 3) {
         this.filter.sell_asset = data.asset;
       } else if (data.id === 4) {

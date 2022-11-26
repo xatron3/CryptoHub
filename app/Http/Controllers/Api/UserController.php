@@ -31,7 +31,11 @@ class UserController extends Controller
    */
   public function getUser(Request $request)
   {
-    $user = User::where('id', $request->user()->id)->get();
+    if ($request->has('id')) {
+      $user = User::where('id', $request->id)->get();
+    } else {
+      $user = User::where('id', $request->user()->id)->get();
+    }
 
     return UserResource::collection($user);
   }

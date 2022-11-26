@@ -6,7 +6,11 @@ import AllEvents from "@/pages/Admin/Events/all-events.vue";
 
 // Users
 import AllUsers from "@/pages/Admin/Users/all-users.vue";
+import NewUser from "@/pages/Admin/Users/new-user.vue";
+import EditUser from "@/pages/Admin/Users/edit-user.vue";
+
 import AllRoles from "@/pages/Admin/Users/Permissions/all-roles.vue";
+import NewRole from "@/pages/Admin/Users/Permissions/new.vue";
 
 // Assets
 import Assets from "@/pages/Admin/Assets/all-assets.vue";
@@ -48,15 +52,33 @@ const routes = [
     beforeEnter: admin,
   },
   {
+    path: "/admin/users/:id",
+    name: "Edit Users",
+    component: EditUser,
+    beforeEnter: admin,
+  },
+  {
     path: "/admin/users",
     name: "Users",
     component: AllUsers,
     beforeEnter: admin,
   },
   {
+    path: "/admin/users/new",
+    name: "New User",
+    component: NewUser,
+    beforeEnter: admin,
+  },
+  {
     path: "/admin/users/roles",
     name: "User Roles",
     component: AllRoles,
+    beforeEnter: admin,
+  },
+  {
+    path: "/admin/users/roles/new",
+    name: "New User Role",
+    component: NewRole,
     beforeEnter: admin,
   },
 ];

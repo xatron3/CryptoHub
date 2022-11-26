@@ -1,9 +1,15 @@
 <template>
   <div>
     <div class="max-w-6xl flex flex-col space-y-2">
-      <div class="flex justify-end space-x-2"></div>
-
       <h2 class="text-lg font-bold dark:text-white">All Roles</h2>
+
+      <div class="flex justify-end space-x-2">
+        <Button
+          @click="$router.push('/admin/users/roles/new')"
+          title="Add New"
+          class="w-28 self-end"
+        />
+      </div>
 
       <Table :items="roles" :columns="['name']" />
     </div>

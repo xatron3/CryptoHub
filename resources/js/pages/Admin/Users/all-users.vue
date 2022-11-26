@@ -1,23 +1,26 @@
 <template>
-  <div>
-    <div class="max-w-6xl flex flex-col space-y-2">
-      <div class="flex justify-end space-x-2">
-        <router-link
-          to="/admin/users/roles"
-          class="px-3 py-2 rounded-md bg-yellow-500"
-          >Roles</router-link
-        >
-      </div>
+  <div class="max-w-6xl flex flex-col space-y-2">
+    <h2 class="text-lg font-bold dark:text-white">All Users</h2>
 
-      <h2 class="text-lg font-bold dark:text-white">All Users</h2>
-
-      <Table
-        :items="users"
-        :columns="['email', 'is_admin', 'name', 'button']"
-        buttonTitle="Edit"
-        @button_clicked="edit_user"
-      />
+    <div class="flex justify-end space-x-2">
+      <router-link
+        to="/admin/users/new"
+        class="px-3 py-2 rounded-md bg-green-500"
+        >New User</router-link
+      >
+      <router-link
+        to="/admin/users/roles"
+        class="px-3 py-2 rounded-md bg-yellow-500"
+        >Roles</router-link
+      >
     </div>
+
+    <Table
+      :items="users"
+      :columns="['email', 'role', 'name', 'button']"
+      buttonTitle="Edit"
+      @button_clicked="edit_user"
+    />
   </div>
 </template>
 
@@ -45,7 +48,7 @@ export default {
   },
   methods: {
     edit_user(data) {
-      console.log(data.id);
+      this.$router.push(`/admin/users/${data.id}`);
     },
   },
   components: { Table },

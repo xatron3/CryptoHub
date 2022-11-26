@@ -14,10 +14,16 @@ class UserResource extends JsonResource
    */
   public function toArray($request)
   {
+    // Get user role
     if ($this->hasRole('admin')) {
-      $admin = 1;
+      $permission = 100;
+      $role = 'admin';
+    } else if ($this->hasRole('tester')) {
+      $permission = 20;
+      $role = 'tester';
     } else {
-      $admin = 0;
+      $permission = 1;
+      $role = 'trial';
     }
 
     return [
@@ -26,7 +32,10 @@ class UserResource extends JsonResource
       'email' => $this->email,
       'created_at' => $this->created_at,
       'updated_at' => $this->updated_at,
-      'is_admin' => $admin
+      'permission' => [
+        'level' => $permission,
+        'role' => $role
+      ]
     ];
   }
 }

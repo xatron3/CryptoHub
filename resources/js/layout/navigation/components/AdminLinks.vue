@@ -1,5 +1,5 @@
 <template>
-  <div v-if="this.$store.getters['user/isAdmin'] === 1">
+  <div v-if="this.$store.getters['user/userRole'] > 50">
     <NavigationHeader class="text-lg border-b-0" title="ADMINPANEL" />
     <NavigationHeader class="mt-0.5" title="General" />
     <NavigationLink path="/admin/commands/" title="Commands"></NavigationLink>

@@ -1,8 +1,18 @@
+import axios from "axios";
 import store from "../store/store.js";
 
-export async function getUser() {
-  let res = await axios.get("/api/user");
-  let user;
+export async function getUser(params = {}) {
+  let user, res;
+
+  if (params.id) {
+    res = await axios.get("/api/user", {
+      params: {
+        id: params.id,
+      },
+    });
+  } else {
+    res = await axios.get("/api/user");
+  }
 
   if (res.data.hasOwnProperty("data")) {
     user = res.data.data[0];
@@ -22,6 +32,12 @@ export async function allUsers() {
     user = undefined;
   }
   return user;
+}
+
+export async function register(data) {
+  let res = await axios.post("/api/register", data);
+
+  return res;
 }
 
 export async function updateUser(data) {

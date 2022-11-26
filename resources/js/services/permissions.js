@@ -9,3 +9,9 @@ export async function getRoles() {
   }
   return roles;
 }
+
+export async function addRole(data) {
+  let res = await axios.post("/api/roles/add", data);
+
+  return res;
+}
