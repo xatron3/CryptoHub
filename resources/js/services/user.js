@@ -41,10 +41,6 @@ export async function register(data) {
 }
 
 export async function updateUser(data) {
-  if (!data.name) {
-    return "Please fill all fields";
-  }
-
   let res = await axios.post("/api/user/update", data);
   let user;
 
@@ -52,7 +48,7 @@ export async function updateUser(data) {
     user = res.data.data[0];
   }
 
-  store.commit("user/setUser", user);
+  if (!data.user_id) store.commit("user/setUser", user);
 
   return res.data;
 }

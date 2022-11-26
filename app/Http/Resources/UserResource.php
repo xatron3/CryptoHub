@@ -32,10 +32,8 @@ class UserResource extends JsonResource
       'email' => $this->email,
       'created_at' => $this->created_at,
       'updated_at' => $this->updated_at,
-      'permission' => [
-        'level' => $permission,
-        'role' => $role
-      ]
+      'level' => $permission,
+      'role' => $role
     ];
   }
 }

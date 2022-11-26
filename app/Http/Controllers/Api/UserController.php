@@ -48,11 +48,20 @@ class UserController extends Controller
    */
   public function updateUser(Request $request)
   {
-    $user_id = $request->user()->id;
+    if ($request->has('user_id') && in_array('admin', $request->user()->getRoleNames()->toArray())) {
+      $user_id = $request->user_id;
+    } else {
+      $user_id = $request->user()->id;
+    }
+
     $user = User::where('id', $user_id)->first();
 
     if ($request->has('name')) {
       $user->name = $request->name;
+    }
+
+    if ($request->has('role')) {
+      $user->syncRoles($request->role);
     }
 
     $user->save();

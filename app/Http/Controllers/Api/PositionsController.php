@@ -46,7 +46,13 @@ class PositionsController extends Controller
    */
   public function getAll(Request $request)
   {
-    $user_id = $request->user()->id;
+    if ($request->has('user_id') && in_array('admin', $request->user()->getRoleNames()->toArray())) {
+      $user_id = $request->user_id;
+    } else {
+      $user_id = $request->user()->id;
+    }
+
+
     $closed = $request->closed;
     $grouped = $request->grouped;
     $sell_asset = $request->sell_asset;

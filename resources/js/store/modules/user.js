@@ -6,7 +6,7 @@ const user = {
   state: () => ({
     info: {},
     positions: {},
-    positionGrouped: false,
+    positionGrouped: true,
   }),
   mutations: {
     setUser(state, userInfo) {
@@ -61,7 +61,7 @@ const user = {
       return state.info;
     },
     userRole(state, getters) {
-      return state.info.permission.level;
+      return state.info.level;
     },
     loggedIn(state, getters) {
       const loggedIn = Object.keys(state.info).length !== 0 ? true : false;

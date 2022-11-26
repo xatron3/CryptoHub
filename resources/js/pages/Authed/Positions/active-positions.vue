@@ -83,7 +83,7 @@ export default {
       showClosePositionModal: false,
       showExportModal: false,
       closeId: 0,
-      grouped: false,
+      grouped: true,
     };
   },
   computed: {

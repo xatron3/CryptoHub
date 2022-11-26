@@ -17,7 +17,7 @@
 
     <Table
       :items="users"
-      :columns="['email', 'role', 'name', 'button']"
+      :columns="['email', 'name', 'button']"
       buttonTitle="Edit"
       @button_clicked="edit_user"
     />
