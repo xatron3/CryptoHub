@@ -16,8 +16,7 @@ class PermissionResource extends JsonResource
   {
     return [
       'id' => $this->id,
-      'name' => $this->name,
-      'nice_name' => ucfirst($this->name)
+      'name' => $this->name
     ];
   }
 }

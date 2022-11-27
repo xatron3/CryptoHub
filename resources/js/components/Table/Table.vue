@@ -27,7 +27,7 @@
             </div> -->
             <div>
               <div
-                v-html="this.format(item[header.value], header.format)"
+                v-html="this.format(item[header.value], header.format, index)"
                 v-if="!header.customValue"
               ></div>
               <div
@@ -64,6 +64,8 @@
 // Table Components
 import Head from "./Head.vue";
 
+import { formatPercentage, formatProfit, formatLogo } from "./formats";
+
 import LaravelVuePagination from "laravel-vue-pagination";
 
 export default {
@@ -75,104 +77,58 @@ export default {
   emits: ["button_clicked", "change_page"],
   name: "Table",
   methods: {
-    format(data, column) {
-      var _class;
+    format(data, format, index = 0) {
+      var _class, _data;
 
-      if (column === "price") {
+      if (format === "price") {
         return `$${nums.formatPrice(data)}`;
       }
 
-      if (column === "percentage") {
-        if (data === 0) {
-          _class = "text-yellow-500";
-        } else if (data > 0) {
-          _class = "text-green-500";
-        } else {
-          _class = "text-red-500";
-        }
-
-        return `<span class="${_class}">${parseFloat(data).toFixed(2)}%</span>`;
+      if (format === "percentage") {
+        return formatPercentage(data);
       }
 
-      if (column === "profit") {
-        if (data === 0) {
-          _class = "text-yellow-500";
-        } else if (data > 0) {
-          _class = "text-green-500";
-        } else {
-          _class = "text-red-500";
-        }
-
-        if (data["close_amount"] === null) {
-          return `<div class="flex space-x-1 items-center"><img src="${
-            data["sell_logo"]
-          }" class="w-5 h-5"> <span class="${_class}">${nums.formatPrice(
-            data,
-            2
-          )} ${data["sell_symbol"]}</span> 
-          <span class="text-xs">
-            (${parseFloat(
-              nums.getPercentageIncrease(
-                data["current_sell_price"],
-                data["buy_price"]
-              )
-            ).toFixed(2)}%)
-            </span>
-            </div>`;
-        } else {
-          return `<div class="flex space-x-1 items-center"><img src="${
-            data["sell_logo"]
-          }" class="w-5 h-5"> <span class="${_class}">${nums.formatPrice(
-            data,
-            2
-          )} ${data["sell_symbol"]}</span> 
-          <span class="text-xs">
-           
-            </span>
-            </div>`;
-        }
+      if (format === "profit") {
+        const logo = this.items[index]["sell_logo"];
+        return formatProfit(data, logo);
       }
 
       /////////////////////
-
-      if (column === "sell_amount") {
-        return `<div class="flex space-x-1 items-center"><img src="${
-          data["sell_logo"]
-        }" class="w-6 h-6"> <span>${nums.formatPrice(data[column])} ${
-          data["sell_symbol"]
-        }</span></div>`;
+      if (format === "logo") {
+        const logo = this.items[index]["sell_logo"];
+        return formatLogo(data, logo);
       }
 
-      if (column === "buy_amount") {
+      if (format === "buy_amount") {
         return `<div class="flex space-x-1 items-center"><img src="${
           data["buy_logo"]
-        }" class="w-6 h-6"> <span>${nums.formatPrice(data[column])} ${
+        }" class="w-6 h-6"> <span>${nums.formatPrice(data[format])} ${
           data["buy_symbol"]
         }</span></div>`;
       }
 
-      if (column === "current_sell_price") {
-        if (data[column] > data["buy_price"]) {
+      if (format === "current_sell_price") {
+        if (data[format] > data["buy_price"]) {
           _class = "text-green-500";
         } else {
           _class = "text-red-500";
         }
 
         return `<span class="${_class}">${nums.formatPrice(
-          data[column]
+          data[format]
         )}</span>`;
       }
 
-      if (column === "close_amount") {
-        return `${data[column]} ${data["sell_symbol"]}`;
+      if (format === "close_amount") {
+        return `${data[format]} ${data["sell_symbol"]}`;
       }
 
-      if (column === "buy_price") {
-        return `${nums.formatPrice(data[column])} ${data["sell_symbol"]}`;
+      if (format === "buy_price") {
+        return `${nums.formatPrice(data[format])} ${data["sell_symbol"]}`;
       }
 
-      if (column === "market_cap") {
-        return `$${data[column].toLocaleString("en-US")}`;
+      if (format === "market_cap") {
+        return `$${data[format].toLocaleString("en-US")}`;
       }
 
       return data;

@@ -40,9 +40,36 @@ class PermissionsController extends Controller
     return response()->json(['message' => $message, 'status' => $status], 200);
   }
 
+  public function updateRole(Request $request)
+  {
+    $role = Role::where('id', $request->id)->first();
+
+    if ($role) {
+      if ($request->has('name')) {
+        $role->name = $request->name;
+      }
+
+      $role->save();
+
+      return response()->json(['message' => 'Role got updated', 'status' => 200], 200);
+    } else {
+      return response()->json(['message' => 'Role not found', 'status' => 400], 200);
+    }
+  }
+
+  /**
+   * getRoles
+   *
+   * @param  mixed $request
+   * @return void
+   */
   public function getRoles(Request $request)
   {
     $roles = Role::all();
+
+    if ($request->has('id')) {
+      $roles = $roles->where('id', $request->id);
+    }
 
     return PermissionResource::collection($roles);
   }

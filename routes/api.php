@@ -48,6 +48,7 @@ Route::group(['middleware' => 'jwt.verify'], function () {
 
     Route::get('roles', [PermissionsController::class, 'getRoles']);
     Route::post('roles/add', [PermissionsController::class, 'storeRole']);
+    Route::post('roles/update', [PermissionsController::class, 'updateRole']);
 
     // Commands
     Route::post('commands/price/coingecko', [CoingeckoController::class, 'updateCoingeckoPrices']);

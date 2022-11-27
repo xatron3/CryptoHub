@@ -21,7 +21,6 @@
       <Table
         :items="this.active_positions"
         :headers="this.headers"
-        buttonTitle="Close"
         @button_clicked="showClosePosition"
       />
     </div>
@@ -79,6 +78,7 @@ export default {
         {
           title: "S. Amount",
           value: "sell_amount",
+          format: "logo",
         },
         {
           title: "B. Amount",
@@ -91,6 +91,7 @@ export default {
         {
           title: "Profit",
           value: "profit",
+          format: "profit",
         },
         {
           title: "Close",

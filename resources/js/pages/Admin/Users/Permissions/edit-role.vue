@@ -1,8 +1,8 @@
 <template>
   <div class="max-w-lg flex flex-col space-y-2">
-    <h2 class="text-lg font-bold dark:text-white">New Role</h2>
+    <h2 class="text-lg font-bold dark:text-white">Edit Role</h2>
 
-    <div class="space-y-2 flex flex-col">
+    <div v-if="this.loaded" class="flex flex-col space-y-2">
       <Input
         :showLabel="true"
         name="name"
@@ -14,14 +14,14 @@
       />
 
       <div class="self-end">
-        <Button title="Add Role" @click="save()" />
+        <Button title="Update Role" @click="update()" />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { addRole } from "@/services/permissions";
+import { getRoles, updateRole } from "@/services/permissions";
 
 import { useToast } from "vue-toastification";
 
@@ -29,7 +29,9 @@ export default {
   name: "NewRole",
   data() {
     return {
+      loaded: false,
       role: {
+        id: null,
         name: "",
       },
     };
@@ -40,15 +42,23 @@ export default {
 
     return { toast };
   },
+  async mounted() {
+    this.role = await this.getRole();
+    this.loaded = true;
+  },
   methods: {
-    async save() {
-      let res = await addRole(this.role);
+    async getRole() {
+      let role = await getRoles({ id: this.$route.params.id });
 
-      if (res.data.status === 200) {
-        this.toast.success(res.data.message);
-        this.$router.push("/admin/users/roles");
+      return role.data[0];
+    },
+    async update() {
+      let res = await updateRole(this.role);
+
+      if (res.status === 200) {
+        this.toast.success(res.message);
       } else {
-        this.toast.error(res.data.message);
+        this.toast.error(res.message);
       }
     },
   },

@@ -11,7 +11,11 @@
         />
       </div>
 
-      <Table :items="roles" :headers="this.headers" />
+      <Table
+        :items="roles.data"
+        :headers="this.headers"
+        @button_clicked="editRole"
+      />
     </div>
   </div>
 </template>
@@ -36,6 +40,12 @@ export default {
           title: "Name",
           value: "name",
         },
+        {
+          title: "Edit",
+          value:
+            "<a href='#' class='bg-green-500 text-white hover:bg-green-600 transition-all px-3 py-2 rounded-md'>Edit</a>", // TODO: Hook too func or smth
+          customValue: true,
+        },
       ],
       roles: {},
     };
@@ -43,7 +53,11 @@ export default {
   async mounted() {
     this.roles = await getRoles();
   },
-  methods: {},
+  methods: {
+    editRole(data) {
+      this.$router.push(`/admin/users/roles/edit/${data.id}`);
+    },
+  },
   components: {},
 };
 </script>

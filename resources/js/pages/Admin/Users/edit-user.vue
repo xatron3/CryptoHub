@@ -30,7 +30,7 @@
       <div class="flex space-x-2">
         <div
           class="rounded-md bg-blue-500 p-2 uppercase cursor-pointer"
-          v-for="role in roles"
+          v-for="role in roles.data"
           :class="{
             'bg-blue-700 cursor-default': user.role === role.name,
           }"

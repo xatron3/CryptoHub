@@ -5,18 +5,12 @@
  * @returns
  */
 export async function getEvents(params = {}) {
-  let passed, limit, data, response;
-
-  if (params.passed !== undefined) {
-    passed = params.passed;
-  } else {
-    passed = null;
-  }
+  let data, response;
 
   let res = await axios.get("/api/events", {
     params: {
       limit: params.limit ? params.limit : null,
-      passed: passed,
+      passed: params.passed ? params.passed : null,
       page: params.page ? params.page : 1,
     },
   });

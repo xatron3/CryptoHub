@@ -9,6 +9,8 @@
 import EditUser from "@/components/EditUserForm.vue";
 import { updateUser } from "@/services/user";
 
+import { useToast } from "vue-toastification";
+
 export default {
   components: {
     EditUser,
@@ -21,6 +23,12 @@ export default {
       },
     };
   },
+  setup() {
+    // Get toast interface
+    const toast = useToast();
+
+    return { toast };
+  },
   mounted() {
     const userData = this.$store.getters["user/userData"];
 
@@ -30,6 +38,8 @@ export default {
   methods: {
     async updateUserData() {
       const res = await updateUser(this.userData);
+
+      this.toast.success("User updated");
     },
   },
 };
