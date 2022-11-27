@@ -53,7 +53,6 @@
 </template>
 
 <script>
-import Table from "@/components/Table.vue";
 import { useToast } from "vue-toastification";
 import { getUser, updateUser } from "@/services/user";
 import { getRoles } from "@/services/permissions";
@@ -61,7 +60,7 @@ import { getPosition } from "@/services/positions";
 
 export default {
   name: "EditUser",
-  components: { Table },
+  components: {},
   setup() {
     // Get toast interface
     const toast = useToast();
@@ -101,10 +100,10 @@ export default {
   },
   methods: {
     async updateUserData() {
-      console.log(this.user);
       const res = await updateUser(this.user);
 
-      console.log(res);
+      this.toast.success("User updated");
+      this.$router.push("/admin/users");
     },
   },
 };

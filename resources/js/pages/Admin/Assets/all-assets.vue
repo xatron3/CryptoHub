@@ -14,7 +14,7 @@
     </div>
 
     <Table
-      :columns="this.columns"
+      :headers="this.headers"
       :items="this.assets"
       :meta="this.meta"
       buttonTitle="Edit"
@@ -25,16 +25,22 @@
 </template>
 
 <script>
-import Table from "@/components/Table.vue";
 import { getAssets } from "@/services/assets";
 
 export default {
   name: "Assets",
+  components: {},
   data() {
     return {
       assets: null,
       meta: null,
       page: 1,
+      headers: [
+        {
+          title: "Name",
+          value: "name",
+        },
+      ],
       columns: ["name", "symbol", "current_price", "button"],
     };
   },
@@ -65,6 +71,5 @@ export default {
       }
     },
   },
-  components: { Table },
 };
 </script>

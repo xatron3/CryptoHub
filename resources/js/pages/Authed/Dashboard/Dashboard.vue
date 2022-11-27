@@ -10,12 +10,18 @@
         <PositionCard
           :positions="this.$store.getters['user/losingPositions']"
           title="Losses"
-          v-if="this.$store.getters['user/losingPositions']"
+          v-if="
+            this.$store.getters['user/losingPositions'] &&
+            this.$store.getters['user/role'] >= 10
+          "
         />
         <PositionCard
           :positions="this.$store.getters['user/profitPositions']"
           title="Profit"
-          v-if="this.$store.getters['user/profitPositions']"
+          v-if="
+            this.$store.getters['user/profitPositions'] &&
+            this.$store.getters['user/role'] >= 10
+          "
         />
         <EventCard :events="this.events.upcoming" title="Upcoming Events" />
         <EventCard :events="this.events.passed" title="Passed Events" />
@@ -27,11 +33,10 @@
 </template>
 
 <script>
-import { getEvents } from "@/services/events";
-import { getPosition } from "@/services/positions";
-
 import PositionCard from "./components/PositionCard.vue";
 import EventCard from "./components/EventCard.vue";
+
+import { getEvents } from "@/services/events";
 
 export default {
   name: "Dashboard",

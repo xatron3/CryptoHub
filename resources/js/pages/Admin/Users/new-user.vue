@@ -49,14 +49,12 @@
 </template>
 
 <script>
-import EditUserForm from "@/components/EditUserForm.vue";
-import Table from "@/components/Table.vue";
 import { useToast } from "vue-toastification";
 import { register } from "@/services/user";
 
 export default {
   name: "EditUser",
-  components: { Table, EditUserForm },
+  components: {},
   setup() {
     // Get toast interface
     const toast = useToast();

@@ -10,7 +10,7 @@
       </div>
 
       <Table
-        :columns="this.columns"
+        :headers="this.columns"
         :items="this.events"
         :meta="this.meta"
         buttonTitle="Delete"
@@ -30,12 +30,12 @@
 <script>
 import NewEvent from "./components/NewEvent.vue";
 
-import Table from "@/components/Table.vue";
 import { getEvents, deleteEvent } from "@/services/events";
 import { useToast } from "vue-toastification";
 
 export default {
   name: "Events",
+  components: { NewEvent },
   setup() {
     // Get toast interface
     const toast = useToast();
@@ -81,6 +81,5 @@ export default {
       }
     },
   },
-  components: { Table, NewEvent },
 };
 </script>

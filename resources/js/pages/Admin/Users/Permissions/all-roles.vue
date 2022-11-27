@@ -11,13 +11,12 @@
         />
       </div>
 
-      <Table :items="roles" :columns="['name']" />
+      <Table :items="roles" :headers="this.headers" />
     </div>
   </div>
 </template>
 
 <script>
-import Table from "@/components/Table.vue";
 import { useToast } from "vue-toastification";
 
 import { getRoles } from "@/services/permissions";
@@ -32,6 +31,12 @@ export default {
   },
   data() {
     return {
+      headers: [
+        {
+          title: "Name",
+          value: "name",
+        },
+      ],
       roles: {},
     };
   },
@@ -39,6 +44,6 @@ export default {
     this.roles = await getRoles();
   },
   methods: {},
-  components: { Table },
+  components: {},
 };
 </script>

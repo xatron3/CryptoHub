@@ -19,6 +19,7 @@ import Input from "./components/Input.vue";
 import Select from "./components/Select.vue";
 import Button from "./components/Button.vue";
 import Modal from "./components/Modal.vue";
+import Table from "./components/Table/Table.vue";
 
 const app = createApp(App);
 
@@ -26,7 +27,8 @@ app.component("Input", Input);
 app.component("Select", Select);
 app.component("Button", Button);
 app.component("Modal", Modal);
-app.component("Datepicker", Datepicker);
+app.component("Table", Table);
+app.component("Datepicker", Datepicker); // TODO: change to a more robust library
 
 app.use(Toast);
 app.use(vfmPlugin);

@@ -29,10 +29,6 @@ class PositionResource extends JsonResource
      */
     public function toArray($request)
     {
-        if ($request->has('kuk')) {
-            return 'kuj';
-        }
-
         $priceEach = $this->sell_amount / $this->buy_amount;
 
         $buyAssetMarketData = $this->getAssetMarketData($this->buy_asset_id);

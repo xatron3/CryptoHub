@@ -5,14 +5,12 @@
       <!-- Filter -->
       <Filter @filterChange="updateFilter"></Filter>
 
-      <Table :items="this.closed_positions" :columns="key_columns" />
+      <Table :items="this.closed_positions" :headers="this.headers" />
     </div>
   </div>
 </template>
 
 <script>
-import Table from "@/components/Table.vue";
-
 import Filter from "./components/Filter.vue";
 
 import { getPosition } from "@/services/positions";
@@ -20,11 +18,25 @@ import { getPosition } from "@/services/positions";
 export default {
   name: "PositionActive",
   components: {
-    Table,
     Filter,
   },
   data() {
     return {
+      headers: [
+        {
+          title: "S. Amount",
+          value: "sell_amount",
+        },
+        {
+          title: "B. Amount",
+          value: "buy_amount",
+        },
+        {
+          title: "Profit",
+          value: "profit",
+          format: "profit",
+        },
+      ],
       key_columns: ["sell_amount", "buy_amount", "profit"],
       closed_positions: null,
       filter: {

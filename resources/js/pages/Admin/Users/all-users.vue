@@ -16,8 +16,8 @@
     </div>
 
     <Table
-      :items="users"
-      :columns="['email', 'name', 'button']"
+      :items="this.users"
+      :headers="this.headers"
       buttonTitle="Edit"
       @button_clicked="edit_user"
     />
@@ -25,7 +25,6 @@
 </template>
 
 <script>
-import Table from "@/components/Table.vue";
 import { useToast } from "vue-toastification";
 
 import { allUsers } from "@/services/user";
@@ -40,6 +39,26 @@ export default {
   },
   data() {
     return {
+      headers: [
+        {
+          title: "Email",
+          value: "email",
+        },
+        {
+          title: "Name",
+          value: "name",
+        },
+        {
+          title: "Role",
+          value: "role",
+        },
+        {
+          title: "Edit",
+          value:
+            "<a href='#' class='bg-green-500 text-white hover:bg-green-600 transition-all px-3 py-2 rounded-md'>Edit</a>",
+          customValue: true,
+        },
+      ],
       users: {},
     };
   },
@@ -51,6 +70,6 @@ export default {
       this.$router.push(`/admin/users/${data.id}`);
     },
   },
-  components: { Table },
+  components: {},
 };
 </script>

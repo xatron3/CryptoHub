@@ -20,7 +20,7 @@
       <!-- Active Positions Table -->
       <Table
         :items="this.active_positions"
-        :columns="keyColumns"
+        :headers="this.headers"
         buttonTitle="Close"
         @button_clicked="showClosePosition"
       />
@@ -51,8 +51,6 @@
 </template>
 
 <script>
-import Table from "@/components/Table.vue";
-
 import Filter from "./components/Filter.vue";
 import NewPosition from "./components/NewPosition.vue";
 
@@ -64,7 +62,6 @@ import { useToast } from "vue-toastification";
 export default {
   name: "Position Active",
   components: {
-    Table,
     Filter,
     NewPosition,
     ClosePositionModal,
@@ -78,7 +75,31 @@ export default {
   },
   data() {
     return {
-      active_positions: null,
+      headers: [
+        {
+          title: "S. Amount",
+          value: "sell_amount",
+        },
+        {
+          title: "B. Amount",
+          value: "buy_amount",
+        },
+        {
+          title: "B. Price",
+          value: "buy_price",
+        },
+        {
+          title: "Profit",
+          value: "profit",
+        },
+        {
+          title: "Close",
+          value:
+            "<a href='#' class='bg-green-500 text-white hover:bg-green-600 transition-all px-3 py-2 rounded-md'>Close</a>", // TODO: Hook too func or smth
+          customValue: true,
+        },
+      ],
+      active_positions: [],
       showPositionModal: false,
       showClosePositionModal: false,
       showExportModal: false,
@@ -89,19 +110,6 @@ export default {
   computed: {
     keyColumns() {
       let columns;
-
-      if (!this.grouped) {
-        columns = [
-          "sell_amount",
-          "buy_amount",
-          "buy_price",
-          "profit",
-          "button",
-        ];
-      } else {
-        columns = ["sell_amount", "buy_amount", "buy_price", "profit"];
-      }
-
       return columns;
     },
   },

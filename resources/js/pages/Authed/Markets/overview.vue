@@ -2,28 +2,28 @@
   <div class="flex space-x-4">
     <div class="w-full md:w-2/5">
       <h2 class="text-lg font-bold dark:text-white">24h Gainers</h2>
-      <Table :items="this.gainers" :columns="columns" />
+      <Table :items="this.gainers" :headers="headers" />
     </div>
     <div class="w-full md:w-2/5">
       <h2 class="text-lg font-bold dark:text-white">24h Loosers</h2>
-      <Table :items="this.loosers" :columns="columns" />
+      <Table :items="this.loosers" :headers="headers" />
     </div>
   </div>
 </template>
 
 <script>
-import Table from "@/components/Table.vue";
-
 export default {
   name: "Markets",
-  components: {
-    Table,
-  },
+  components: {},
   data() {
     return {
       gainers: null,
       loosers: null,
-      columns: ["name", "current_price", "price_change_24h"],
+      headers: [
+        { title: "Name", value: "name" },
+        { title: "Price", value: "current_price", format: "price" },
+        { title: "24H", value: "price_change_24h", format: "percentage" },
+      ],
     };
   },
   async mounted() {

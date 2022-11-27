@@ -3,7 +3,7 @@ import store from "../../store/store";
 export default function auth(to, from, next) {
   store.dispatch("user/getUser").then(
     (res) => {
-      if (store.getters["user/userRole"] > 50) {
+      if (store.getters["user/role"] > 50) {
         next();
       } else {
         next("/dashboard");

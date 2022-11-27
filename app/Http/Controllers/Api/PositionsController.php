@@ -66,7 +66,7 @@ class PositionsController extends Controller
     }
 
     if ($grouped === "true") {
-      $positions = ActivePosition::select(['buy_asset_id', 'sell_asset_id'])
+      $positions = ActivePosition::select(['buy_asset_id', 'sell_asset_id', 'id'])
         ->selectRaw("SUM(sell_amount) as sell_amount")
         ->selectRaw("SUM(buy_amount) as buy_amount")
         ->selectRaw('SUM(close_amount) AS close_amount')
@@ -75,6 +75,7 @@ class PositionsController extends Controller
       $positions = ActivePosition::select(['buy_asset_id', 'sell_asset_id', 'id', 'sell_amount', 'buy_amount', 'close_amount']);
     }
 
+    // Get closed positions if true else all else
     if ($closed === "true") {
       if ($grouped === "true") {
         $positions->selectRaw('(SUM(close_amount) - SUM(sell_amount)) AS profit');
@@ -88,6 +89,7 @@ class PositionsController extends Controller
         ->where([['user_id', $user_id], ['close_amount', '=', null]]);
     }
 
+    // Select by sell asset symbol
     if ($request->has('sell_asset')) {
       $asset = Asset::where('symbol', strtolower($sell_asset))->first();
 
@@ -97,6 +99,7 @@ class PositionsController extends Controller
       $positions->where('sell_asset_id', $asset->id);
     }
 
+    // Select by buy asset symbol
     if ($request->has('buy_asset')) {
       $asset = Asset::where('symbol', strtolower($buy_asset))->first();
 
@@ -121,12 +124,14 @@ class PositionsController extends Controller
 
       if (!empty($import_data)) {
         $import_amount = count($import_data);
+        $completed = 0;
+        $failed = 0;
 
         foreach ($import_data as $data) {
           $buy_asset = Asset::where('symbol', $data->buy_asset_symbol)->first();
           $sell_asset = Asset::where('symbol', $data->sell_asset_symbol)->first();
 
-          if ($buy_asset) {
+          if ($buy_asset && $sell_asset) {
             $position = new ActivePosition();
             $position->user_id = $request->user()->id;
             $position->buy_asset_id = $buy_asset->id;
@@ -134,8 +139,19 @@ class PositionsController extends Controller
             $position->buy_amount = $data->buy_amount;
             $position->sell_amount = $data->sell_amount;
             $position->save();
+            $completed++;
+          } else {
+            $failed++;
           }
         }
+
+        $import_data = response()->json(
+          [
+            'message' => 'Imported ' . $completed . '/' . $import_amount . ' with ' . $failed . ' failed',
+            'status' => 200
+          ],
+          200
+        );
       } else {
         $import_data = response()->json(['message' => 'import_data can\'t be empty.', 'status' => 400], 200);
       }

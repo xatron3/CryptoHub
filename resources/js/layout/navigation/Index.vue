@@ -32,7 +32,7 @@
               icon="BriefcaseIconOutlined"
             ></NavigationLink>
 
-            <div v-if="this.$store.getters['user/userRole'] >= 10">
+            <div v-if="this.$store.getters['user/role'] >= 10">
               <NavigationHeader title="TRADES" />
               <NavigationLink
                 path="/positions/active"

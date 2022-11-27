@@ -14,6 +14,7 @@ export async function getPosition(params = {}) {
       sell_asset: params.sell_asset ? params.sell_asset : null,
       buy_asset: params.buy_asset ? params.buy_asset : null,
       user_id: params.user_id ? params.user_id : null,
+      position_id: params.pos_id ? params.pos_id : null,
     },
   });
 

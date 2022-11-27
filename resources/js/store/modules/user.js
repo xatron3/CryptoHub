@@ -10,7 +10,6 @@ const user = {
   }),
   mutations: {
     setUser(state, userInfo) {
-      console.log(userInfo);
       state.info = userInfo;
     },
     setPositions(state, data) {
@@ -60,7 +59,7 @@ const user = {
     userData(state, getters) {
       return state.info;
     },
-    userRole(state, getters) {
+    role(state, getters) {
       return state.info.level;
     },
     loggedIn(state, getters) {
