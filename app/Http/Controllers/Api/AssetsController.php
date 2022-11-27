@@ -16,7 +16,7 @@ class AssetsController extends Controller
     $coingecko_id = $request->coingecko_id;
 
     if ($coingecko_id !== null) {
-      $asset = Asset::where('coingecko_id', $coingecko_id)->first();
+      $asset = Asset::where('provider_id', $coingecko_id)->first();
 
       if (!$asset) {
         $result = CoingeckoController::getCoingeckoData($request->coingecko_id);
@@ -25,7 +25,7 @@ class AssetsController extends Controller
           $result = $result[0];
 
           $asset = new Asset();
-          $asset->coingecko_id = $coingecko_id;
+          $asset->provider_id = $coingecko_id;
           $asset->name = $result->name;
           $asset->symbol = $result->symbol;
           $asset->logo = $result->image;
@@ -47,7 +47,7 @@ class AssetsController extends Controller
       }
     } else {
       $asset = new Asset();
-      $asset->coingecko_id = $request->coingecko_id;
+      $asset->provider_id = $request->coingecko_id;
       $asset->name = $request->name;
       $asset->symbol = $request->symbol;
       $asset->logo = $request->logo;
@@ -64,7 +64,7 @@ class AssetsController extends Controller
     $asset = Asset::where('id', $asset_id)->first();
 
     if ($asset) {
-      $asset->coingecko_id = $request->coingecko_id;
+      $asset->provider_id = $request->coingecko_id;
       $asset->name = $request->name;
       $asset->symbol = $request->symbol;
       $asset->logo = $request->logo;
@@ -83,7 +83,7 @@ class AssetsController extends Controller
   {
     $id = $request->id;
 
-    $fileds = ['id', 'name', 'symbol', 'logo', 'coingecko_id'];
+    $fileds = ['id', 'name', 'symbol', 'logo', 'provider_id'];
 
     $assets = Asset::select($fileds);
 

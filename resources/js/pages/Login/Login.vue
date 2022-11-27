@@ -1,16 +1,19 @@
 <template>
-  <div class="flex h-full">
-    <div class="items-center justify-center flex w-full -mt-28">
+  <div class="flex flex-col">
+    <Navbar />
+
+    <div class="self-center w-full max-w-sm mt-56">
       <LoginForm />
     </div>
   </div>
 </template>
 
 <script>
+import Navbar from "@/pages/Public/components/Navbar/navbar.vue";
 import LoginForm from "@/components/LoginForm.vue";
 
 export default {
   name: "Login",
-  components: { LoginForm },
+  components: { LoginForm, Navbar },
 };
 </script>

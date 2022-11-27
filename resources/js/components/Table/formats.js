@@ -1,4 +1,6 @@
 export function formatPercentage(data) {
+  let _class;
+
   if (data === 0) {
     _class = "text-yellow-500";
   } else if (data > 0) {

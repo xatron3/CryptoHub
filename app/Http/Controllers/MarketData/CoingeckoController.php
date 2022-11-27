@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\MarketData;
 
 use App\Models\Asset;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\AssetMarketDataController;
 
 class CoingeckoController extends Controller
@@ -18,7 +19,7 @@ class CoingeckoController extends Controller
 
   public function getAllCoingeckoIds()
   {
-    $ids = Asset::where('coingecko_id', '!=', null)->get('coingecko_id')->pluck('coingecko_id')->toArray();
+    $ids = Asset::where('provider_id', '!=', null)->get('provider_id')->pluck('provider_id')->toArray();
 
     return implode(",", $ids);
   }
@@ -32,7 +33,7 @@ class CoingeckoController extends Controller
     $result = $this->getCoingeckoData($ids);
 
     foreach ($result as $data) {
-      $asset = Asset::where('coingecko_id', $data->id)->first();
+      $asset = Asset::where('provider_id', $data->id)->first();
 
       $assetData = (object) array(
         'asset_id' => $asset->id,

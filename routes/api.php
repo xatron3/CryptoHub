@@ -8,7 +8,7 @@ use App\Http\Controllers\Api\EventsController;
 use App\Http\Controllers\Api\PermissionsController;
 use App\Http\Controllers\Api\PositionsController;
 use App\Http\Controllers\Api\UserController;
-use App\Http\Controllers\CoingeckoController;
+use App\Http\Controllers\MarketData\CoingeckoController;
 
 /*
 |--------------------------------------------------------------------------

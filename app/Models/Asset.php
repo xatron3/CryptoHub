@@ -21,7 +21,7 @@ class Asset extends Model
     'logo',
     'current_price',
     'market_cap',
-    'coingecko_id'
+    'provider_id'
   ];
 
   protected function symbol(): Attribute

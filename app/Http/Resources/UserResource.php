@@ -18,9 +18,9 @@ class UserResource extends JsonResource
     if ($this->hasRole('admin')) {
       $permission = 100;
       $role = 'admin';
-    } else if ($this->hasRole('tester')) {
+    } else if ($this->hasRole('trader')) {
       $permission = 20;
-      $role = 'tester';
+      $role = 'trader';
     } else {
       $permission = 1;
       $role = 'trial';
