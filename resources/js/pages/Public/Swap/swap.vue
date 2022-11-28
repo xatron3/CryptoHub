@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col">
     <div class="max-w-6xl w-full mx-auto">
-      <h2 class="text-2xl font-bold my-3">Latest News</h2>
+      <h2 class="text-2xl font-bold my-3">Swap Token</h2>
       <div class="w-full max-w-md bg-gray-600 mx-auto p-2 rounded-md">
         <div
           @click="updateUi"
@@ -14,7 +14,7 @@
 
         <div v-if="this.tokenDataLoaded" class="flex flex-col w-full">
           <div class="space-y-2">
-            <div class="bg-gray-700 p-2 rounded-lg">
+            <div class="bg-gray-700 p-2 rounded-lg space-y-1">
               <div class="text-sm">Sell</div>
               <Input
                 :showLabel="false"
@@ -34,7 +34,7 @@
             </div>
 
             <!-- BUY INFO -->
-            <div class="bg-gray-700 p-2 rounded-lg">
+            <div class="bg-gray-700 p-2 rounded-lg space-y-1">
               <div class="text-sm">Buy</div>
               <Input
                 :showLabel="false"
@@ -56,10 +56,10 @@
           <div
             @click="swap"
             title="Swap"
-            class="mt-2 bg-green-500 text-white hover:bg-green-600 transition-all px-3 py-2 rounded-md"
+            class="mt-2 bg-green-500 text-white hover:bg-green-600 transition-all px-3 py-2 rounded-md flex justify-center"
           >
-            <div v-if="this.swapping">Swap</div>
-            <ArrowPathIcon v-if="!this.swapping" class="animate-spin w-6" />
+            <div v-if="!this.swapping">Swap</div>
+            <ArrowPathIcon v-if="this.swapping" class="animate-spin w-6" />
           </div>
         </div>
         <div v-else class="w-full text-center">Loading data</div>
@@ -70,8 +70,9 @@
 
 <script>
 import { ethers } from "ethers";
-
 import { ArrowPathIcon } from "@heroicons/vue/24/outline";
+
+import { getQuote } from "@/helpers/web3.js";
 
 import ERC20ABI from "@/helpers/abis/ERC20.js";
 
@@ -94,8 +95,10 @@ export default {
         symbol: "",
       },
       swapData: {
-        sell: "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
-        buy: "0x74b23882a30290451A17c44f4F05243b6b58C76d",
+        sellAmount: 100000,
+        sellAddr: "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
+        sellDecimals: 0,
+        buyAddr: "0x74b23882a30290451A17c44f4F05243b6b58C76d",
       },
     };
   },
@@ -105,34 +108,25 @@ export default {
   },
   methods: {
     async sellAmountChange() {
-      const sellAmount = this.sellData.amount;
-
-      const response = await fetch(
-        `https://fantom.api.0x.org/swap/v1/quote?buyToken=${this.swapData.buy}&sellToken=${this.swapData.sell}&sellAmount=${sellAmount}&feeRecipient=0xc7BF7E22eD98404dE1802d0d0d1844BE21394685&buyTokenPercentageFee=0.01`
+      console.log(
+        ethers.utils.parseUnits(
+          this.sellData.amount.toString(),
+          this.sellData.decimals
+        )
       );
-
-      const data = await response.json();
-      console.log(data);
-
-      const ordersLength = data.orders.length;
-
-      const buyAmount = ethers.utils.formatUnits(
-        data.orders[ordersLength - 1].makerAmount,
-        this.buyData.decimals
-      );
-
+      const buyAmount = await getQuote(this.swapData);
       this.buyData.amount = buyAmount;
     },
     async updateUi() {
       this.tokenDataLoaded = false;
       const buyTokenContract = new ethers.Contract(
-        this.swapData.buy,
+        this.swapData.buyAddr,
         ERC20ABI,
         this.$store.getters["web3/provider"].getSigner()
       );
 
       const sellTokenContract = new ethers.Contract(
-        this.swapData.sell,
+        this.swapData.sellAddr,
         ERC20ABI,
         this.$store.getters["web3/provider"].getSigner()
       );
@@ -146,6 +140,10 @@ export default {
       this.sellData.balance = parseFloat(sellData.balance).toFixed(2);
       this.sellData.decimals = sellData.decimals;
       this.sellData.symbol = sellData.symbol;
+
+      this.swapData.sellDecimals = sellData.decimals;
+
+      await this.sellAmountChange();
 
       this.tokenDataLoaded = true;
     },
@@ -168,7 +166,7 @@ export default {
       const amount = 100000;
       const ZERO_EX_ADDRESS = "0xdef189deaef76e379df891899eb5a00a94cbc250";
       const sellTokenContract = new ethers.Contract(
-        this.swapData.sell,
+        this.swapData.sellAddr,
         ERC20ABI,
         this.$store.getters["web3/provider"].getSigner()
       );

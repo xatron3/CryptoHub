@@ -23,7 +23,10 @@
           </svg>
         </button>
       </div>
-      <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+      <div
+        class="w-full block flex-grow lg:flex lg:items-center lg:w-auto"
+        v-if="this.showNav"
+      >
         <div class="text-sm lg:flex-grow">
           <router-link
             to="/swap"
@@ -31,19 +34,12 @@
           >
             Swap
           </router-link>
-
-          <a
-            href="#responsive-header"
-            class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-200 mr-4"
-          >
-            Latest News
-          </a>
-          <a
-            href="#responsive-header"
+          <router-link
+            to="/cyclop-token"
             class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-200 mr-4"
           >
             Cyclop Token
-          </a>
+          </router-link>
         </div>
         <div class="space-x-2 flex">
           <div>
@@ -82,7 +78,7 @@ export default {
   name: "Navbar",
   data() {
     return {
-      showNav: false,
+      showNav: true,
     };
   },
   methods: {

@@ -2,7 +2,21 @@
   <div class="max-w-xl">
     <div class="space-y-2 flex flex-col">
       <div class="grid grid-cols-2 space-x-2">
-        <CoingeckoInput @inputUpdate="setCoingeckoId"></CoingeckoInput>
+        <div class="">
+          <Select
+            :items="this.$store.getters['assets/all']"
+            :keys="['symbol', 'symbol']"
+            v-model="this.assetData.provider"
+            :value="this.assetData.provider"
+            class="h-7 self-end"
+            @modelValue="test"
+          />
+
+          <CoingeckoInput
+            @inputUpdate="setProviderId"
+            v-if="this.assetData.provider === 'coingecko'"
+          />
+        </div>
 
         <Input
           :showLabel="true"
@@ -55,7 +69,11 @@ export default {
   data() {
     return {
       assetData: {
-        coingecko_id: null,
+        name: "",
+        logo: "",
+        symbol: "",
+        provider: "coingecdko",
+        provider_id: "",
       },
     };
   },
@@ -67,8 +85,11 @@ export default {
   },
   components: { Alert, CoingeckoInput },
   methods: {
-    setCoingeckoId(data) {
-      this.assetData.coingecko_id = data;
+    test(data) {
+      console.log(data);
+    },
+    setProviderId(data) {
+      this.assetData.provider_id = data;
     },
     async addNewAsset() {
       let res = await axios.post("/api/asset/add", this.assetData);

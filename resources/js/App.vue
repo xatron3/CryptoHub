@@ -8,7 +8,10 @@
   >
     <div class="w-full">
       <Navbar />
-      <router-view></router-view>
+
+      <div class="max-w-6xl w-full mx-auto px-2 md:px-0">
+        <router-view></router-view>
+      </div>
     </div>
   </div>
 
