@@ -1,14 +1,23 @@
 <template>
   <div
     class="min-h-screen w-full flex bg-gray-50 dark:bg-gray-800"
-    v-if="this.$router.name === 'Home'"
+    v-if="
+      this.$store.state.app.viewType === 'public' &&
+      this.$store.getters['app/isLoaded']
+    "
   >
-    <router-view class="p-4"></router-view>
+    <div class="w-full">
+      <Navbar />
+      <router-view></router-view>
+    </div>
   </div>
 
   <div
     class="min-h-screen w-full flex bg-gray-50 dark:bg-gray-800"
-    v-if="this.$store.getters['app/isLoaded']"
+    v-if="
+      this.$store.state.app.viewType === 'authed' &&
+      this.$store.getters['app/isLoaded']
+    "
   >
     <Navigation v-if="this.$store.getters['user/loggedIn']"></Navigation>
     <div class="w-full">
@@ -19,6 +28,8 @@
 </template>
 
 <script>
+import Navbar from "@/pages/Public/components/Navbar/navbar.vue";
+
 import Navigation from "./layout/navigation/Index.vue";
 import HeaderBar from "./layout/header-bar/Index.vue";
 
@@ -30,6 +41,7 @@ export default {
     };
   },
   components: {
+    Navbar,
     Navigation,
     HeaderBar,
   },

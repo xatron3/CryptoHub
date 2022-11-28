@@ -5,7 +5,7 @@
         to="/"
         class="flex items-center flex-shrink-0 text-white mr-6"
       >
-        <img src="/storage/favicon50x50.png" class="w-8 mr-2" />
+        <img src="./storage/favicon50x50.png" class="w-8 mr-2" />
         <span class="font-semibold text-xl tracking-tight">MarketCyclop</span>
       </router-link>
       <div class="block lg:hidden">
@@ -25,12 +25,12 @@
       </div>
       <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div class="text-sm lg:flex-grow">
-          <a
-            href="#responsive-header"
+          <router-link
+            to="/swap"
             class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-200 mr-4"
           >
-            Docs
-          </a>
+            Swap
+          </router-link>
 
           <a
             href="#responsive-header"
@@ -45,10 +45,29 @@
             Cyclop Token
           </a>
         </div>
-        <div>
+        <div class="space-x-2 flex">
+          <div>
+            <div v-if="!this.$store.getters['web3/wallet']">
+              <button
+                @click="walletConnect"
+                class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
+              >
+                Connect Wallet
+              </button>
+            </div>
+            <div v-else>
+              <div
+                class="w-28 overflow-hidden rounded-lg bg-gray-800 px-4 py-2 text-sm text-ellipsis"
+              >
+                <span class="overflow-hidden">{{
+                  this.$store.getters["web3/wallet"]
+                }}</span>
+              </div>
+            </div>
+          </div>
           <router-link
             to="/login"
-            class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
+            class="text-sm flex items-center px-4 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0"
             >Login</router-link
           >
         </div>
@@ -58,12 +77,27 @@
 </template>
 
 <script>
+import { ethers } from "ethers";
 export default {
   name: "Navbar",
   data() {
     return {
       showNav: false,
     };
+  },
+  methods: {
+    async walletConnect() {
+      if (window.ethereum) {
+        await this.$store.getters["web3/provider"].send(
+          "eth_requestAccounts",
+          []
+        );
+
+        const signer = this.$store.getters["web3/provider"].getSigner();
+        const address = await signer.getAddress();
+        this.$store.dispatch("web3/setWallet", address);
+      }
+    },
   },
 };
 </script>
