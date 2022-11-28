@@ -5,7 +5,7 @@
         to="/"
         class="flex items-center flex-shrink-0 text-white mr-6"
       >
-        <img src="/storage/favicon50x50.png" class="w-8 mr-2" />
+        <!-- <img src="/storage/favicon50x50.png" class="w-8 mr-2" /> -->
         <span class="font-semibold text-xl tracking-tight">MarketCyclop</span>
       </router-link>
       <div class="block lg:hidden">
