@@ -8,7 +8,7 @@
         <div>
           <div class="w-max p-4 mb-3 dark:text-gray-200">
             <router-link to="/dashboard" class="flex items-center">
-              <img src="./storage/favicon50x50.png" class="w-8" />
+              <!-- <img src="/storage/favicon50x50.png" class="w-8" /> -->
               <span class="ml-2">{{ logo }}</span>
             </router-link>
           </div>
