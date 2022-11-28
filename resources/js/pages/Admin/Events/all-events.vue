@@ -10,7 +10,7 @@
       </div>
 
       <Table
-        :headers="this.columns"
+        :headers="this.headers"
         :items="this.events"
         :meta="this.meta"
         buttonTitle="Delete"
@@ -44,6 +44,26 @@ export default {
   },
   data() {
     return {
+      headers: [
+        {
+          title: "Title",
+          value: "title",
+        },
+        {
+          title: "S. Date",
+          value: "start_date",
+        },
+        {
+          title: "E. Date",
+          value: "end_date",
+        },
+        {
+          title: "#",
+          value:
+            "<a href='#' class='bg-red-500 text-white hover:bg-red-600 transition-all px-3 py-2 rounded-md'>Delete</a>", // TODO: Hook too func or smth
+          customValue: true,
+        },
+      ],
       showNewEventModal: false,
       page: 1,
       events: null,
