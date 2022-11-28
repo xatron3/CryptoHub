@@ -1,12 +1,12 @@
 <template>
   <div class="flex flex-col">
-    <div class="max-w-6xl w-full mx-auto">
-      <h2 class="text-2xl font-bold my-3">Latest News</h2>
-      <div class="flex space-x-3">
-        <Card />
-        <Card />
-        <Card />
-      </div>
+    <h2 class="text-2xl font-bold my-3">Latest News</h2>
+    <div
+      class="flex space-x-0 space-y-2 flex-col md:space-y-0 md:space-x-3 md:flex-row"
+    >
+      <Card />
+      <Card />
+      <Card />
     </div>
   </div>
 </template>
