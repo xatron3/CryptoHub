@@ -3,7 +3,15 @@
     <div class="max-w-6xl w-full mx-auto">
       <h2 class="text-2xl font-bold my-3">Latest News</h2>
       <div class="w-full max-w-md bg-gray-600 mx-auto p-2 rounded-md">
-        <Button @click="updateUi" title="R" class="mb-2 self-end" />
+        <div
+          @click="updateUi"
+          title=""
+          class="mb-2 ml-auto w-8 h-8 bg-green-500 rounded-lg p-1"
+        >
+          <ArrowPathIcon v-if="this.tokenDataLoaded" />
+          <ArrowPathIcon v-if="!this.tokenDataLoaded" class="animate-spin" />
+        </div>
+
         <div v-if="this.tokenDataLoaded" class="flex flex-col w-full">
           <div class="space-y-2">
             <div class="bg-gray-700 p-2 rounded-lg">
@@ -45,7 +53,14 @@
               </div>
             </div>
           </div>
-          <Button @click="swap" title="Swap" class="mt-2" />
+          <div
+            @click="swap"
+            title="Swap"
+            class="mt-2 bg-green-500 text-white hover:bg-green-600 transition-all px-3 py-2 rounded-md"
+          >
+            <div v-if="this.swapping">Swap</div>
+            <ArrowPathIcon v-if="!this.swapping" class="animate-spin w-6" />
+          </div>
         </div>
         <div v-else class="w-full text-center">Loading data</div>
       </div>
@@ -55,7 +70,8 @@
 
 <script>
 import { ethers } from "ethers";
-import { mapState } from "vuex";
+
+import { ArrowPathIcon } from "@heroicons/vue/24/outline";
 
 import ERC20ABI from "@/helpers/abis/ERC20.js";
 
@@ -64,6 +80,7 @@ export default {
   data() {
     return {
       tokenDataLoaded: false,
+      swapping: false,
       sellData: {
         amount: 1,
         balance: 0,
@@ -82,7 +99,7 @@ export default {
       },
     };
   },
-  components: {},
+  components: { ArrowPathIcon },
   async mounted() {
     await this.updateUi();
   },
@@ -147,11 +164,14 @@ export default {
       return data;
     },
     async swap() {
+      this.swapping = true;
       const amount = 100000;
       const ZERO_EX_ADDRESS = "0xdef189deaef76e379df891899eb5a00a94cbc250";
-
-      this.updateUi();
-
+      const sellTokenContract = new ethers.Contract(
+        this.swapData.sell,
+        ERC20ABI,
+        this.$store.getters["web3/provider"].getSigner()
+      );
       const currentAllowance = await sellTokenContract.allowance(
         this.$store.getters["web3/wallet"],
         ZERO_EX_ADDRESS
@@ -177,6 +197,8 @@ export default {
 
         this.provider.send("eth_sendTransaction", [params]);
       }
+
+      this.swapping = false;
     },
   },
 };
