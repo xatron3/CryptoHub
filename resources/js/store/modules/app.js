@@ -2,11 +2,15 @@ const app = {
   namespaced: true,
   state: () => ({
     loaded: false,
+    viewType: "public",
     settings: {
       showNavigation: true,
     },
   }),
   mutations: {
+    setViewType(state, data) {
+      state.viewType = data;
+    },
     setLoaded(state, bool) {
       state.loaded = bool;
     },

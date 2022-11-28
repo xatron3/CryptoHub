@@ -55,8 +55,13 @@ export default {
       }
 
       /////////////////////
-      if (format === "logo") {
+      if (format === "sell_logo") {
         const logo = this.items[index]["sell_logo"];
+        return formatLogo(data, logo);
+      }
+
+      if (format === "buy_logo") {
+        const logo = this.items[index]["buy_logo"];
         return formatLogo(data, logo);
       }
 

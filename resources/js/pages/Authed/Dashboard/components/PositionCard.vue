@@ -30,7 +30,10 @@
           </span>
         </div>
       </span>
-      <span class="col-span-1" v-html="getPercentageIncrease(item)"></span>
+      <span
+        class="col-span-1 font-semibold"
+        v-html="getPercentageIncrease(item)"
+      ></span>
     </div>
   </div>
 </template>
@@ -49,11 +52,11 @@ export default {
       let _class;
 
       if (number === 0) {
-        _class = "text-yellow-600";
+        _class = "text-yellow-500";
       } else if (number > 0) {
-        _class = "text-green-400";
+        _class = "text-green-500";
       } else {
-        _class = "text-red-400";
+        _class = "text-red-500";
       }
 
       return `<span class="${_class}">(${number.toFixed(2)}%)</span>`;

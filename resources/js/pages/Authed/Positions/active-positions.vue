@@ -78,11 +78,12 @@ export default {
         {
           title: "S. Amount",
           value: "sell_amount",
-          format: "logo",
+          format: "sell_logo",
         },
         {
           title: "B. Amount",
           value: "buy_amount",
+          format: "buy_logo",
         },
         {
           title: "B. Price",
