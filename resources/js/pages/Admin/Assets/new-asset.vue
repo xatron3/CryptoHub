@@ -3,17 +3,14 @@
     <div class="space-y-2 flex flex-col">
       <div class="grid grid-cols-2 space-x-2">
         <div class="">
-          <Select
+          <!-- <Select
             :items="this.$store.getters['assets/all']"
             :keys="['id', 'symbol']"
             v-model="this.assetData.proivder"
             :value="this.assetData.proivder"
             class="h-11 self-end"
-          />
-          <CoingeckoInput
-            @inputUpdate="setProviderId"
-            v-if="this.assetData.provider == '2'"
-          />
+          /> -->
+          <CoingeckoInput @inputUpdate="setProviderId" />
         </div>
 
         <Input
