@@ -187,7 +187,7 @@ export default {
         await sellTokenContract.approve(ZERO_EX_ADDRESS, sellWeiNumber * 1.05);
       } else {
         const response = await fetch(
-          `https://fantom.api.0x.org/swap/v1/quote?buyToken=${this.swapData.buy}&sellToken=${this.swapData.sell}&sellAmount=${sellWeiNumber}&takerAddress=${this.$store.getters["web3/wallet"]}&feeRecipient=0xc7BF7E22eD98404dE1802d0d0d1844BE21394685&buyTokenPercentageFee=0.01`
+          `https://fantom.api.0x.org/swap/v1/quote?buyToken=${this.swapData.buyAddr}&sellToken=${this.swapData.sellAddr}&sellAmount=${sellWeiNumber}&takerAddress=${this.$store.getters["web3/wallet"]}&feeRecipient=0xc7BF7E22eD98404dE1802d0d0d1844BE21394685&buyTokenPercentageFee=0.005`
         );
 
         const quote = await response.json();
@@ -198,10 +198,12 @@ export default {
           data: quote.data,
           value: quote.value,
           gas: quote.gas,
-          gasPrice: quote.gasPrice,
+          gasPrice: "1000000000",
         };
         this.swapping = false;
-        this.provider.send("eth_sendTransaction", [params]);
+        this.$store.getters["web3/provider"].send("eth_sendTransaction", [
+          params,
+        ]);
       }
     },
   },
