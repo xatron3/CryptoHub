@@ -19,7 +19,7 @@
 
       <!-- Active Positions Table -->
       <Table
-        :items="this.active_positions"
+        :items="this.$store.getters['user/allPositions']"
         :headers="this.headers"
         @button_clicked="showClosePosition"
       />
@@ -43,7 +43,7 @@
     <!-- Export Modal -->
     <ExportModal
       :show="this.showExportModal"
-      :jsonData="this.active_positions"
+      :jsonData="this.$store.getters['user/allPositions']"
       @hideModal="this.showExportModal = false"
     />
   </div>
@@ -115,13 +115,7 @@ export default {
       return columns;
     },
   },
-  async mounted() {
-    await this.refreshPositions();
-  },
   methods: {
-    async refreshPositions() {
-      this.active_positions = await this.$store.getters["user/allPositions"];
-    },
     showClosePosition(data) {
       this.showClosePositionModal = true;
       this.closeId = data.id;

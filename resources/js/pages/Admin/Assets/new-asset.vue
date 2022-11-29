@@ -5,16 +5,14 @@
         <div class="">
           <Select
             :items="this.$store.getters['assets/all']"
-            :keys="['symbol', 'symbol']"
-            v-model="this.assetData.provider"
-            :value="this.assetData.provider"
-            class="h-7 self-end"
-            @modelValue="test"
+            :keys="['id', 'symbol']"
+            v-model="this.assetData.proivder"
+            :value="this.assetData.proivder"
+            class="h-11 self-end"
           />
-
           <CoingeckoInput
             @inputUpdate="setProviderId"
-            v-if="this.assetData.provider === 'coingecko'"
+            v-if="this.assetData.provider == '2'"
           />
         </div>
 
@@ -72,7 +70,7 @@ export default {
         name: "",
         logo: "",
         symbol: "",
-        provider: "coingecdko",
+        provider: "",
         provider_id: "",
       },
     };

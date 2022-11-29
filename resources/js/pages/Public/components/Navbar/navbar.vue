@@ -1,11 +1,11 @@
 <template>
-  <nav class="bg-gray-700 p-6 shadow-lg">
+  <nav class="bg-gray-200 dark:bg-gray-700 p-6 shadow-lg">
     <div class="flex items-center justify-between flex-wrap max-w-6xl mx-auto">
       <router-link
         to="/"
         class="flex items-center flex-shrink-0 text-white mr-6"
       >
-        <!-- <img src="/storage/favicon50x50.png" class="w-8 mr-2" /> -->
+        <img src="/storage/app/favicon50x50.png" class="w-8 mr-2" />
         <span class="font-semibold text-xl tracking-tight">MarketCyclop</span>
       </router-link>
       <div class="block lg:hidden">
@@ -53,7 +53,7 @@
             </div>
             <div v-else>
               <div
-                class="w-28 overflow-hidden rounded-lg bg-gray-800 px-4 py-2 text-sm text-ellipsis"
+                class="w-28 overflow-hidden rounded-lg bg-gray-400 text-white bg:bg-gray-800 px-4 py-2 text-sm text-ellipsis"
               >
                 <span class="overflow-hidden">{{
                   this.$store.getters["web3/wallet"]

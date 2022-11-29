@@ -5,6 +5,8 @@ import publicPage from "../middleware/publicPage";
 // Auth Pages
 import Login from "@/pages/Login/Login.vue";
 
+import NotFound from "@/pages/Public/NotFound/not-found.vue";
+
 // Public Pages
 import Home from "@/pages/Public/Home/home.vue";
 import Swap from "@/pages/Public/Swap/swap.vue";
@@ -35,6 +37,7 @@ const routes = [
     component: Swap,
     beforeEnter: publicPage,
   },
+  { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },
 ];
 
 export default routes;
