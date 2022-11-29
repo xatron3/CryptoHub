@@ -2,11 +2,17 @@
   <div class="flex space-x-4">
     <div class="w-full md:w-2/5">
       <h2 class="text-lg font-bold dark:text-white">24h Gainers</h2>
-      <Table :items="this.gainers" :headers="headers" />
+      <Table
+        :items="this.$store.getters['assets/gainers']"
+        :headers="headers"
+      />
     </div>
     <div class="w-full md:w-2/5">
       <h2 class="text-lg font-bold dark:text-white">24h Loosers</h2>
-      <Table :items="this.loosers" :headers="headers" />
+      <Table
+        :items="this.$store.getters['assets/loosers']"
+        :headers="headers"
+      />
     </div>
   </div>
 </template>
