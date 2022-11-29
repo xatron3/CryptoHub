@@ -26,20 +26,19 @@ export async function setProvider() {
  */
 export async function getQuote(swapData) {
   let amount;
-  console.log(swapData);
-
   const response = await fetch(
-    `https://fantom.api.0x.org/swap/v1/quote?buyToken=${swapData.buyAddr}&sellToken=${swapData.sellAddr}&sellAmount=${swapData.sellAmount}&feeRecipient=0xc7BF7E22eD98404dE1802d0d0d1844BE21394685&buyTokenPercentageFee=0.01`
+    `https://fantom.api.0x.org/swap/v1/quote?buyToken=${swapData.buyAddr}&sellToken=${swapData.sellAddr}&sellAmount=${swapData.sellAmount}&feeRecipient=0xc7BF7E22eD98404dE1802d0d0d1844BE21394685&buyTokenPercentageFee=0.005`
   );
 
   const data = await response.json();
-
+  console.log(data);
   if (data.hasOwnProperty("orders")) {
-    const ordersLength = data.orders.length;
+    // const ordersLength = data.orders.length;
+    console.log(swapData.decimals);
 
     const buyAmount = ethers.utils.formatUnits(
-      data.orders[ordersLength - 1].makerAmount,
-      swapData.decimals
+      data.buyAmount,
+      swapData.buyDecimals
     );
 
     amount = buyAmount;

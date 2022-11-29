@@ -98,7 +98,8 @@ export default {
         sellAmount: 100000,
         sellAddr: "0x04068DA6C83AFCFA0e13ba15A6696662335D5B75",
         sellDecimals: 0,
-        buyAddr: "0x74b23882a30290451A17c44f4F05243b6b58C76d",
+        buyAddr: "0x74b23882a30290451A17c44f4F05243b6b58C76d", // ETH: 0x74b23882a30290451A17c44f4F05243b6b58C76d | USDC: 0x04068DA6C83AFCFA0e13ba15A6696662335D5B75 | CRV: 0x1E4F97b9f9F913c46F1632781732927B9019C68b
+        buyDecimals: 0,
       },
     };
   },
@@ -108,12 +109,13 @@ export default {
   },
   methods: {
     async sellAmountChange() {
-      console.log(
-        ethers.utils.parseUnits(
-          this.sellData.amount.toString(),
-          this.sellData.decimals
-        )
+      const sellWeiNumber = ethers.utils.parseUnits(
+        this.sellData.amount.toString(),
+        this.sellData.decimals
       );
+
+      this.swapData.sellAmount = sellWeiNumber;
+
       const buyAmount = await getQuote(this.swapData);
       this.buyData.amount = buyAmount;
     },
@@ -141,7 +143,7 @@ export default {
       this.sellData.decimals = sellData.decimals;
       this.sellData.symbol = sellData.symbol;
 
-      this.swapData.sellDecimals = sellData.decimals;
+      this.swapData.buyDecimals = buyData.decimals;
 
       await this.sellAmountChange();
 
@@ -163,7 +165,12 @@ export default {
     },
     async swap() {
       this.swapping = true;
-      const amount = 100000;
+
+      const sellWeiNumber = ethers.utils.parseUnits(
+        this.sellData.amount.toString(),
+        this.sellData.decimals
+      );
+
       const ZERO_EX_ADDRESS = "0xdef189deaef76e379df891899eb5a00a94cbc250";
       const sellTokenContract = new ethers.Contract(
         this.swapData.sellAddr,
@@ -175,11 +182,12 @@ export default {
         ZERO_EX_ADDRESS
       );
 
-      if (ethers.BigNumber.from(currentAllowance).toNumber() < amount) {
-        await sellTokenContract.approve(ZERO_EX_ADDRESS, amount);
+      if (ethers.BigNumber.from(currentAllowance).toNumber() < sellWeiNumber) {
+        this.swapping = false;
+        await sellTokenContract.approve(ZERO_EX_ADDRESS, sellWeiNumber * 1.05);
       } else {
         const response = await fetch(
-          `https://fantom.api.0x.org/swap/v1/quote?buyToken=${this.swapData.buy}&sellToken=${this.swapData.sell}&sellAmount=${amount}&takerAddress=${this.$store.getters["web3/wallet"]}&feeRecipient=0xc7BF7E22eD98404dE1802d0d0d1844BE21394685&buyTokenPercentageFee=0.01`
+          `https://fantom.api.0x.org/swap/v1/quote?buyToken=${this.swapData.buy}&sellToken=${this.swapData.sell}&sellAmount=${sellWeiNumber}&takerAddress=${this.$store.getters["web3/wallet"]}&feeRecipient=0xc7BF7E22eD98404dE1802d0d0d1844BE21394685&buyTokenPercentageFee=0.01`
         );
 
         const quote = await response.json();
@@ -192,11 +200,9 @@ export default {
           gas: quote.gas,
           gasPrice: quote.gasPrice,
         };
-
+        this.swapping = false;
         this.provider.send("eth_sendTransaction", [params]);
       }
-
-      this.swapping = false;
     },
   },
 };
