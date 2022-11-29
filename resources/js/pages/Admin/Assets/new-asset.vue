@@ -67,7 +67,7 @@ export default {
         name: "",
         logo: "",
         symbol: "",
-        provider: "",
+        provider: "coingecko",
         provider_id: "",
       },
     };
