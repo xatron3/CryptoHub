@@ -27,6 +27,7 @@
     "vue-router": "^4.0.13",
     "vue-toastification": "^2.0.0-rc.5",
     "vue3-cookies": "^1.0.6",
+    "vue3-markdown-it": "^1.0.10",
     "vuex": "^4.0.2",
     "web3": "^1.8.1"
   }
