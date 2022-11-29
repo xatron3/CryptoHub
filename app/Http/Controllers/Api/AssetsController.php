@@ -13,48 +13,48 @@ class AssetsController extends Controller
 {
   public function store(Request $request)
   {
-    $coingecko_id = $request->coingecko_id;
+    $provider_id = $request->provider_id;
 
-    if ($coingecko_id !== null) {
-      $asset = Asset::where('provider_id', $coingecko_id)->first();
+    if ($request->provider === "coingecko") {
+      $result = CoingeckoController::getCoingeckoData($provider_id);
+      $result = $result[0];
 
-      if (!$asset) {
-        $result = CoingeckoController::getCoingeckoData($request->coingecko_id);
 
-        if (!empty($result)) {
-          $result = $result[0];
-
-          $asset = new Asset();
-          $asset->provider_id = $coingecko_id;
-          $asset->name = $result->name;
-          $asset->symbol = $result->symbol;
-          $asset->logo = $result->image;
-          $asset->save();
-
-          $marketData = new AssetMarketData();
-          $marketData->asset_id = $asset->id;
-          $marketData->current_price = $result->current_price;
-          $marketData->market_cap = $result->market_cap;
-          $marketData->price_change_24h = $result->price_change_percentage_24h;
-          $marketData->save();
-
-          return response()->json(['message' => 'Asset was added.', 'status' => 200], 200);
-        } else {
-          return response()->json(['message' => 'Asset was not found on Coingecko.', 'status' => 400], 200);
-        }
+      if (!empty($result)) {
+        $asset = new Asset();
+        $asset->provider_id = $provider_id;
+        $asset->provider = $request->provider;
+        $asset->name = $result->name;
+        $asset->symbol = $result->symbol;
+        $asset->logo = $result->image;
+        $asset->save();
       } else {
-        return response()->json(['message' => 'Asset already exists.', 'status' => 400], 200);
+        return response()->json(['message' => 'Asset was not found on Coingecko.', 'status' => 400], 200);
       }
     } else {
       $asset = new Asset();
-      $asset->provider_id = $request->coingecko_id;
+      $asset->provider_id = $provider_id;
+      $asset->provider = $request->provider;
       $asset->name = $request->name;
       $asset->symbol = $request->symbol;
-      $asset->logo = $request->logo;
+      $asset->logo = $request->image;
       $asset->save();
 
-      return response()->json(['message' => 'Asset was added.', 'status' => 200], 200);
+      $result = [
+        'current_price' => 0,
+        'market_cap' => 0,
+        'price_change_percentage_24h'
+      ];
     }
+
+    $marketData = new AssetMarketData();
+    $marketData->asset_id = $asset->id;
+    $marketData->current_price = $result->current_price;
+    $marketData->market_cap = $result->market_cap;
+    $marketData->price_change_24h = $result->price_change_percentage_24h;
+    $marketData->save();
+
+    return response()->json(['message' => 'Asset was added.', 'status' => 200], 200);
   }
 
   public function update(Request $request)
