@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col">
-    <h2 class="text-2xl font-bold my-3">Cyclop Token</h2>
+    <h2 class="text-2xl font-semibold my-3 uppercase h-font">Swap Token</h2>
     <div>20M T. Supply</div>
     <Markdown :source="this.markdown" />
   </div>
@@ -18,11 +18,7 @@ export default {
   components: {
     Markdown,
   },
-  methods: {
-    markdownToHtml() {
-      return marke;
-    },
-  },
+  methods: {},
 };
 </script>
 

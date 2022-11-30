@@ -1,5 +1,8 @@
 <template>
-  <button :class="[bgColor]" class="px-3 py-2 rounded-md">
+  <button
+    :class="[bgColor]"
+    class="px-2 py-1 rounded-md uppercase font-semibold text-sm"
+  >
     {{ this.title }}
   </button>
 </template>

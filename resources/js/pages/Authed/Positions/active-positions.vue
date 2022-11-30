@@ -19,7 +19,8 @@
 
       <!-- Active Positions Table -->
       <Table
-        :items="this.$store.getters['user/allPositions']"
+        :items="this.active_positions"
+        v-if="this.active_positions.length > 0"
         :headers="this.headers"
         @button_clicked="showClosePosition"
       />
@@ -42,8 +43,9 @@
 
     <!-- Export Modal -->
     <ExportModal
+      v-if="this.active_positions.length > 0"
       :show="this.showExportModal"
-      :jsonData="this.$store.getters['user/allPositions']"
+      :jsonData="this.active_positions"
       @hideModal="this.showExportModal = false"
     />
   </div>
@@ -101,7 +103,7 @@ export default {
           customValue: true,
         },
       ],
-      active_positions: [],
+      active_positions: {},
       showPositionModal: false,
       showClosePositionModal: false,
       showExportModal: false,
@@ -115,10 +117,16 @@ export default {
       return columns;
     },
   },
+  mounted() {
+    this.refreshPositions();
+  },
   methods: {
     showClosePosition(data) {
       this.showClosePositionModal = true;
       this.closeId = data.id;
+    },
+    refreshPositions() {
+      this.active_positions = this.$store.getters["user/allPositions"];
     },
     async updateFilter(data) {
       if (data.id === 1) {
@@ -133,7 +141,7 @@ export default {
         this.filter.buy_asset = data.asset;
       }
 
-      await this.refreshPositions();
+      this.refreshPositions();
     },
   },
 };
