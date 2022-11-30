@@ -1,5 +1,5 @@
 <template>
-  <div class="min-h-screen bg-gray-100 dark:bg-gray-700">
+  <nav class="min-h-screen bg-gray-100 dark:bg-gray-700">
     <div
       class="sidebar min-h-screen overflow-hidden border-r shadow-sm dark:border-gray-600"
       :class="showMobileNavigation"
@@ -8,7 +8,7 @@
         <div>
           <div class="w-max p-4 mb-3 dark:text-gray-200">
             <router-link to="/dashboard" class="flex items-center">
-              <!-- <img src="/storage/favicon50x50.png" class="w-8" /> -->
+              <img :src="this.logo" class="w-8" />
               <span class="ml-2">{{ logo }}</span>
             </router-link>
           </div>
@@ -50,22 +50,26 @@
         </div>
       </div>
     </div>
-  </div>
+  </nav>
 </template>
 
 <script>
 import NavigationLink from "./components/NavigationLink.vue";
 import NavigationHeader from "./components/NavigationHeader.vue";
 import AdminLinks from "./components/AdminLinks.vue";
+import Logo from "../../../images/logo.png";
 
 export default {
   name: "Navigation",
   data() {
     return {
       title: "Navigation",
+      logo: "",
     };
   },
-  mounted() {},
+  mounted() {
+    this.logo = Logo;
+  },
   computed: {
     logo() {
       return import.meta.env.VITE_APP_NAME;

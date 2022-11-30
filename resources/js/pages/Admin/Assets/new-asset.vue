@@ -1,16 +1,31 @@
 <template>
-  <div class="max-w-xl">
-    <div class="space-y-2 flex flex-col">
+  <div class="max-w-xl space-y-2">
+    <h2 class="text-2xl font-semibold uppercase h-font">Add Asset</h2>
+    <div class="">
+      <h3 class="text-xs uppercase font-semibold mb-1">Choose Data Provider</h3>
+
+      <div class="space-x-2">
+        <Button
+          title="Coingecko"
+          :class="{ 'bg-green-400': this.assetData.provider === 'coingecko' }"
+          @click="this.assetData.provider = 'coingecko'"
+        />
+        <Button
+          title="Other"
+          :class="{ 'bg-green-400': this.assetData.provider === 'other' }"
+          @click="this.assetData.provider = 'other'"
+        />
+      </div>
+    </div>
+
+    <div class="space-y-2 flex flex-col" v-if="this.assetData.provider !== ''">
       <div class="grid grid-cols-2 space-x-2">
-        <div class="">
-          <!-- <Select
-            :items="this.$store.getters['assets/all']"
-            :keys="['id', 'symbol']"
-            v-model="this.assetData.proivder"
-            :value="this.assetData.proivder"
-            class="h-11 self-end"
-          /> -->
-          <CoingeckoInput @inputUpdate="setProviderId" />
+        <!-- Data Providers -->
+        <div>
+          <CoingeckoInput
+            @inputUpdate="setProviderId"
+            v-if="this.assetData.provider === 'coingecko'"
+          />
         </div>
 
         <Input
@@ -67,7 +82,7 @@ export default {
         name: "",
         logo: "",
         symbol: "",
-        provider: "coingecko",
+        provider: "",
         provider_id: "",
       },
     };

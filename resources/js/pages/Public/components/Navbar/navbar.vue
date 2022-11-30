@@ -74,7 +74,7 @@
 
 <script>
 import { ethers } from "ethers";
-import Logo from "./logo.png";
+import Logo from "../../../../../images/logo.png";
 
 export default {
   name: "Navbar",

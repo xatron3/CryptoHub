@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col">
     <div class="max-w-6xl w-full mx-auto">
-      <h2 class="text-2xl font-bold my-3">Swap Token</h2>
+      <h2 class="text-2xl font-semibold my-3 uppercase h-font">Swap Token</h2>
       <div class="w-full max-w-md bg-gray-600 mx-auto p-2 rounded-md">
         <div
           @click="updateUi"

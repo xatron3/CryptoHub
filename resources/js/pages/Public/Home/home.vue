@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col">
-    <div>
+    <!-- <div>
       <h2 class="text-2xl font-bold my-3">Latest News</h2>
       <div
         class="flex space-x-0 space-y-2 flex-col md:space-y-0 md:space-x-3 md:flex-row"
@@ -9,16 +9,21 @@
         <Card />
         <Card />
       </div>
-    </div>
+    </div> -->
 
-    <div v-if="this.assets" class="mt-2">
+    <div v-if="this.assets">
+      <h2 class="text-2xl font-semibold my-3 h-font uppercase">
+        Today's Top Cryptocurrencies
+      </h2>
       <div
-        class="grid grid-flow-col items-center grid-cols-10 px-2 py-1 text-sm font-semibold text-gray-100"
+        class="grid grid-flow-col items-center grid-cols-10 px-2 py-3 text-sm font-semibold text-gray-100 bg-gray-750 rounded-md"
       >
-        <div class="col-span-1 text-center">LOGO</div>
-        <div class="col-span-5">NAME</div>
-        <div class="col-span-2">PRICE</div>
-        <div class="col-span-2">24H CHANGE</div>
+        <div class="col-span-4 cursor-pointer">NAME</div>
+        <div class="col-span-2 cursor-pointer">MARKETCAP</div>
+        <div class="col-span-2 cursor-pointer">PRICE</div>
+        <div class="col-span-2 cursor-pointer" @click="sortOnPercentageChange">
+          24H CHANGE
+        </div>
       </div>
 
       <div
@@ -26,14 +31,15 @@
         :key="asset.name"
         class="my-2 grid grid-flow-col grid-cols-10 items-center bg-gray-700 px-2 py-1 rounded-md"
       >
-        <div class="col-span-1 flex justify-center">
+        <div class="col-span-4 flex items-center space-x-2">
           <img :src="asset.logo" class="w-6 h-6 rounded-full" />
+          <div>
+            <div class="-mt-0.5">{{ asset.name }}</div>
+            <div class="text-xs">{{ asset.symbol }}</div>
+          </div>
         </div>
 
-        <div class="col-span-5">
-          <div class="-mt-0.5">{{ asset.name }}</div>
-          <div class="text-xs">{{ asset.symbol }}</div>
-        </div>
+        <div class="col-span-2">${{ asset.market_cap }}</div>
 
         <div class="col-span-2">${{ asset.current_price }}</div>
 
@@ -55,6 +61,7 @@ export default {
   data() {
     return {
       assets: null,
+      sort: "",
     };
   },
   async mounted() {
@@ -64,6 +71,15 @@ export default {
     async fetchAssets() {
       const res = await getAssets();
       this.assets = res.data;
+    },
+    sortOnPercentageChange() {
+      if (this.sort === "gainers") {
+        this.sort = "loosers";
+        this.assets = this.$store.getters["assets/loosers"];
+      } else {
+        this.assets = this.$store.getters["assets/gainers"];
+        this.sort = "gainers";
+      }
     },
   },
 };
