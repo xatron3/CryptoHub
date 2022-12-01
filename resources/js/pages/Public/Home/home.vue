@@ -27,7 +27,6 @@
 <script>
 import Card from "./card/index.vue";
 import AssetsTable from "./table/assets.vue";
-import { getAssets } from "@/services/assets";
 
 export default {
   name: "Home",

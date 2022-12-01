@@ -1,26 +1,30 @@
 <template>
-  <div class="max-w-6xl flex flex-col space-y-2">
-    <div class="flex">
-      <div v-if="this.meta">
-        Showing Page {{ this.page }}/{{ this.meta.last_page }}
-      </div>
-      <div class="ml-auto">
-        <Button
-          @click="$router.push('/admin/assets/new')"
-          title="Add New"
-          class="w-28 self-end"
-        />
-      </div>
-    </div>
+  <div>
+    <HeaderText>All Assets</HeaderText>
 
-    <Table
-      :headers="this.headers"
-      :items="this.assets"
-      :meta="this.meta"
-      buttonTitle="Edit"
-      @button_clicked="edit_asset"
-      @change_page="change_page"
-    />
+    <div class="max-w-6xl flex flex-col space-y-2">
+      <div class="flex">
+        <div v-if="this.meta">
+          Showing Page {{ this.page }}/{{ this.meta.last_page }}
+        </div>
+        <div class="ml-auto">
+          <Button
+            @click="$router.push('/admin/assets/new')"
+            title="Add New"
+            class="w-28 self-end"
+          />
+        </div>
+      </div>
+
+      <Table
+        :headers="this.headers"
+        :items="this.assets"
+        :meta="this.meta"
+        buttonTitle="Edit"
+        @button_clicked="edit_asset"
+        @change_page="change_page"
+      />
+    </div>
   </div>
 </template>
 

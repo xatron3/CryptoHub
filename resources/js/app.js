@@ -16,6 +16,7 @@ import "@vuepic/vue-datepicker/dist/main.css";
 
 // Components
 import Input from "./components/Input.vue";
+import HeaderText from "./components/HeaderText.vue";
 import Select from "./components/Select.vue";
 import Button from "./components/Button.vue";
 import Modal from "./components/Modal.vue";
@@ -24,6 +25,7 @@ import Table from "./components/Table/Table.vue";
 const app = createApp(App);
 
 app.component("Input", Input);
+app.component("HeaderText", HeaderText);
 app.component("Select", Select);
 app.component("Button", Button);
 app.component("Modal", Modal);

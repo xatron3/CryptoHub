@@ -1,5 +1,7 @@
 <template>
-  <div class="max-w-6xl flex flex-col space-y-2">
+  <div class="space-y-2">
+    <HeaderText>Admin Commands</HeaderText>
+
     <div>
       <UpdateCoingecko />
     </div>

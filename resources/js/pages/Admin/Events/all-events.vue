@@ -1,5 +1,7 @@
 <template>
   <div>
+    <HeaderText>All Events</HeaderText>
+
     <div class="max-w-6xl flex flex-col space-y-2">
       <div class="flex justify-end space-x-2">
         <Button

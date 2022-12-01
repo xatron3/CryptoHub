@@ -20,20 +20,25 @@ class PermissionsController extends Controller
    */
   public function storeRole(Request $request)
   {
-    if ($request->has('name')) {
-      $name = $request->name;
-      $role = Role::where('name', $name)->first();
+    if ($request->user()->hasRole('admin')) {
+      if ($request->has('name')) {
+        $name = $request->name;
+        $role = Role::where('name', $name)->first();
 
-      if ($role) {
-        $message = 'Role Already Exists';
-        $status = 400;
+        if ($role) {
+          $message = 'Role Already Exists';
+          $status = 400;
+        } else {
+          Role::create(['name' => $name]);
+          $message = 'Role Created';
+          $status = 200;
+        }
       } else {
-        Role::create(['name' => $name]);
-        $message = 'Role Created';
-        $status = 200;
+        $message = 'The role needs a name';
+        $status = 400;
       }
     } else {
-      $message = 'The role needs a name';
+      $message = 'Only admins can add roles';
       $status = 400;
     }
 

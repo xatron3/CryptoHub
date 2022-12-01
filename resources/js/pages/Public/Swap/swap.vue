@@ -14,7 +14,12 @@
           <ArrowPathIcon v-if="!this.tokenDataLoaded" class="animate-spin" />
         </div>
 
-        <div v-if="this.tokenDataLoaded" class="flex flex-col w-full">
+        <div
+          v-if="
+            this.tokenDataLoaded && this.$store.getters['web3/chainId'] == '250'
+          "
+          class="flex flex-col w-full"
+        >
           <!-- SELL INFO -->
           <div class="space-y-2">
             <div class="bg-gray-200 dark:bg-gray-700 p-2 rounded-lg space-y-1">
@@ -73,7 +78,12 @@
             <ArrowPathIcon v-if="this.swapping" class="animate-spin w-6" />
           </div>
         </div>
-        <div v-else class="w-full text-center">Loading data</div>
+        <div v-else class="w-full text-center">
+          <div v-if="this.$store.getters['web3/chainId'] == '250'">
+            Loading data
+          </div>
+          <div v-else>Please change to Fantom Chain</div>
+        </div>
       </div>
     </div>
   </div>
@@ -111,15 +121,12 @@ export default {
       },
     };
   },
-  watch: {
-    swapData() {
-      console.log("d");
-    },
-  },
   components: { ArrowPathIcon, ArrowsUpDownIcon },
   async mounted() {
-    await this.loadContracts();
-    await this.updateUi();
+    if (this.$store.getters["web3/chainId"] == "250") {
+      await this.loadContracts();
+      await this.updateUi();
+    }
   },
   methods: {
     async loadContracts() {

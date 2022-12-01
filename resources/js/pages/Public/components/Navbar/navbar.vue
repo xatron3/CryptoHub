@@ -51,7 +51,9 @@
                 Connect Wallet
               </button>
             </div>
-            <div v-else>
+            <div class="flex items-center space-x-2" v-else>
+              <div>{{ this.$store.getters["web3/chainId"] }}</div>
+
               <div
                 class="w-28 overflow-hidden rounded-lg bg-gray-400 text-white dark:bg-gray-800 px-4 py-2 text-sm text-ellipsis"
               >

@@ -1,5 +1,5 @@
 <template>
-  <div>PORTFOLIO</div>
+  <HeaderText>PORTFOLIO</HeaderText>
 </template>
 <script>
 export default {};

@@ -8,11 +8,7 @@ export async function getProvider() {
 
   if (window.ethereum) {
     provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-    const walletAddress = await provider.listAccounts();
-    if (walletAddress[0]) {
-      store.dispatch("web3/setWallet", walletAddress[0]);
-      listenForChange();
-    }
+    listenForChange();
   } else {
     provider = undefined;
   }
@@ -20,6 +16,22 @@ export async function getProvider() {
   return provider;
 }
 
+function listenForChange() {
+  window.ethereum.on("accountsChanged", async (accounts) => {
+    store.dispatch("web3/setWallet", accounts[0]);
+    const network = await store.getters["web3/provider"].getNetwork();
+  });
+
+  window.ethereum.on("networkChanged", async (networkId) => {
+    store.commit("web3/setChainId", networkId);
+  });
+}
+
+/**
+ * getContract
+ * @param {string} address
+ * @returns
+ */
 export async function getContract(address) {
   return new ethers.Contract(
     address,
@@ -40,7 +52,7 @@ export async function getQuote(swapData) {
   );
 
   const data = await response.json();
-  console.log(data);
+
   if (data.hasOwnProperty("orders")) {
     const buyAmount = ethers.utils.formatUnits(
       data.buyAmount,
@@ -53,10 +65,4 @@ export async function getQuote(swapData) {
   }
 
   return amount;
-}
-
-function listenForChange() {
-  window.ethereum.on("accountsChanged", async (accounts) => {
-    store.dispatch("web3/setWallet", accounts[0]);
-  });
 }

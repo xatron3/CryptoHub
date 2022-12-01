@@ -3,7 +3,7 @@ import { getProvider } from "../../helpers/web3";
 const web3 = {
   namespaced: true,
   state: () => ({
-    loaded: false,
+    chainId: 0,
     provider: null,
     wallet: "",
   }),
@@ -11,16 +11,16 @@ const web3 = {
     setWallet(state, data) {
       state.wallet = data;
     },
-    setLoaded(state, bool) {
-      state.loaded = bool;
+    setChainId(state, data) {
+      state.chainId = data;
     },
     setProvider(state, provider) {
       state.provider = provider;
     },
   },
   getters: {
-    isLoaded(state, getters) {
-      return state.loaded;
+    chainId(state) {
+      return state.chainId;
     },
     provider(state) {
       return state.provider;
@@ -32,17 +32,20 @@ const web3 = {
   actions: {
     async setWallet(context, data) {
       context.state.wallet = data;
-      await context.commit("setLoaded", true);
     },
     async setProvider(context, provider) {
       const _provider = await getProvider();
-      context.state.provider = _provider;
+      let walletAddress, network;
 
-      if (provider !== undefined) {
-        await context.commit("setLoaded", true);
-      } else {
-        await context.commit("setLoaded", false);
+      if (_provider !== undefined) {
+        walletAddress = await _provider.listAccounts();
+        network = await _provider.getNetwork();
+
+        context.commit("setWallet", walletAddress[0]);
+        context.commit("setChainId", network.chainId);
       }
+
+      context.commit("setProvider", _provider);
     },
   },
 };
