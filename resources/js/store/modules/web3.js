@@ -1,3 +1,5 @@
+import { getProvider } from "../../helpers/web3";
+
 const web3 = {
   namespaced: true,
   state: () => ({
@@ -33,7 +35,8 @@ const web3 = {
       await context.commit("setLoaded", true);
     },
     async setProvider(context, provider) {
-      context.state.provider = provider;
+      const _provider = await getProvider();
+      context.state.provider = _provider;
 
       if (provider !== undefined) {
         await context.commit("setLoaded", true);

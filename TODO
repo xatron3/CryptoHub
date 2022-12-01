@@ -1,5 +1,6 @@
 TODO:
-  ☐ Implement spatie user roles to user model @created(22-09-14 04:11)
+  ☐ Implement provider function setProvider() to loadApp @created(22-11-30 19:00)
+    Currently bootstrap.js handles setProvider(), should be in state manager
   ☐ Enhance the add new asset admin page @created(22-09-25 18:45)
     ☐ Make it possible to add different chain addresses to asset @created(22-09-25 18:45)
       This is good for future potential of having swap support
@@ -14,9 +15,6 @@ TODO:
       ☐ Asset ID @created(22-09-23 03:17)
       ☐ Amount @created(22-09-23 03:17)
       ☐ Platform @created(22-09-23 03:17)
-  ☐ Position State @created(22-11-01 04:01)
-    ☐ Make sure you can get them grouped @created(22-11-01 04:01)
-      Strated with something small: https://playcode.io/1019797
   
 BUGS:
   ☐ Get asset from storage with route id in edit asset is not working @created(22-10-14 15:16)
@@ -38,6 +36,10 @@ IDEAS:
       https://www.coinglass.com/FundingRate
 
 Archive:
+  ✔ Implement spatie user roles to user model @created(22-09-14 04:11) @done(22-11-30 19:00) @project(TODO)
+  ✔ Position State @created(22-11-01 04:01) @done(22-11-30 19:00) @project(TODO)
+  ✔ Make sure you can get them grouped @created(22-11-01 04:01) @done(22-11-30 19:00) @project(TODO)
+    Strated with something small: https://playcode.io/1019797
   ✔ Add command page to adminpanel @created(22-10-17 07:37) @done(22-11-01 04:45) @project(TODO)
   ✔ Make it possible to call price fetch from here @created(22-10-17 07:37) @done(22-11-01 04:45) @project(TODO)
   ✔ Vuex split up files @created(22-10-18 18:29) @done(22-10-25 00:23) @project(TODO)

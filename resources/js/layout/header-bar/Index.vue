@@ -31,6 +31,14 @@
             </div>
 
             <router-link
+              to="/"
+              @click="_showDropDown = false"
+              class="dark:text-white"
+            >
+              Home
+            </router-link>
+
+            <router-link
               to="/profile/settings"
               @click="_showDropDown = false"
               class="dark:text-white"

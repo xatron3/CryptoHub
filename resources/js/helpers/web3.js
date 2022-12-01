@@ -1,22 +1,31 @@
 import { ethers } from "ethers";
 
+import ERC20ABI from "./abis/ERC20.js";
 import store from "../store/store";
 
-export async function setProvider() {
+export async function getProvider() {
   let provider;
 
   if (window.ethereum) {
     provider = new ethers.providers.Web3Provider(window.ethereum, "any");
     const walletAddress = await provider.listAccounts();
-    store.dispatch("web3/setWallet", walletAddress[0]);
-    listenForChange();
+    if (walletAddress[0]) {
+      store.dispatch("web3/setWallet", walletAddress[0]);
+      listenForChange();
+    }
   } else {
     provider = undefined;
   }
 
-  store.dispatch("web3/setProvider", provider);
-
   return provider;
+}
+
+export async function getContract(address) {
+  return new ethers.Contract(
+    address,
+    ERC20ABI,
+    store.getters["web3/provider"].getSigner()
+  );
 }
 
 /**
@@ -33,9 +42,6 @@ export async function getQuote(swapData) {
   const data = await response.json();
   console.log(data);
   if (data.hasOwnProperty("orders")) {
-    // const ordersLength = data.orders.length;
-    console.log(swapData.decimals);
-
     const buyAmount = ethers.utils.formatUnits(
       data.buyAmount,
       swapData.buyDecimals
