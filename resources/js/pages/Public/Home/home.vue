@@ -27,12 +27,24 @@
 <script>
 import Card from "./card/index.vue";
 import AssetsTable from "./table/assets.vue";
+import { useHead } from "@vueuse/head";
 
 export default {
   name: "Home",
   components: {
     Card,
     AssetsTable,
+  },
+  setup() {
+    useHead({
+      meta: [
+        {
+          name: "description",
+          content:
+            "Find your latest crypto news, prices and swap your tokens at MarketCyclop.",
+        },
+      ],
+    });
   },
   data() {
     return {
