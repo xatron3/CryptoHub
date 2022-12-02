@@ -1,6 +1,6 @@
 <template>
   <div class="max-w-6xl flex flex-col space-y-2">
-    <h2 class="text-lg font-bold dark:text-white">All Users</h2>
+    <HeaderText>All Users</HeaderText>
 
     <div class="flex justify-end space-x-2">
       <router-link

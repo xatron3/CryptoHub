@@ -8,10 +8,6 @@
       /></span>
     </div>
 
-    <div class="hidden md:block" v-if="this.$store.getters['user/role'] > 50">
-      <UpdateCoingecko />
-    </div>
-
     <div class="ml-auto relative">
       <div class="flex flex-row space-x-2">
         <UserCircleIcon
@@ -29,6 +25,14 @@
             <div class="w-full font-bold dark:text-white">
               {{ this.$store.state.user.info.name }}
             </div>
+
+            <router-link
+              to="/"
+              @click="_showDropDown = false"
+              class="dark:text-white"
+            >
+              Home
+            </router-link>
 
             <router-link
               to="/profile/settings"

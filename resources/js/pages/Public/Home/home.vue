@@ -15,72 +15,46 @@
       <h2 class="text-2xl font-semibold my-3 h-font uppercase">
         Today's Top Cryptocurrencies
       </h2>
-      <div
-        class="grid grid-flow-col items-center grid-cols-10 px-2 py-3 text-sm font-semibold text-gray-100 bg-gray-750 rounded-md"
-      >
-        <div class="col-span-4 cursor-pointer">NAME</div>
-        <div class="col-span-2 cursor-pointer">MARKETCAP</div>
-        <div class="col-span-2 cursor-pointer">PRICE</div>
-        <div class="col-span-2 cursor-pointer" @click="sortOnPercentageChange">
-          24H CHANGE
-        </div>
-      </div>
 
-      <div
-        v-for="asset in this.assets"
-        :key="asset.name"
-        class="my-2 grid grid-flow-col grid-cols-10 items-center bg-gray-700 px-2 py-1 rounded-md"
-      >
-        <div class="col-span-4 flex items-center space-x-2">
-          <img :src="asset.logo" class="w-6 h-6 rounded-full" />
-          <div>
-            <div class="-mt-0.5">{{ asset.name }}</div>
-            <div class="text-xs">{{ asset.symbol }}</div>
-          </div>
-        </div>
-
-        <div class="col-span-2">${{ asset.market_cap }}</div>
-
-        <div class="col-span-2">${{ asset.current_price }}</div>
-
-        <div class="col-span-2">{{ asset.price_change_24h }}%</div>
-      </div>
+      <AssetsTable
+        :assets="this.assets"
+        v-if="Object.keys(this.assets).length > 0"
+      />
     </div>
   </div>
 </template>
 
 <script>
 import Card from "./card/index.vue";
-import { getAssets } from "@/services/assets";
+import AssetsTable from "./table/assets.vue";
+import { useHead } from "@vueuse/head";
 
 export default {
   name: "Home",
   components: {
     Card,
+    AssetsTable,
+  },
+  setup() {
+    useHead({
+      meta: [
+        {
+          name: "description",
+          content:
+            "Find your latest crypto news, prices and swap your tokens at MarketCyclop.",
+        },
+      ],
+    });
   },
   data() {
     return {
-      assets: null,
+      assets: {},
       sort: "",
     };
   },
   async mounted() {
-    await this.fetchAssets();
+    this.assets = this.$store.getters["assets/marketcap"];
   },
-  methods: {
-    async fetchAssets() {
-      const res = await getAssets();
-      this.assets = res.data;
-    },
-    sortOnPercentageChange() {
-      if (this.sort === "gainers") {
-        this.sort = "loosers";
-        this.assets = this.$store.getters["assets/loosers"];
-      } else {
-        this.assets = this.$store.getters["assets/gainers"];
-        this.sort = "gainers";
-      }
-    },
-  },
+  methods: {},
 };
 </script>

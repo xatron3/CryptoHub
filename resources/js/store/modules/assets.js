@@ -24,6 +24,10 @@ const assets = {
     get: (state) => (id) => {
       return state.assets.find((asset) => asset.id === id);
     },
+    marketcap: (state) =>
+      [...state.assets].sort(function (a, b) {
+        return b.market_cap - a.market_cap;
+      }),
     gainers: (state) =>
       [...state.assets].sort(function (a, b) {
         return b.price_change_24h - a.price_change_24h;

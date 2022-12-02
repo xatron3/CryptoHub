@@ -1,22 +1,43 @@
 import { ethers } from "ethers";
 
+import ERC20ABI from "./abis/ERC20.js";
 import store from "../store/store";
 
-export async function setProvider() {
+export async function getProvider() {
   let provider;
 
   if (window.ethereum) {
     provider = new ethers.providers.Web3Provider(window.ethereum, "any");
-    const walletAddress = await provider.listAccounts();
-    store.dispatch("web3/setWallet", walletAddress[0]);
     listenForChange();
   } else {
     provider = undefined;
   }
 
-  store.dispatch("web3/setProvider", provider);
-
   return provider;
+}
+
+function listenForChange() {
+  window.ethereum.on("accountsChanged", async (accounts) => {
+    store.dispatch("web3/setWallet", accounts[0]);
+    const network = await store.getters["web3/provider"].getNetwork();
+  });
+
+  window.ethereum.on("networkChanged", async (networkId) => {
+    store.commit("web3/setChainId", networkId);
+  });
+}
+
+/**
+ * getContract
+ * @param {string} address
+ * @returns
+ */
+export async function getContract(address) {
+  return new ethers.Contract(
+    address,
+    ERC20ABI,
+    store.getters["web3/provider"].getSigner()
+  );
 }
 
 /**
@@ -31,11 +52,8 @@ export async function getQuote(swapData) {
   );
 
   const data = await response.json();
-  console.log(data);
-  if (data.hasOwnProperty("orders")) {
-    // const ordersLength = data.orders.length;
-    console.log(swapData.decimals);
 
+  if (data.hasOwnProperty("orders")) {
     const buyAmount = ethers.utils.formatUnits(
       data.buyAmount,
       swapData.buyDecimals
@@ -47,10 +65,4 @@ export async function getQuote(swapData) {
   }
 
   return amount;
-}
-
-function listenForChange() {
-  window.ethereum.on("accountsChanged", async (accounts) => {
-    store.dispatch("web3/setWallet", accounts[0]);
-  });
 }

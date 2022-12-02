@@ -21,7 +21,8 @@ class Asset extends Model
     'logo',
     'current_price',
     'market_cap',
-    'provider_id'
+    'provider_id',
+    'provider'
   ];
 
   protected function symbol(): Attribute

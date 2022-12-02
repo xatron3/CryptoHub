@@ -41,12 +41,21 @@ const user = {
             resolve(context.state.info);
           }
         } else {
-          reject("No access token found");
+          context.commit("setUser", {});
+          resolve("No Access Token");
         }
       });
     },
     async getPositions(context, data) {
-      const res = await getPosition({ grouped: context.state.positionGrouped });
+      let res;
+
+      if (Object.keys(context.state.info).length !== 0) {
+        res = await getPosition({
+          grouped: context.state.positionGrouped,
+        });
+      } else {
+        res = {};
+      }
 
       context.commit("setPositions", res);
     },
@@ -74,41 +83,45 @@ const user = {
       return isAdmin;
     },
     losingPositions: (state) =>
-      [...state.positions]
-        .filter((item) => {
-          return item.current_sell_price < item.buy_price;
-        })
-        .sort(function (a, b) {
-          const aPNL = nums.getPercentageIncrease(
-            a.current_sell_price,
-            a.buy_price
-          );
+      Object.keys(state.positions).length > 0
+        ? [...state.positions]
+            .filter((item) => {
+              return item.current_sell_price < item.buy_price;
+            })
+            .sort(function (a, b) {
+              const aPNL = nums.getPercentageIncrease(
+                a.current_sell_price,
+                a.buy_price
+              );
 
-          const bPNL = nums.getPercentageIncrease(
-            b.current_sell_price,
-            b.buy_price
-          );
+              const bPNL = nums.getPercentageIncrease(
+                b.current_sell_price,
+                b.buy_price
+              );
 
-          return bPNL - aPNL;
-        }),
+              return bPNL - aPNL;
+            })
+        : {},
     profitPositions: (state) =>
-      [...state.positions]
-        .filter((item) => {
-          return item.current_sell_price >= item.buy_price;
-        })
-        .sort(function (a, b) {
-          const aPNL = nums.getPercentageIncrease(
-            a.current_sell_price,
-            a.buy_price
-          );
+      Object.keys(state.positions).length > 0
+        ? [...state.positions]
+            .filter((item) => {
+              return item.current_sell_price >= item.buy_price;
+            })
+            .sort(function (a, b) {
+              const aPNL = nums.getPercentageIncrease(
+                a.current_sell_price,
+                a.buy_price
+              );
 
-          const bPNL = nums.getPercentageIncrease(
-            b.current_sell_price,
-            b.buy_price
-          );
+              const bPNL = nums.getPercentageIncrease(
+                b.current_sell_price,
+                b.buy_price
+              );
 
-          return bPNL - aPNL;
-        }),
+              return bPNL - aPNL;
+            })
+        : {},
     allPositions(state, getters) {
       return state.positions;
     },

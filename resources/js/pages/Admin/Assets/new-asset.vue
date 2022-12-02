@@ -1,21 +1,11 @@
 <template>
   <div class="max-w-xl space-y-2">
-    <h2 class="text-2xl font-semibold uppercase h-font">Add Asset</h2>
+    <HeaderText>Add Asset</HeaderText>
     <div class="">
-      <h3 class="text-xs uppercase font-semibold mb-1">Choose Data Provider</h3>
-
-      <div class="space-x-2">
-        <Button
-          title="Coingecko"
-          :class="{ 'bg-green-400': this.assetData.provider === 'coingecko' }"
-          @click="this.assetData.provider = 'coingecko'"
-        />
-        <Button
-          title="Other"
-          :class="{ 'bg-green-400': this.assetData.provider === 'other' }"
-          @click="this.assetData.provider = 'other'"
-        />
-      </div>
+      <Providers
+        :providers="this.providers"
+        @updateProvider="setProvider($event)"
+      />
     </div>
 
     <div class="space-y-2 flex flex-col" v-if="this.assetData.provider !== ''">
@@ -24,7 +14,18 @@
         <div>
           <CoingeckoInput
             @inputUpdate="setProviderId"
+            v-model="this.assetData.provider_id"
             v-if="this.assetData.provider === 'coingecko'"
+          />
+          <Input
+            :showLabel="true"
+            name="provider_id"
+            autocomplete="off"
+            type="text"
+            placeholder="Provider ID"
+            :value="this.assetData.provider_id"
+            v-model="this.assetData.provider_id"
+            v-else
           />
         </div>
 
@@ -70,6 +71,7 @@
 <script>
 import Alert from "@/components/Alert.vue";
 
+import Providers from "./components/Providers.vue";
 import CoingeckoInput from "./components/CoingeckoInput.vue";
 
 import { useToast } from "vue-toastification";
@@ -85,6 +87,16 @@ export default {
         provider: "",
         provider_id: "",
       },
+      providers: [
+        {
+          name: "Coingecko",
+          id: "coingecko",
+        },
+        {
+          name: "None",
+          id: "none",
+        },
+      ],
     };
   },
   setup() {
@@ -93,13 +105,13 @@ export default {
 
     return { toast };
   },
-  components: { Alert, CoingeckoInput },
+  components: { Alert, CoingeckoInput, Providers },
   methods: {
-    test(data) {
-      console.log(data);
-    },
     setProviderId(data) {
       this.assetData.provider_id = data;
+    },
+    setProvider(data) {
+      this.assetData.provider = data;
     },
     async addNewAsset() {
       let res = await axios.post("/api/asset/add", this.assetData);

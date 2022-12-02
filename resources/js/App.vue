@@ -49,11 +49,7 @@ export default {
     HeaderBar,
   },
   async beforeMount() {
-    if (localStorage.getItem("access_token")) {
-      await this.$store.dispatch("app/loadAppData");
-    } else {
-      this.$store.commit("app/setLoaded", true);
-    }
+    await this.$store.dispatch("app/loadAppData");
   },
 };
 </script>

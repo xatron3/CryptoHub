@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="this.active_positions" class="max-w-4xl space-y-2">
-      <h2 class="text-lg font-bold dark:text-white">Active Positions</h2>
+      <HeaderText>Active Positions</HeaderText>
 
       <!-- Filter -->
       <div class="flex">
