@@ -8,7 +8,7 @@
         <div
           @click="updateUi"
           title=""
-          class="mb-2 ml-auto w-8 h-8 bg-green-500 rounded-lg p-1 text-white"
+          class="mb-2 ml-auto w-8 h-8 bg-green-500 rounded-lg p-1 text-white cursor-pointer"
         >
           <ArrowPathIcon v-if="this.tokenDataLoaded" />
           <ArrowPathIcon v-if="!this.tokenDataLoaded" class="animate-spin" />
@@ -82,7 +82,10 @@
           <div v-if="this.$store.getters['web3/chainId'] == '250'">
             Loading data
           </div>
-          <div v-else>Please change to Fantom Chain</div>
+          <div v-else class="flex flex-col space-y-2">
+            <div>Please change to Fantom Chain</div>
+            <Button title="Change to Fantom" @click="loadFantom" />
+          </div>
         </div>
       </div>
     </div>
@@ -129,6 +132,24 @@ export default {
     }
   },
   methods: {
+    async loadFantom() {
+      window.ethereum.request({
+        method: "wallet_addEthereumChain",
+        params: [
+          {
+            chainId: "0xFA",
+            rpcUrls: ["https://rpc.ftm.tools/"],
+            chainName: "Fantom Mainnet",
+            nativeCurrency: {
+              name: "FTM",
+              symbol: "FTM",
+              decimals: 18,
+            },
+            blockExplorerUrls: ["https://ftmscan.com/"],
+          },
+        ],
+      });
+    },
     async loadContracts() {
       this.swapData.buyContract = await getContract(this.swapData.buyAddr);
       this.swapData.sellContract = await getContract(this.swapData.sellAddr);
