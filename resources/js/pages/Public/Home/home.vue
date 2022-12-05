@@ -41,7 +41,7 @@ export default {
         {
           name: "description",
           content:
-            "Find your latest crypto news, prices and swap your tokens at MarketCyclop.",
+            "Latest crypto prices always up to date. Find your new top project today.",
         },
       ],
     });

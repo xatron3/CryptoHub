@@ -36,7 +36,20 @@ import Navbar from "@/pages/Public/components/Navbar/navbar.vue";
 import Navigation from "./layout/navigation/Index.vue";
 import HeaderBar from "./layout/header-bar/Index.vue";
 
+import { useHead } from "@vueuse/head";
+
 export default {
+  setup() {
+    useHead({
+      meta: [
+        {
+          name: "description",
+          content:
+            "Find your latest crypto news, prices and swap your tokens at MarketCyclop.",
+        },
+      ],
+    });
+  },
   data() {
     return {
       title: "Test",

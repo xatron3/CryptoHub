@@ -8,12 +8,23 @@
 
 <script>
 import Markdown from "vue3-markdown-it";
+import { useHead } from "@vueuse/head";
 
 export default {
   data() {
     return {
       markdown: "# Hello World",
     };
+  },
+  setup() {
+    useHead({
+      meta: [
+        {
+          name: "description",
+          content: "Cyclop Token's roadmap, current supply and more.",
+        },
+      ],
+    });
   },
   components: {
     Markdown,
