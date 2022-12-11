@@ -87,6 +87,8 @@ export async function addPosition(data) {
     sell_asset_id: data.sell_asset_id,
   });
 
+  await store.dispatch("user/getPositions");
+
   return {
     message: "Position was added",
     status: 200,
@@ -111,6 +113,8 @@ export async function closePosition(data) {
     id: data.id,
     close_amount: data.amount,
   });
+
+  await store.dispatch("user/getPositions");
 
   return {
     message: "Position was succesfully closed",
