@@ -16,6 +16,7 @@ import { Squares2X2Icon, BriefcaseIcon } from "@heroicons/vue/24/solid";
 import {
   BriefcaseIcon as BriefcaseIconOutlined,
   ComputerDesktopIcon,
+  PencilSquareIcon,
 } from "@heroicons/vue/24/outline";
 
 export default {
@@ -26,6 +27,7 @@ export default {
     BriefcaseIcon,
     BriefcaseIconOutlined,
     ComputerDesktopIcon,
+    PencilSquareIcon,
   },
   computed: {
     lcTitle() {
