@@ -19,12 +19,13 @@ class Asset extends Model
     'name',
     'symbol',
     'logo',
-    'current_price',
-    'market_cap',
     'provider_id',
     'provider'
   ];
 
+  /**
+   * Always return symbol in uppercase
+   */
   protected function symbol(): Attribute
   {
     return Attribute::make(

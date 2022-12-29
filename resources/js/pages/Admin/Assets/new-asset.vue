@@ -69,8 +69,6 @@
 </template>
 
 <script>
-import Alert from "@/components/Alert.vue";
-
 import Providers from "./components/Providers.vue";
 import CoingeckoInput from "./components/CoingeckoInput.vue";
 
@@ -105,7 +103,7 @@ export default {
 
     return { toast };
   },
-  components: { Alert, CoingeckoInput, Providers },
+  components: { CoingeckoInput, Providers },
   methods: {
     setProviderId(data) {
       this.assetData.provider_id = data;

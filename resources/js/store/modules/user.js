@@ -7,6 +7,7 @@ const user = {
     info: {},
     positions: {},
     positionGrouped: true,
+    positionSort: "profit",
   }),
   mutations: {
     setUser(state, userInfo) {
@@ -17,6 +18,9 @@ const user = {
     },
     setPositionsGrouped(state, data) {
       state.positionGrouped = data;
+    },
+    setPositionSort(state, data) {
+      state.positionSort = data;
     },
   },
   actions: {
@@ -123,7 +127,23 @@ const user = {
             })
         : {},
     allPositions(state, getters) {
-      return state.positions;
+      if (state.positionSort === "profit") {
+        return [...state.positions].sort(function (a, b) {
+          const aPNL = nums.getPercentageIncrease(
+            a.current_sell_price,
+            a.buy_price
+          );
+
+          const bPNL = nums.getPercentageIncrease(
+            b.current_sell_price,
+            b.buy_price
+          );
+
+          return bPNL - aPNL;
+        });
+      } else {
+        return state.positions;
+      }
     },
   },
 };

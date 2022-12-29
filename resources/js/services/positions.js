@@ -35,27 +35,7 @@ export async function getPosition(params = {}) {
     });
   });
 
-  if (params.sort_by === "profit") {
-    res = res.data.data.sort(function (a, b) {
-      const aPNL = nums.getPercentageIncrease(
-        a.current_sell_price,
-        a.buy_price
-      );
-
-      const bPNL = nums.getPercentageIncrease(
-        b.current_sell_price,
-        b.buy_price
-      );
-
-      if (params.sort_order === "desc") {
-        return aPNL - bPNL;
-      } else {
-        return bPNL - aPNL;
-      }
-    });
-  } else {
-    res = res.data.data;
-  }
+  res = res.data.data;
 
   return res;
 }

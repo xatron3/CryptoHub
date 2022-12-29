@@ -1,4 +1,5 @@
 <template>
+  <!-- PUBLIC PAGE -->
   <div
     class="min-h-screen w-full flex bg-gray-50 dark:bg-gray-800"
     v-if="
@@ -6,15 +7,18 @@
       this.$store.getters['app/isLoaded']
     "
   >
-    <div class="w-full">
+    <div class="w-full flex flex-col">
       <Navbar />
 
-      <div class="max-w-6xl w-full mx-auto px-2 md:px-0">
+      <div class="max-w-6xl w-full mx-auto px-2 md:px-0 mb-auto">
         <router-view></router-view>
       </div>
+
+      <Footer />
     </div>
   </div>
 
+  <!-- ADMIN PAGE -->
   <div
     class="min-h-screen w-full flex bg-gray-50 dark:bg-gray-800"
     v-if="
@@ -31,7 +35,8 @@
 </template>
 
 <script>
-import Navbar from "@/pages/Public/components/Navbar/navbar.vue";
+import Navbar from "@/pages/Public/components/Navbar/index.vue";
+import Footer from "@/pages/Public/components/Footer/index.vue";
 
 import Navigation from "./layout/navigation/Index.vue";
 import HeaderBar from "./layout/header-bar/Index.vue";
@@ -58,6 +63,7 @@ export default {
   },
   components: {
     Navbar,
+    Footer,
     Navigation,
     HeaderBar,
   },

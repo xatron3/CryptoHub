@@ -18,7 +18,9 @@ class AssetMarketData extends Model
     'asset_id',
     'current_price',
     'market_cap',
-    'price_change_24h'
+    'price_change_1h',
+    'price_change_24h',
+    'price_change_7d'
   ];
 
   public function asset()

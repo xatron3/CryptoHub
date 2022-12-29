@@ -86,7 +86,7 @@ export default {
     logout() {
       localStorage.removeItem("access_token");
       this.$store.commit("user/setUser", {});
-      this.$router.push({ name: "Login" });
+      this.$router.push({ name: "Home" });
     },
     showDropDown() {
       this._showDropDown = !this._showDropDown;

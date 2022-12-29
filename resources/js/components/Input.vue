@@ -13,7 +13,7 @@
         :type="fieldType"
         :autocomplete="_autocomplete"
         :disabled="_disabled"
-        class="w-full border px-2 py-1 text-sm rounded-md focus:border-0 dark:text-black"
+        class="w-full border px-2 py-1.5 text-sm rounded-md focus:border-0 dark:text-black"
         :class="[_class, iconClass]"
         :name="name"
         :id="fieldId"

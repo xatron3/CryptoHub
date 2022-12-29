@@ -67,8 +67,6 @@
 </template>
 
 <script>
-import Alert from "@/components/Alert.vue";
-
 import CoingeckoInput from "./components/CoingeckoInput.vue";
 
 import { useToast } from "vue-toastification";
@@ -87,7 +85,7 @@ export default {
 
     return { toast };
   },
-  components: { Alert, CoingeckoInput },
+  components: { CoingeckoInput },
   async mounted() {
     var asset = await getAssets({ id: this.$route.params.id });
     this.asset = asset.data[0];

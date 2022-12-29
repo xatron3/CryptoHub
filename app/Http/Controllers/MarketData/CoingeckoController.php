@@ -39,7 +39,7 @@ class CoingeckoController extends Controller
         'asset_id' => $asset->id,
         'current_price' => $data->current_price,
         'market_cap' => $data->market_cap,
-        'price_change_24h' => $data->price_change_percentage_24h
+        'price_change_24h' => $data->price_change_percentage_24h,
       );
 
       $assetMarketDataController->update($assetData);
