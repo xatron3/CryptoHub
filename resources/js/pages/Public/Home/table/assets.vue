@@ -57,14 +57,14 @@
           <td
             class="text-xs md:text-base px-1 py-1 md:px-4 md:py-3 font-semibold text-black dark:text-white"
           >
-            ${{ asset.current_price }}
+            ${{ price(asset) }}
           </td>
 
           <!-- Marketcap -->
           <td
             class="text-xs md:text-base px-1 py-1 md:px-4 md:py-3 font-semibold text-black dark:text-white"
           >
-            ${{ asset.market_cap.toLocaleString("en-US") }}
+            {{ marketCap(asset) }}
           </td>
 
           <!-- Price Change -->
@@ -92,10 +92,25 @@ export default {
       assets: {},
     };
   },
+  computed: {},
   mounted() {
     this.assets = this.$store.getters["assets/marketcap"];
   },
   methods: {
+    marketCap(asset) {
+      let market_cap;
+
+      if (parseInt(asset.market_cap) > 0) {
+        market_cap = `$${asset.market_cap.toLocaleString("en-US")}`;
+      } else {
+        market_cap = "-";
+      }
+
+      return market_cap;
+    },
+    price(asset) {
+      return nums.formatPrice(asset.current_price);
+    },
     sortOnPercentageChange() {
       if (this.sort === "gainers") {
         this.sort = "loosers";

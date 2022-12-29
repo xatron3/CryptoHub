@@ -25,6 +25,12 @@
               icon="ComputerDesktopIcon"
             ></NavigationLink>
 
+            <NavigationLink
+              path="/notes"
+              title="Notes"
+              icon="PencilSquareIcon"
+            ></NavigationLink>
+
             <NavigationHeader title="Portfolio" />
             <NavigationLink
               path="/portfolio"
