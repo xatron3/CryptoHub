@@ -1,46 +1,28 @@
 <template>
-  <div
-    class="max-w-sm w-full bg-gray-100 dark:bg-gray-700 rounded-md shadow-sm p-4"
-  >
-    <h2 class="text-center text-lg mb-4 uppercase font-bold dark:text-white">
-      Sign In
-    </h2>
-    <Alert
-      :content="this.error"
-      class="mb-2"
-      v-if="error !== null"
-      type="danger"
-    ></Alert>
-    <form class="space-y-2">
-      <Input
-        placeholder="Email"
-        name="email"
-        v-model="this.email"
-        :value="this.email"
-      />
-      <Input
-        placeholder="Password"
-        name="password"
-        type="password"
-        v-model="this.password"
-        :value="this.password"
-      />
-      <Button title="SIGN IN" @click="submit" />
-    </form>
-  </div>
+  <form class="space-y-2">
+    <Input
+      placeholder="Email"
+      name="email"
+      v-model="this.email"
+      :value="this.email"
+    />
+    <Input
+      placeholder="Password"
+      name="password"
+      type="password"
+      v-model="this.password"
+      :value="this.password"
+    />
+    <Button title="SIGN IN" @click="submit" class="w-full" />
+  </form>
 </template>
 
 <script>
-import Alert from "./Alert.vue";
-
 import { useToast } from "vue-toastification";
 import { auth } from "../services/auth";
 
 export default {
   name: "LoginForm",
-  components: {
-    Alert,
-  },
   setup() {
     // Get toast interface
     const toast = useToast();
@@ -51,7 +33,6 @@ export default {
     return {
       email: null,
       password: null,
-      error: null,
     };
   },
   methods: {

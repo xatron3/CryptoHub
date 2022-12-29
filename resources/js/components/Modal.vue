@@ -15,7 +15,12 @@
     <div class="modal__content">
       <slot v-bind:params="params"></slot>
     </div>
-    <button class="vfm__close" @click="$emit('hideModal')">X</button>
+    <button
+      class="vfm__close rounded-md dark:bg-gray-700 dark:hover:bg-gray-750 transition ease-in-out duration-150"
+      @click="$emit('hideModal')"
+    >
+      X
+    </button>
   </vue-final-modal>
 </template>
 

@@ -7,7 +7,7 @@
       >
         <div
           @click="updateUi"
-          title=""
+          v-if="this.$store.getters['web3/chainId'] == '250'"
           class="mb-2 ml-auto w-8 h-8 bg-green-500 rounded-lg p-1 text-white cursor-pointer"
         >
           <ArrowPathIcon v-if="this.tokenDataLoaded" />
