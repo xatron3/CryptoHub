@@ -11,15 +11,12 @@
       </div>
     </div> -->
 
-    <div v-if="this.assets">
-      <h2 class="text-2xl font-semibold my-3 h-font uppercase">
+    <div>
+      <h2 class="text-2xl font-bold my-3 h-font uppercase">
         Today's Top Cryptocurrencies
       </h2>
 
-      <AssetsTable
-        :assets="this.assets"
-        v-if="Object.keys(this.assets).length > 0"
-      />
+      <AssetsTable />
     </div>
   </div>
 </template>
@@ -48,12 +45,8 @@ export default {
   },
   data() {
     return {
-      assets: {},
       sort: "",
     };
-  },
-  async mounted() {
-    this.assets = this.$store.getters["assets/marketcap"];
   },
   methods: {},
 };

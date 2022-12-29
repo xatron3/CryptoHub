@@ -1,65 +1,113 @@
 <template>
-  <div
-    class="grid grid-flow-col items-center grid-cols-10 px-2 py-3 text-sm font-semibold bg-gray-300 dark:text-gray-100 dark:bg-gray-750 rounded-md"
-  >
-    <div class="col-span-4 cursor-pointer">NAME</div>
-    <div class="col-span-2 cursor-pointer" @click="sortOnMarketcap">
-      MARKETCAP
-    </div>
-    <div class="col-span-2 cursor-pointer">PRICE</div>
-    <div class="col-span-2 cursor-pointer" @click="sortOnPercentageChange">
-      24H CHANGE
-    </div>
-  </div>
+  <div class="w-full overflow-x-auto">
+    <table class="w-full shadow-md rounded-lg overflow-hidden">
+      <thead>
+        <tr
+          class="text-xs md:text-md font-semibold tracking-wide text-left text-black dark:text-white bg-gray-100 dark:bg-gray-600 uppercase"
+        >
+          <th class="p-2 md:p-4">Name</th>
+          <th class="p-2 md:p-4">Price</th>
+          <th class="p-2 md:p-4" @click="sortOnMarketcap">Marketcap</th>
+          <th
+            class="p-2 md:p-4 hidden md:table-cell"
+            @click="sortOnPercentageChange"
+          >
+            24H Change
+          </th>
+        </tr>
+      </thead>
 
-  <div
-    v-for="asset in this._assets"
-    :key="asset.name"
-    class="my-2 grid grid-flow-col grid-cols-10 items-center bg-gray-200 dark:bg-gray-700 px-2 py-1 rounded-md"
-  >
-    <div class="col-span-4 flex items-center space-x-2">
-      <img :src="asset.logo" class="w-6 h-6 rounded-full" />
-      <div>
-        <div class="-mt-0.5">{{ asset.name }}</div>
-        <div class="text-xs">{{ asset.symbol }}</div>
-      </div>
-    </div>
+      <tbody>
+        <tr
+          v-for="(asset, index) in this.assets"
+          :key="asset.name"
+          :class="{
+            'dark:bg-gray-750 bg-gray-300': index % 2 === 0,
+            'dark:bg-gray-700 bg-gray-200': index % 2 !== 0,
+          }"
+          class="text-gray-50"
+        >
+          <!-- Logo and Name + Symbol -->
+          <td class="px-1 py-1 md:px-4 md:py-3">
+            <div class="flex items-center text-sm">
+              <div class="relative w-8 h-8 mr-3 rounded-full md:block">
+                <a href="#"
+                  ><img
+                    class="object-cover w-full h-full rounded-full"
+                    :src="asset.logo"
+                    loading="lazy"
+                /></a>
+              </div>
+              <a href="#">
+                <p
+                  class="text-xs md:text-base font-semibold text-black dark:text-white"
+                >
+                  {{ asset.name }}
+                </p>
+                <p
+                  class="text-xs text-gray-800 font-semibold dark:text-gray-50"
+                >
+                  {{ asset.symbol }}
+                </p>
+              </a>
+            </div>
+          </td>
 
-    <div class="col-span-2">
-      ${{ asset.market_cap.toLocaleString("en-US") }}
-    </div>
+          <!-- Price -->
+          <td
+            class="text-xs md:text-base px-1 py-1 md:px-4 md:py-3 font-semibold text-black dark:text-white"
+          >
+            ${{ asset.current_price }}
+          </td>
 
-    <div class="col-span-2">${{ asset.current_price }}</div>
+          <!-- Marketcap -->
+          <td
+            class="text-xs md:text-base px-1 py-1 md:px-4 md:py-3 font-semibold text-black dark:text-white"
+          >
+            ${{ asset.market_cap.toLocaleString("en-US") }}
+          </td>
 
-    <div class="col-span-2">{{ asset.price_change_24h }}%</div>
+          <!-- Price Change -->
+          <td
+            :class="{
+              'text-green-400': asset.price_change_24h >= 0,
+              'text-red-400': asset.price_change_24h < 0,
+            }"
+            class="px-1 py-1 md:px-4 md:py-3 font-semibold hidden md:table-cell"
+          >
+            {{ asset.price_change_24h.toFixed(2) }}%
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["assets"],
+  props: ["data"],
   data() {
     return {
-      _assets: {},
       sort: "",
+      assets: {},
     };
   },
   mounted() {
-    this._assets = this.assets;
+    this.assets = this.$store.getters["assets/marketcap"];
   },
   methods: {
     sortOnPercentageChange() {
       if (this.sort === "gainers") {
         this.sort = "loosers";
-        this._assets = this.$store.getters["assets/loosers"];
+        this.assets = this.$store.getters["assets/loosers"];
       } else {
-        this._assets = this.$store.getters["assets/gainers"];
+        this.assets = this.$store.getters["assets/gainers"];
         this.sort = "gainers";
       }
     },
     sortOnMarketcap() {
       this.sort = "marketcap";
-      this._assets = this.$store.getters["assets/marketcap"];
+      this.assets = this.$store.getters["assets/marketcap"];
     },
   },
 };

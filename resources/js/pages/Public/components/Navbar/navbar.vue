@@ -1,6 +1,8 @@
 <template>
-  <nav class="bg-gray-200 dark:bg-gray-700 p-6 shadow-lg">
-    <div class="flex items-center justify-between flex-wrap max-w-6xl mx-auto">
+  <nav class="bg-gray-200 dark:bg-gray-700 shadow-lg">
+    <div
+      class="flex items-center justify-between flex-wrap max-w-6xl mx-auto h-24"
+    >
       <router-link
         to="/"
         class="flex items-center flex-shrink-0 text-white mr-6"
@@ -8,6 +10,7 @@
         <img :src="this.logo" class="w-8 mr-2" />
         <span class="font-semibold text-xl tracking-tight">MarketCyclop</span>
       </router-link>
+
       <div class="block lg:hidden">
         <button
           class="flex items-center px-3 py-2 border rounded text-white border-gray-400 hover:text-gray-200 hover:border-white"
@@ -30,13 +33,13 @@
         <div class="lg:flex-grow">
           <router-link
             to="/swap"
-            class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500 dark:hover:text-gray-200 mr-4 transition-all"
+            class="inline-flex items-center px-2 pt-1 font-medium text-gray-800 dark:text-gray-200 dark:hover:text-gray-100 hover:text-gray-600 focus:outline-none focus:text-gray-100 transition duration-150 ease-in-out"
           >
             Swap
           </router-link>
           <router-link
             to="/cyclop-token"
-            class="block mt-4 lg:inline-block lg:mt-0 text-white hover:text-gray-500 dark:hover:text-gray-200 mr-4 transition-all"
+            class="inline-flex items-center px-2 pt-1 font-medium text-gray-800 dark:text-gray-200 dark:hover:text-gray-100 hover:text-gray-600 focus:outline-none focus:text-gray-100 transition duration-150 ease-in-out"
           >
             Cyclop Token
           </router-link>

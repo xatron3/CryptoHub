@@ -4,7 +4,7 @@ namespace App\Console\Commands;
 
 
 use Illuminate\Console\Command;
-use App\Http\Controllers\CoingeckoController;
+use App\Http\Controllers\MarketData\CoingeckoController;
 
 class CoingeckoPrice extends Command
 {
