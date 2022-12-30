@@ -1,7 +1,21 @@
 <template>
   <div class="flex flex-col">
-    <div class="max-w-6xl w-full mx-auto">
-      <h2 class="text-2xl font-semibold my-3 uppercase h-font">Swap Token</h2>
+    <div class="max-w-6xl w-full mx-auto mt-5">
+      <div class="w-full flex mb-5">
+        <div
+          class="p-2 bg-red-800 items-center text-indigo-100 mx-auto leading-none lg:rounded-full flex lg:inline-flex"
+          role="alert"
+        >
+          <span
+            class="flex rounded-full bg-red-500 uppercase px-2 py-1 text-xs font-bold mr-3"
+            >BETA</span
+          >
+          <span class="font-semibold mr-2 text-left flex-auto"
+            >The swap feature is currently in beta, use at your own risk</span
+          >
+        </div>
+      </div>
+
       <div
         class="w-full max-w-md bg-gray-100 dark:bg-gray-600 mx-auto p-2 rounded-md"
       >

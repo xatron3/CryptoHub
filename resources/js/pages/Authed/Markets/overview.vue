@@ -2,17 +2,11 @@
   <div class="flex space-x-4">
     <div class="w-full md:w-2/5">
       <h2 class="text-lg font-bold dark:text-white">24h Gainers</h2>
-      <Table
-        :items="this.$store.getters['assets/gainers']"
-        :headers="headers"
-      />
+      <Table :items="gainers" :headers="headers" />
     </div>
     <div class="w-full md:w-2/5">
       <h2 class="text-lg font-bold dark:text-white">24h Loosers</h2>
-      <Table
-        :items="this.$store.getters['assets/loosers']"
-        :headers="headers"
-      />
+      <Table :items="loosers" :headers="headers" />
     </div>
   </div>
 </template>
@@ -21,20 +15,30 @@
 export default {
   name: "Markets",
   components: {},
+  computed: {
+    loosers() {
+      return this.$store.getters["assets/all"]
+        .sort(function (a, b) {
+          return a.price_change_24h - b.price_change_24h;
+        })
+        .slice(0, 15);
+    },
+    gainers() {
+      return this.$store.getters["assets/all"]
+        .sort(function (a, b) {
+          return b.price_change_24h - a.price_change_24h;
+        })
+        .slice(0, 15);
+    },
+  },
   data() {
     return {
-      gainers: null,
-      loosers: null,
       headers: [
         { title: "Name", value: "name" },
         { title: "Price", value: "current_price", format: "price" },
         { title: "24H", value: "price_change_24h", format: "percentage" },
       ],
     };
-  },
-  async mounted() {
-    this.gainers = this.$store.getters["assets/gainers"].splice(0, 10);
-    this.loosers = this.$store.getters["assets/loosers"].splice(0, 10);
   },
 };
 </script>

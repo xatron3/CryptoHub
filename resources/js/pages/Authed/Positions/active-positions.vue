@@ -90,6 +90,7 @@ export default {
         {
           title: "B. Price",
           value: "buy_price",
+          format: "price",
         },
         {
           title: "Profit",

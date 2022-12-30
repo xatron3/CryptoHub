@@ -5,8 +5,8 @@
       <div
         class="flex space-x-0 space-y-2 flex-col md:space-y-0 md:space-x-3 md:flex-row"
       >
-        <GainersCard />
-        <LoosersCard />
+        <GainersCard v-bind:key="this.$store.getters['assets/all']" />
+        <LoosersCard v-bind:key="this.$store.getters['assets/all']" />
         <NewsCard />
       </div>
     </div>
