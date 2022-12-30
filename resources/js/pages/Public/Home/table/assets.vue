@@ -1,9 +1,5 @@
 <template>
   <div class="w-full overflow-x-auto">
-    {{ this.$store.getters["assets/pageInfo"].page }}/{{
-      this.$store.getters["assets/pageInfo"].totalPages
-    }}
-
     <table class="w-full shadow-md rounded-lg overflow-hidden">
       <thead>
         <tr
@@ -63,14 +59,14 @@
           <td
             class="text-xs md:text-base px-1 py-1 md:px-4 md:py-3 font-semibold text-black dark:text-white"
           >
-            ${{ price(asset) }}
+            {{ currentPrice(asset) }}
           </td>
 
           <!-- Marketcap -->
           <td
             class="text-xs md:text-base px-1 py-1 md:px-4 md:py-3 font-semibold text-black dark:text-white"
           >
-            ${{ marketCap(asset) }}
+            {{ marketCap(asset) }}
           </td>
 
           <!-- Price Change -->
@@ -81,11 +77,17 @@
             }"
             class="px-1 py-1 md:px-4 md:py-3 font-semibold hidden md:table-cell"
           >
-            {{ asset.price_change_24h.toFixed(2) }}%
+            {{ priceChange(asset) }}
           </td>
         </tr>
       </tbody>
     </table>
+
+    <div class="text-xs my-1 self-start">
+      Showing page
+      {{ this.$store.getters["assets/pageInfo"].currentPage }} out of
+      {{ this.$store.getters["assets/pageInfo"].totalPages }}
+    </div>
 
     <div class="mt-3 mx-auto rounded-md overflow-hidden flex justify-center">
       <div
@@ -120,8 +122,19 @@ export default {
 
       return market_cap;
     },
-    price(asset) {
-      return nums.formatPrice(asset.current_price);
+    currentPrice(asset) {
+      return `$${nums.formatPrice(asset.current_price)}`;
+    },
+    priceChange(asset) {
+      let priceChange;
+
+      if (asset.price_change_24h > 0) {
+        priceChange = `+${asset.price_change_24h.toFixed(2)}%`;
+      } else {
+        priceChange = `${asset.price_change_24h.toFixed(2)}%`;
+      }
+
+      return priceChange;
     },
     setPage(page) {
       this.$store.commit("assets/setPage", page);

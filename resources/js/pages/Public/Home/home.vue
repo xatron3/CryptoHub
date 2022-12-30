@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col">
-    <!-- <div>
-      <h2 class="text-2xl font-bold my-3">Latest News</h2>
+    <div>
+      <h2 class="text-2xl font-bold mt-3 mb-2 uppercase">Latest News</h2>
       <div
         class="flex space-x-0 space-y-2 flex-col md:space-y-0 md:space-x-3 md:flex-row"
       >
@@ -9,10 +9,10 @@
         <Card />
         <Card />
       </div>
-    </div> -->
+    </div>
 
     <div>
-      <h2 class="text-2xl font-bold my-3 h-font uppercase">
+      <h2 class="text-2xl font-bold my-2 h-font uppercase">
         Today's Top Cryptocurrencies
       </h2>
 
