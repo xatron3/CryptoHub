@@ -96,9 +96,9 @@
         class="px-2 py-1 cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-900 transition-all"
         :class="{
           'bg-gray-200 dark:bg-gray-600':
-            this.$store.getters['assets/pageInfo'].page === index,
+            this.$store.getters['assets/pageInfo'].currentPage === index,
           'bg-gray-100 dark:bg-gray-700':
-            this.$store.getters['assets/pageInfo'].page !== index,
+            this.$store.getters['assets/pageInfo'].currentPage !== index,
         }"
         v-on:click="setPage(index)"
       >
