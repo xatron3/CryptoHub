@@ -5,7 +5,7 @@ const assets = {
   state: () => ({
     assets: {},
     sorting: "marketcap",
-    limit: 15, // How many per page
+    limit: 20, // How many per page
     page: 1, // Current asset page
   }),
   mutations: {

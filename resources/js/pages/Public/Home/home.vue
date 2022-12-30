@@ -5,9 +5,9 @@
       <div
         class="flex space-x-0 space-y-2 flex-col md:space-y-0 md:space-x-3 md:flex-row"
       >
-        <Card />
-        <Card />
-        <Card />
+        <GainersCard />
+        <LoosersCard />
+        <NewsCard />
       </div>
     </div>
 
@@ -16,21 +16,27 @@
         Today's Top Cryptocurrencies
       </h2>
 
+      <div @click="this.$store.dispatch('assets/load')">Load new data</div>
+
       <AssetsTable />
     </div>
   </div>
 </template>
 
 <script>
-import Card from "./card/index.vue";
+import GainersCard from "./card/gainers-card.vue";
+import LoosersCard from "./card/loosers-card.vue";
+import NewsCard from "./card/news-card.vue";
 import AssetsTable from "./table/assets.vue";
 import { useHead } from "@vueuse/head";
 
 export default {
   name: "Home",
   components: {
-    Card,
+    NewsCard,
     AssetsTable,
+    GainersCard,
+    LoosersCard,
   },
   setup() {
     useHead({
