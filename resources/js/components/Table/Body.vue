@@ -31,7 +31,12 @@
 </template>
 
 <script>
-import { formatPercentage, formatProfit, formatLogo } from "./formats";
+import {
+  formatPercentage,
+  formatProfit,
+  formatLogo,
+  formatImage,
+} from "./formats";
 
 export default {
   components: {},
@@ -52,6 +57,10 @@ export default {
       if (format === "profit") {
         const logo = this.items[index]["sell_logo"];
         return formatProfit(data, logo);
+      }
+
+      if (format === "image") {
+        return formatImage(data);
       }
 
       /////////////////////

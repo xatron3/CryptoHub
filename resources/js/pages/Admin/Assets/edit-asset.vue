@@ -2,17 +2,19 @@
   <div class="max-w-xl" v-if="this.asset">
     <div class="space-y-2 flex flex-col">
       <div class="grid grid-cols-2 space-x-2">
+        <!-- Coingecko ID -->
         <Input
           :showLabel="true"
           disabled="true"
-          name="coingecko_id"
+          name="provider_id"
           autocomplete="off"
           type="text"
           placeholder="Coingecko ID"
-          :value="this.asset.coingecko_id"
-          v-model="this.asset.coingecko_id"
+          :value="this.asset.provider_id"
+          v-model="this.asset.provider_id"
         />
 
+        <!-- Asset ID -->
         <Input
           :showLabel="true"
           disabled="true"
@@ -25,7 +27,9 @@
         />
       </div>
 
+      <!-- Row -->
       <div class="grid grid-cols-2 space-x-2">
+        <!-- Asset Name -->
         <Input
           :showLabel="true"
           name="name"
@@ -36,6 +40,7 @@
           v-model="this.asset.name"
         />
 
+        <!-- Asset Symbol -->
         <Input
           :showLabel="true"
           name="symbol"
@@ -47,7 +52,9 @@
         />
       </div>
 
+      <!-- Row -->
       <div class="grid grid-cols-2 space-x-2">
+        <!-- Logo -->
         <Input
           :showLabel="true"
           name="logo"

@@ -54,3 +54,7 @@ export function formatLogo(data, logo) {
     data
   )}</span></div>`;
 }
+
+export function formatImage(image) {
+  return `<img src="${image}" class="w-6 h-6">`;
+}

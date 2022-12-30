@@ -33,7 +33,7 @@ class AssetResource extends JsonResource
       'current_price' => $marketData->current_price,
       'price_change_24h' => $marketData->price_change_24h,
       'market_cap' => $marketData->market_cap,
-      'coingecko_id' => $this->provider_id
+      'provider_id' => $this->provider_id
     ];
   }
 }

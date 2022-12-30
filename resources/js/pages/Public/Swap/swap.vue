@@ -153,7 +153,7 @@ export default {
           {
             chainId: "0xFA",
             rpcUrls: ["https://rpc.ftm.tools/"],
-            chainName: "Fantom Mainnet",
+            chainName: "Fantom Opera",
             nativeCurrency: {
               name: "FTM",
               symbol: "FTM",

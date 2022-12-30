@@ -20,7 +20,6 @@
         :headers="this.headers"
         :items="this.assets"
         :meta="this.meta"
-        buttonTitle="Edit"
         @button_clicked="edit_asset"
         @change_page="change_page"
       />
@@ -41,8 +40,19 @@ export default {
       page: 1,
       headers: [
         {
+          title: "Logo",
+          value: "logo",
+          format: "image",
+        },
+        {
           title: "Name",
           value: "name",
+        },
+        {
+          title: "Edit",
+          value:
+            "<a href='#' class='bg-green-500 text-white hover:bg-green-600 transition-all px-3 py-2 rounded-md'>Edit</a>", // TODO: Hook too func or smth
+          customValue: true,
         },
       ],
       columns: ["name", "symbol", "current_price", "button"],
