@@ -28,6 +28,7 @@ const app = {
     async loadAppData({ dispatch, commit }) {
       await dispatch("web3/setProvider", null, { root: true });
       await dispatch("assets/load", null, { root: true });
+      await dispatch("posts/load", null, { root: true });
       await dispatch("user/getUserData", null, { root: true });
       commit("setLoaded", true);
     },

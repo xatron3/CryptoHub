@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\AssetsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\BlogPostController;
 use App\Http\Controllers\Api\EventsController;
 use App\Http\Controllers\Api\PermissionsController;
 use App\Http\Controllers\Api\PositionsController;
@@ -26,6 +27,7 @@ Route::post('login', [AuthController::class, 'login']);
 
 Route::get('events', [EventsController::class, 'getAll']);
 Route::get('assets', [AssetsController::class, 'get']);
+Route::get('posts', [BlogPostController::class, 'getAll']);
 
 Route::group(['middleware' => 'jwt.verify'], function () {
     // User
@@ -49,6 +51,8 @@ Route::group(['middleware' => 'jwt.verify'], function () {
     Route::get('roles', [PermissionsController::class, 'getRoles']);
     Route::post('roles/add', [PermissionsController::class, 'storeRole']);
     Route::post('roles/update', [PermissionsController::class, 'updateRole']);
+
+    Route::post('post/add', [BlogPostController::class, 'store']);
 
     // Commands
     Route::post('commands/price/coingecko', [CoingeckoController::class, 'updateCoingeckoPrices']);
