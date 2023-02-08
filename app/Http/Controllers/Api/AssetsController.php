@@ -14,11 +14,15 @@ class AssetsController extends Controller
   public function store(Request $request)
   {
     $provider_id = $request->provider_id;
+    $asset_exists = Asset::where('provider_id', $provider_id)->first();
+
+    if($asset_exists !== null) {
+      return response()->json(['message' => 'Provider ID was already found.', 'status' => 400], 200);
+    }
 
     if ($request->provider === "coingecko") {
       $result = CoingeckoController::getCoingeckoData($provider_id);
       $result = $result[0];
-
 
       if (!empty($result)) {
         $asset = new Asset();
