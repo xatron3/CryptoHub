@@ -72,6 +72,8 @@
 import Providers from "./components/Providers.vue";
 import CoingeckoInput from "./components/CoingeckoInput.vue";
 
+import { addAsset } from "@/services/assets";
+
 import { useToast } from "vue-toastification";
 
 export default {
@@ -112,9 +114,10 @@ export default {
       this.assetData.provider = data;
     },
     async addNewAsset() {
-      let res = await axios.post("/api/asset/add", this.assetData);
+      const res = await addAsset(this.assetData);
 
       if (res.data.status === 200) {
+        await this.$store.dispatch("assets/load");
         this.toast.success(res.data.message);
         this.$router.push("/admin/assets");
       } else {

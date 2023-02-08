@@ -20,7 +20,7 @@ const assets = {
     },
   },
   actions: {
-    async load(context, data) {
+    async load(context) {
       const assets = await getAssets();
 
       context.commit("setAssets", assets.data);
