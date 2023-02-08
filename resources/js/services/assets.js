@@ -29,6 +29,20 @@ export async function getAssets(params = {}) {
   return response;
 }
 
+/**
+ * Add new asset
+ */
+export async function addAsset(data) {
+  let res = await axios.post("/api/asset/add", data);
+
+  return res;
+}
+
+/**
+ * Update asset
+ * @param {*} data
+ * @returns
+ */
 export async function updateAsset(data) {
   let res = await axios.post("/api/asset/update", data);
 
