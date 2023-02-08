@@ -15,10 +15,13 @@
         }"
       >
         <div>
+          <!-- Default formats -->
           <div
             v-html="this.format(item[header.value], header.format, index)"
             v-if="!header.customValue"
           ></div>
+
+          <!-- If customValue is true (allow custom html etc)-->
           <div
             v-else
             v-html="header.value"
