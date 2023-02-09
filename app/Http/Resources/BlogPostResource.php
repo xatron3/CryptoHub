@@ -18,7 +18,7 @@ class BlogPostResource extends JsonResource
       'id' => $this->id,
       'title' => $this->title,
       'content' => $this->content,
-      'slug' => '/article/' . $this->slug,
+      'slug' => $this->slug,
     ];
   }
 }

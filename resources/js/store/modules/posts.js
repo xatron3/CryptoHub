@@ -21,8 +21,8 @@ const posts = {
     all: (state) => {
       return state.posts;
     },
-    get: (state) => (id) => {
-      return state.posts.find((post) => post.id === id);
+    get: (state) => (slug) => {
+      return state.posts.find((post) => post.slug === slug);
     },
   },
 };

@@ -13,7 +13,7 @@
           <div class="text-gray-100 text-base">
             {{ post.content }}
           </div>
-          <router-link :to="post.slug" class="mt-1 text-xs"
+          <router-link :to="`/article/${post.slug}`" class="mt-1 text-xs"
             >Read More</router-link
           >
         </div>
