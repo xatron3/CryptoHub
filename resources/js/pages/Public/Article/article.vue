@@ -20,12 +20,29 @@
 </template>
 
 <script>
+import { useHead } from "@vueuse/head";
+
 export default {
   name: "Article",
   data() {
     return {
       article: {},
     };
+  },
+  setup() {
+    useHead({
+      meta: [
+        {
+          name: "title",
+          content: "Article",
+        },
+        {
+          name: "description",
+          content:
+            "Latest crypto prices always up to date. Find your new top project today.",
+        },
+      ],
+    });
   },
   computed: {
     dataLoaded() {

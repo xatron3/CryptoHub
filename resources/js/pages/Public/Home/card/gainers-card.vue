@@ -15,7 +15,6 @@
             </div>
             {{ asset.name }}</span
           >
-          <span class="mr-4">{{ currentPrice(asset) }}</span>
           <span
             class="ml-auto"
             :class="{
