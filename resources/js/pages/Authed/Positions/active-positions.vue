@@ -20,6 +20,7 @@
       <!-- Active Positions Table -->
       <Table
         :items="this.active_positions"
+        :key="this.active_positions"
         v-if="this.active_positions.length > 0"
         :headers="this.headers"
         @button_clicked="showClosePosition"
@@ -130,19 +131,24 @@ export default {
       this.active_positions = this.$store.getters["user/allPositions"];
     },
     async updateFilter(data) {
+      console.log(data);
       if (data.id === 1) {
         await this.$store.dispatch("user/updatePositions", true);
         this.grouped = true;
       } else if (data.id === 2) {
         await this.$store.dispatch("user/updatePositions", false);
         this.grouped = false;
-      } else if (data.id === 3) {
-        this.filter.sell_asset = data.asset;
-      } else if (data.id === 4) {
-        this.filter.buy_asset = data.asset;
+      } else if (data.id === 3 && data.asset !== "") {
+        this.active_positions = this.$store.getters["user/allPositions"].filter(
+          (position) => position.sell_asset_symbol === data.asset
+        );
+      } else if (data.id === 4 && data.asset !== "") {
+        this.active_positions = this.$store.getters["user/allPositions"].filter(
+          (position) => position.buy_asset_symbol === data.asset
+        );
+      } else {
+        this.refreshPositions();
       }
-
-      this.refreshPositions();
     },
   },
 };
