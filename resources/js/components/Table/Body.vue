@@ -16,10 +16,26 @@
       >
         <div>
           <!-- Default formats -->
-          <div
-            v-html="this.format(item[header.value], header.format, index)"
-            v-if="!header.customValue"
-          ></div>
+          <div v-if="!header.customValue">
+            <span
+              v-tooltip.tooltip="
+                `${this.format(
+                  item[header.hover.value],
+                  header.hover.format,
+                  index
+                )}`
+              "
+              v-if="header.hover"
+            >
+              <div
+                v-html="this.format(item[header.value], header.format, index)"
+              ></div>
+            </span>
+            <div
+              v-else
+              v-html="this.format(item[header.value], header.format, index)"
+            ></div>
+          </div>
 
           <!-- If customValue is true (allow custom html etc)-->
           <div
