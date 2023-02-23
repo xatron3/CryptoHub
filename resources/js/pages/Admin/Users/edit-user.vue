@@ -88,13 +88,16 @@ export default {
   async mounted() {
     this.user = await getUser({ id: this.$route.params.id });
     this.user.user_id = this.$route.params.id;
+
     this.userPositions.active = await getPosition({
       user_id: this.user.user_id,
     });
+
     this.userPositions.closed = await getPosition({
       user_id: this.user.user_id,
       closed: true,
     });
+
     this.roles = await getRoles();
     this.userLoaded = true;
   },
