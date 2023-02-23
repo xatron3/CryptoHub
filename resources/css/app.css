@@ -5,6 +5,7 @@
 @import "./general.scss";
 @import "./markdown.scss";
 @import "./modal.scss";
+@import "./tooltip.scss";
 
 @import "tailwindcss/base";
 @import "tailwindcss/components";
