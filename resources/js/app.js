@@ -23,8 +23,11 @@ import Button from "./components/Button.vue";
 import Modal from "./components/Modal.vue";
 import Table from "./components/Table/Table.vue";
 
+import directives from "./directives/";
+
 const app = createApp(App);
 const head = createHead();
+directives(app);
 
 app.component("Input", Input);
 app.component("HeaderText", HeaderText);

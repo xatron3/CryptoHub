@@ -92,6 +92,10 @@ export default {
           title: "B. Price",
           value: "buy_price",
           format: "price",
+          hover: {
+            value: "current_sell_price",
+            format: "price",
+          },
         },
         {
           title: "Profit",
@@ -110,7 +114,6 @@ export default {
       showClosePositionModal: false,
       showExportModal: false,
       closeId: 0,
-      grouped: true,
     };
   },
   computed: {
@@ -131,13 +134,12 @@ export default {
       this.active_positions = this.$store.getters["user/allPositions"];
     },
     async updateFilter(data) {
-      console.log(data);
       if (data.id === 1) {
         await this.$store.dispatch("user/updatePositions", true);
-        this.grouped = true;
+        this.active_positions = this.$store.getters["user/allPositions"];
       } else if (data.id === 2) {
         await this.$store.dispatch("user/updatePositions", false);
-        this.grouped = false;
+        this.active_positions = this.$store.getters["user/allPositions"];
       } else if (data.id === 3 && data.asset !== "") {
         this.active_positions = this.$store.getters["user/allPositions"].filter(
           (position) => position.sell_asset_symbol === data.asset
