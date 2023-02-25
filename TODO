@@ -2,13 +2,13 @@ TODO:
   ☐ Implement provider function setProvider() to loadApp @created(22-11-30 19:00)
     Currently bootstrap.js handles setProvider(), should be in state manager
   ☐ Enhance the add new asset admin page @created(22-09-25 18:45)
+    ☐ Make model for chain @created(23-02-23 23:07)
+      Chain ID (int), name (string), RPC (string), Websocket (string)
     ☐ Make it possible to add different chain addresses to asset @created(22-09-25 18:45)
       This is good for future potential of having swap support
-      Make model for chains to be able to use them more broadly?
   ☐ Asset Portfolio @created(22-09-23 00:21)
-    Need to split up assets between platforms (ex. FTM Address, FTX, Binance)
-    The split is needed for future automation and just to keep it "clean"?
-    Maybe start by just tagging them manually?
+    ☐ Manual tags for "wallet/chain" @created(23-02-23 23:08)
+      Should be used to track the assets
     ☐ Should be able to add to portolio when close position @created(22-09-23 03:05)
     ☐ Model @created(22-09-23 03:16)
       ☐ User ID @created(22-09-23 03:17)
@@ -19,6 +19,7 @@ TODO:
 BUGS:
   ☐ Get asset from storage with route id in edit asset is not working @created(22-10-14 15:16)
     When trying to acces this.$store.getters['assets/get](1) it returns DOGE but passing this.$route.params.id makes the getter return undefined
+  ☐ When clicking the table button the route push is called twice @created(23-02-23 23:03)
 
 IDEAS:
   ☐ Dispatch events when price updates so we can update frontend @created(22-09-25 18:44)
