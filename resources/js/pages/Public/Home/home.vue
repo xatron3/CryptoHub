@@ -1,7 +1,6 @@
 <template>
   <div class="flex flex-col">
-    <div>
-      <h2 class="text-2xl font-bold mt-3 mb-2 uppercase">Latest News</h2>
+    <div class="mt-4">
       <div
         class="flex space-x-0 space-y-2 flex-col md:space-y-0 md:space-x-3 md:flex-row"
       >

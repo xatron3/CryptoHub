@@ -3,6 +3,7 @@
     <NavigationHeader class="text-lg border-b-0" title="ADMINPANEL" />
     <NavigationHeader class="mt-0.5" title="General" />
     <NavigationLink path="/admin/commands/" title="Commands"></NavigationLink>
+    <NavigationLink path="/admin/chains/" title="Chains"></NavigationLink>
 
     <NavigationHeader title="Assets" />
     <NavigationLink path="/admin/assets/" title="All Assets"></NavigationLink>

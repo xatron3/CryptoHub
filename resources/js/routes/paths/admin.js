@@ -21,6 +21,9 @@ import NewAsset from "@/pages/Admin/Assets/new-asset.vue";
 // Commands
 import Commands from "@/pages/Admin/Commands/all-commands.vue";
 
+// Chains
+import AllChains from "@/pages/Admin/Chains/all-chains.vue";
+
 const routes = [
   {
     path: "/admin/assets",
@@ -50,6 +53,12 @@ const routes = [
     path: "/admin/commands",
     name: "Commands",
     component: Commands,
+    beforeEnter: admin,
+  },
+  {
+    path: "/admin/chains",
+    name: "Chains",
+    component: AllChains,
     beforeEnter: admin,
   },
   {
