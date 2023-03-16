@@ -12,20 +12,22 @@ export function formatPercentage(data) {
   return `<span class="${_class}">${parseFloat(data).toFixed(2)}%</span>`;
 }
 
-export function formatProfit(data, logo) {
+export function formatProfit(data) {
   let _class;
 
-  if (data === 0) {
+  if (data["profit"] === 0) {
     _class = "text-yellow-500";
-  } else if (data > 0) {
+  } else if (data["profit"] > 0) {
     _class = "text-green-500";
   } else {
     _class = "text-red-500";
   }
 
   if (data["close_amount"] === null) {
-    return `<div class="flex space-x-1 items-center"><img src="${logo}" class="w-5 h-5"> <span class="${_class}">${nums.formatPrice(
-      data,
+    return `<div class="flex space-x-1 items-center"><img src="${
+      data["sell_logo"]
+    }" class="w-5 h-5"> <span class="${_class}">${nums.formatPrice(
+      data["profit"],
       2
     )}</span> 
     <span class="text-xs">
@@ -38,8 +40,10 @@ export function formatProfit(data, logo) {
       </span>
       </div>`;
   } else {
-    return `<div class="flex space-x-1 items-center"><img src="${logo}" class="w-5 h-5"> <span class="${_class}">${nums.formatPrice(
-      data,
+    return `<div class="flex space-x-1 items-center"><img src="${
+      data["sell_logo"]
+    }" class="w-5 h-5"> <span class="${_class}">${nums.formatPrice(
+      data["profit"],
       2
     )}</span> 
     <span class="text-xs">

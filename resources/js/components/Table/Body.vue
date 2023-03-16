@@ -74,8 +74,8 @@ export default {
       }
 
       if (format === "profit") {
-        const logo = this.items[index]["sell_logo"];
-        return formatProfit(data, logo);
+        const data = this.items[index];
+        return formatProfit(data);
       }
 
       if (format === "image") {
