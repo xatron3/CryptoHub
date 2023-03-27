@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\BlogPostController;
 use App\Http\Controllers\Api\EventsController;
+use App\Http\Controllers\Api\NotesController;
 use App\Http\Controllers\Api\PermissionsController;
 use App\Http\Controllers\Api\PositionsController;
 use App\Http\Controllers\Api\UserController;
@@ -35,6 +36,9 @@ Route::group(['middleware' => 'jwt.verify'], function () {
     Route::get('users', [UserController::class, 'allUsers']);
     Route::post('user/update', [UserController::class, 'updateUser']);
 
+    // Notes
+    Route::post('notes/add', [NotesController::class, 'store']);
+
     // Positions
     Route::get('positions', [PositionsController::class, 'getAll']);
     Route::post('position/add', [PositionsController::class, 'store']);
@@ -54,7 +58,6 @@ Route::group(['middleware' => 'jwt.verify'], function () {
 
     Route::post('post/add', [BlogPostController::class, 'store']);
 
-    // Commands
     Route::post('commands/price/coingecko', [CoingeckoController::class, 'updateCoingeckoPrices']);
     // END ADMIN
 });

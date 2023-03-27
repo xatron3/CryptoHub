@@ -10,7 +10,10 @@ class CoingeckoController extends Controller
 {
   public static function getCoingeckoData($coingecko_id)
   {
-    $client = new \GuzzleHttp\Client(array('curl' => array(CURLOPT_SSL_VERIFYPEER => false)));
+    $client = new \GuzzleHttp\Client([
+      'curl' => array(CURLOPT_SSL_VERIFYPEER => false),
+      'max' => 10
+    ]);
 
     $result = $client->get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=' . $coingecko_id);
 

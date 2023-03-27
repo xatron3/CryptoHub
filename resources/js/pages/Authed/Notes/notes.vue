@@ -1,29 +1,24 @@
 <template>
   <div class="max-w-2xl">
-    <Button title="Edit" @click="edit = !edit" />
-
-    <div v-if="edit" class="mt-2">
-      <textarea
-        class="border w-full h-64 rounded-md p-2 text-black text-sm"
-        id="test"
-        placeholder="Description"
-        v-model="notes"
-      ></textarea>
-
-      <Markdown :source="this.notes" class="markdown" />
-    </div>
+    <Button title="Add New" @click="this.showNewNoteModal = true" />
+    <!-- Export Modal -->
+    <NewNoteModal
+      :show="this.showNewNoteModal"
+      @hideModal="this.showNewNoteModal = false"
+    />
   </div>
 </template>
 
 <script>
-import Markdown from "vue3-markdown-it";
+import NewNoteModal from "./components/NewNoteModal.vue";
+
 export default {
   components: {
-    Markdown,
+    NewNoteModal,
   },
   data() {
     return {
-      edit: false,
+      showNewNoteModal: false,
       notes: "",
     };
   },
