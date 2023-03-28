@@ -12,6 +12,15 @@
         placeholder="Note Title"
       />
 
+      <Input
+        v-model="description"
+        :value="description"
+        name="description"
+        id="description"
+        type="text"
+        placeholder="Note Description"
+      />
+
       <Button title="Add Note" @click="addNote" class="py-1.5 w-full" />
     </div>
   </Modal>
@@ -33,15 +42,19 @@ export default {
   data() {
     return {
       title: "",
+      description: "",
     };
   },
   methods: {
     async addNote() {
-      let result = await addNote({ title: this.title, content: "a" });
+      let result = await addNote({
+        title: this.title,
+        description: this.description,
+      });
 
       if (result.status === 200) {
         this.toast.success(result.message);
-
+        this.$store.dispatch("user/getUser");
         this.$emit("hideModal");
       } else {
         this.toast.error(result.message);

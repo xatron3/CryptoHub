@@ -4,6 +4,7 @@ import auth from "../middleware/auth";
 // Pages
 import Dashboard from "@/pages/Authed/Dashboard/Dashboard.vue";
 import Notes from "@/pages/Authed/Notes/notes.vue";
+import Note from "@/pages/Authed/Notes/note.vue";
 import ActivePositions from "@/pages/Authed/Positions/active-positions.vue";
 import ClosedPositions from "@/pages/Authed/Positions/closed-positions.vue";
 
@@ -24,6 +25,12 @@ const routes = [
     path: "/notes",
     name: "Notes",
     component: Notes,
+    beforeEnter: auth,
+  },
+  {
+    path: "/note/:id",
+    name: "View Note",
+    component: Note,
     beforeEnter: auth,
   },
   {

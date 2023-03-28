@@ -8,14 +8,13 @@ use App\Http\Controllers\AssetMarketDataController;
 
 class CoingeckoController extends Controller
 {
-  public static function getCoingeckoData($coingecko_id)
+  public static function getCoingeckoData($ids)
   {
     $client = new \GuzzleHttp\Client([
-      'curl' => array(CURLOPT_SSL_VERIFYPEER => false),
-      'max' => 10
+      'curl' => array(CURLOPT_SSL_VERIFYPEER => false)
     ]);
 
-    $result = $client->get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=' . $coingecko_id);
+    $result = $client->get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=' . $ids);
 
     return json_decode($result->getBody());
   }

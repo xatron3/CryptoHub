@@ -16,7 +16,8 @@ return new class extends Migration
     Schema::create('notes', function (Blueprint $table) {
       $table->id();
       $table->string('title');
-      $table->mediumText('content');
+      $table->text('description')->nullable();
+      $table->mediumText('content')->nullable();
 
       $table->unsignedBigInteger('user_id');
       $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

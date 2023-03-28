@@ -59,6 +59,6 @@ class User extends Authenticatable implements JWTSubject
 
     public function notes()
     {
-        return $this->hasMany(Note::class);
+        return $this->hasMany(Note::class)->orderBy('id', 'desc');
     }
 }

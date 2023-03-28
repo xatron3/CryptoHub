@@ -38,6 +38,7 @@ Route::group(['middleware' => 'jwt.verify'], function () {
 
     // Notes
     Route::post('notes/add', [NotesController::class, 'store']);
+    Route::post('notes/delete', [NotesController::class, 'destroy']);
 
     // Positions
     Route::get('positions', [PositionsController::class, 'getAll']);

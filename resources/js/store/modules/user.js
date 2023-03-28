@@ -31,18 +31,15 @@ const user = {
     getUser(context, data) {
       return new Promise(async (resolve, reject) => {
         if (localStorage.getItem("access_token")) {
-          if (Object.keys(context.state.info).length === 0) {
-            let res = await getUser();
+          let res = await getUser();
+          console.log(res);
 
-            if (res !== undefined) {
-              context.commit("setUser", res);
-              resolve(res);
-            } else {
-              localStorage.removeItem("access_token");
-              reject("No user found");
-            }
+          if (res !== undefined) {
+            context.commit("setUser", res);
+            resolve(res);
           } else {
-            resolve(context.state.info);
+            localStorage.removeItem("access_token");
+            reject("No user found");
           }
         } else {
           context.commit("setUser", {});
@@ -85,6 +82,12 @@ const user = {
         Object.keys(state.info).length !== 0 ? state.info.role : 0;
 
       return isAdmin;
+    },
+    notes(state, getters) {
+      return state.info.notes;
+    },
+    note: (state) => (id) => {
+      return state.info.notes.find((note) => note.id == id);
     },
     losingPositions: (state) =>
       Object.keys(state.positions).length > 0
