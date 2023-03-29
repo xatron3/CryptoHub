@@ -36,35 +36,23 @@ class NotesController extends Controller
   }
 
   /**
-   * Display the specified resource.
-   *
-   * @return \Illuminate\Http\Response
-   */
-  public function get(Request $request)
-  {
-  }
-
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param  \App\Models\Event  $event
-   * @return \Illuminate\Http\Response
-   */
-  public function edit(Note $note)
-  {
-    //
-  }
-
-  /**
    * Update the specified resource in storage.
    *
    * @param  \Illuminate\Http\Request  $request
    * @param  \App\Models\Event  $event
    * @return \Illuminate\Http\Response
    */
-  public function update(Request $request, Note $note)
+  public function update(Request $request)
   {
-    //
+    $note = Note::where('id', $request->id)->first();
+
+    if (!$note) {
+      return response()->json(['message' => 'Note was not found', 'status' => 400], 200);
+    }
+
+    $note->content = $request->content;
+    $note->save();
+    return response()->json(['message' => 'Note was updated', 'status' => 200], 200);
   }
 
   /**
@@ -77,11 +65,11 @@ class NotesController extends Controller
   {
     $note = Note::where('id', $request->id)->first();
 
-    if ($note) {
-      $note->delete();
-      return response()->json(['message' => 'Note was deleted', 'status' => 200], 200);
-    } else {
+    if (!$note) {
       return response()->json(['message' => 'Note was not found', 'status' => 400], 200);
     }
+
+    $note->delete();
+    return response()->json(['message' => 'Note was deleted', 'status' => 200], 200);
   }
 }
