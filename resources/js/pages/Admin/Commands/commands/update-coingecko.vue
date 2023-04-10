@@ -22,10 +22,17 @@ export default {
   async mounted() {},
   methods: {
     async updateCoingeckoPrice() {
-      await updateCoingeckoPrice();
-      await this.$store.dispatch("assets/load");
-      await this.$store.dispatch("user/getPositions");
-      this.toast.success("Coingecko price updated");
+      const result = await updateCoingeckoPrice();
+
+      if (result.data.status === 200) {
+        await this.$store.dispatch("assets/load");
+        await this.$store.dispatch("user/getPositions");
+        this.toast.success("Coingecko price updated");
+      } else {
+        this.toast.error(
+          `Error updating coingecko price ${result.data.message}`
+        );
+      }
     },
   },
   components: {},

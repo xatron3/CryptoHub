@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\MarketData;
 
 use App\Models\Asset;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use GuzzleHttp\Exception\ClientException;
 use App\Http\Controllers\AssetMarketDataController;
 
 class CoingeckoController extends Controller
@@ -14,9 +16,21 @@ class CoingeckoController extends Controller
       'curl' => array(CURLOPT_SSL_VERIFYPEER => false)
     ]);
 
-    $result = $client->get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=' . $ids);
+    try {
+      $result = $client->get('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=' . $ids);
 
-    return json_decode($result->getBody());
+      $response = array(
+        'data' => json_decode($result->getBody()),
+        'status' => $result->getStatusCode()
+      );
+    } catch (ClientException $e) {
+      $response = array(
+        'data' => $e->getMessage(),
+        'status' => $e->getResponse()->getStatusCode()
+      );
+    }
+
+    return (object)$response;
   }
 
   public function getAllCoingeckoIds()
@@ -34,17 +48,21 @@ class CoingeckoController extends Controller
 
     $result = $this->getCoingeckoData($ids);
 
-    foreach ($result as $data) {
-      $asset = Asset::where('provider_id', $data->id)->first();
+    if ($result->status !== 200) {
+      Log::info($result->data);
+    } else {
+      foreach ($result->data as $data) {
+        $asset = Asset::where('provider_id', $data->id)->first();
 
-      $assetData = (object) array(
-        'asset_id' => $asset->id,
-        'current_price' => $data->current_price,
-        'market_cap' => $data->market_cap,
-        'price_change_24h' => $data->price_change_percentage_24h,
-      );
+        $assetData = (object) array(
+          'asset_id' => $asset->id,
+          'current_price' => $data->current_price,
+          'market_cap' => $data->market_cap,
+          'price_change_24h' => $data->price_change_percentage_24h,
+        );
 
-      $assetMarketDataController->update($assetData);
+        $assetMarketDataController->update($assetData);
+      }
     }
 
     return $result;

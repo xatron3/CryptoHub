@@ -46,71 +46,73 @@ class PositionsController extends Controller
    */
   public function getAll(Request $request)
   {
-    if ($request->has('user_id') && in_array('admin', $request->user()->getRoleNames()->toArray())) {
-      $user_id = $request->user_id;
-    } else {
-      $user_id = $request->user()->id;
-    }
+    $user = $request->user();
+    $userId = $user->hasRole('admin') && $request->has('id') ? $request->id : $user->id;
 
-
+    $positions = ActivePosition::query();
     $closed = $request->closed;
     $grouped = $request->grouped;
-    $sell_asset = $request->sell_asset;
-    $buy_asset = $request->buy_asset;
+    $sellAsset = $request->sell_asset;
+    $buyAsset = $request->buy_asset;
 
-    if (
-      ActivePosition::where([['user_id', $user_id], ['close_amount', '=', null]])->count() <= 0 && $closed !== "true" ||
-      ActivePosition::where([['user_id', $user_id], ['close_amount', '!=', null]])->count() <= 0 && $closed === "true"
-    ) {
-      return response()->json(['data' => []], 200);
-    }
+    $positions->where('user_id', $userId);
 
-    if ($grouped === "true") {
-      $positions = ActivePosition::select(['buy_asset_id', 'sell_asset_id', 'id'])
-        ->selectRaw("SUM(sell_amount) as sell_amount")
-        ->selectRaw("SUM(buy_amount) as buy_amount")
-        ->selectRaw('SUM(close_amount) AS close_amount')
-        ->groupBy('buy_asset_id', 'sell_asset_id');
+    if ($closed === 'true') {
+      $positions->whereNotNull('close_amount');
     } else {
-      $positions = ActivePosition::select(['buy_asset_id', 'sell_asset_id', 'id', 'sell_amount', 'buy_amount', 'close_amount']);
+      $positions->whereNull('close_amount');
     }
 
-    // Get closed positions if true else all else
-    if ($closed === "true") {
-      if ($grouped === "true") {
+    if ($sellAsset) {
+      $asset = Asset::where('symbol', strtolower($sellAsset))->first();
+      if (!$asset) {
+        return response()->json(['message' => 'Could not find sell asset: ' . $sellAsset, 'status' => 400], 200);
+      }
+      $positions->where('sell_asset_id', $asset->id);
+    }
+
+    if ($buyAsset) {
+      $asset = Asset::where('symbol', strtolower($buyAsset))->first();
+      if (!$asset) {
+        return response()->json(['message' => 'Could not find buy asset: ' . $buyAsset, 'status' => 400], 200);
+      }
+      $positions->where('buy_asset_id', $asset->id);
+    }
+
+    if ($grouped === 'true') {
+      $positions->select([
+        'buy_asset_id',
+        'sell_asset_id',
+        'id',
+        DB::raw('SUM(sell_amount) as sell_amount'),
+        DB::raw('SUM(buy_amount) as buy_amount'),
+        DB::raw('SUM(close_amount) as close_amount'),
+      ])->groupBy('buy_asset_id', 'sell_asset_id');
+      if ($closed === 'true') {
         $positions->selectRaw('(SUM(close_amount) - SUM(sell_amount)) AS profit');
       } else {
         $positions->selectRaw('(close_amount - sell_amount) AS profit');
       }
-
-      $positions->where([['user_id', $user_id], ['close_amount', '!=', null]]);
     } else {
-      $positions
-        ->where([['user_id', $user_id], ['close_amount', '=', null]]);
+      $positions->select([
+        'buy_asset_id',
+        'sell_asset_id',
+        'id',
+        'sell_amount',
+        'buy_amount',
+        'close_amount',
+      ]);
+      if ($closed === 'true') {
+        $positions->selectRaw('(close_amount - sell_amount) AS profit');
+      }
     }
 
-    // Select by sell asset symbol
-    if ($request->has('sell_asset')) {
-      $asset = Asset::where('symbol', strtolower($sell_asset))->first();
-
-      if ($asset === null)
-        return response()->json(['message' => 'Could not find sell asset: ' . $sell_asset, 'status' => 400], 200);
-
-      $positions->where('sell_asset_id', $asset->id);
-    }
-
-    // Select by buy asset symbol
-    if ($request->has('buy_asset')) {
-      $asset = Asset::where('symbol', strtolower($buy_asset))->first();
-
-      if ($asset === null)
-        return response()->json(['message' => 'Could not find buy asset: ' . $buy_asset, 'status' => 400], 200);
-
-      $positions->where('buy_asset_id', $asset->id);
+    $count = $positions->count();
+    if ($count <= 0) {
+      return response()->json(['data' => []], 200);
     }
 
     $positions = $positions->get();
-
     return PositionResource::collection($positions);
   }
 

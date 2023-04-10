@@ -31,6 +31,7 @@
         <Button title="LINK" class="bg-gray-500 hover:bg-gray-600" />
       </div>
       <textarea
+        ref="editArea"
         @contextmenu.prevent="contextMenu($event)"
         class="h-96 bg-gray-900 order-transparent focus:border-transparent focus:ring-0 w-full"
         v-model="this.new_content"
@@ -40,6 +41,7 @@
       >
       <div
         v-if="context.show"
+        ref="contextMenu"
         class="context-menu"
         :style="{
           top: context.menuTop + 'px',
@@ -97,17 +99,30 @@ export default {
     },
   },
   mounted() {
+    document.addEventListener("click", this.handleDocumentClick);
     this.id = this.$route.params.id;
     this.note = this.$store.getters["user/note"](this.id);
     this.new_content = this.note.content;
   },
+  beforeUnmount() {
+    document.removeEventListener("click", this.handleDocumentClick);
+  },
   methods: {
+    handleDocumentClick(e) {
+      const contextMenu = this.$refs.contextMenu;
+      if (contextMenu && !contextMenu.contains(e.target)) {
+        this.context.show = false;
+      }
+    },
     contextMenu: function (e) {
       this.context.show = true;
       this.context.menuTop = e.clientY;
       this.context.menuLeft = e.clientX;
     },
+    copy() {},
     modifyContent(content) {
+      if (content === null) return;
+
       const linkRegex = /\[link\s+(.*?)\](.*?)\[\/link\]/g;
       const linkReplacement = '<a href="$1" target="_BLANK">$2</a>';
       content = content.replace(linkRegex, linkReplacement);
@@ -119,14 +134,16 @@ export default {
       return content;
     },
     async deleteNote() {
-      const result = await deleteNote({ id: this.id });
+      if (window.confirm("Are you sure you want to delete this item?")) {
+        const result = await deleteNote({ id: this.id });
 
-      if (result.status === 200) {
-        this.toast.success(result.message);
-        await this.$store.dispatch("user/getUser");
-        this.$router.push("/notes");
-      } else {
-        this.toast.error(result.message);
+        if (result.status === 200) {
+          this.toast.success(result.message);
+          await this.$store.dispatch("user/getUser");
+          this.$router.push("/notes");
+        } else {
+          this.toast.error(result.message);
+        }
       }
     },
     async updateNote() {
