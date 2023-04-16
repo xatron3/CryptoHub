@@ -67,7 +67,7 @@ export async function addPosition(data) {
     sell_asset_id: data.sell_asset_id,
   });
 
-  await store.dispatch("user/getPositions");
+  await store.dispatch("positions/getPositions");
 
   return {
     message: "Position was added",
@@ -94,7 +94,7 @@ export async function closePosition(data) {
     close_amount: data.amount,
   });
 
-  await store.dispatch("user/getPositions");
+  await store.dispatch("positions/getPositions");
 
   return {
     message: "Position was succesfully closed",

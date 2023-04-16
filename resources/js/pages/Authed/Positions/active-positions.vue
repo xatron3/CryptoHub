@@ -3,6 +3,28 @@
     <div v-if="this.active_positions" class="max-w-4xl space-y-2">
       <HeaderText>Active Positions</HeaderText>
 
+      <div class="grid grid-cols-4 gap-2">
+        <div
+          class="bg-gray-700 p-2 rounded-md"
+          v-for="(position, positionSymbol) in this.$store.getters[
+            'positions/totalPositionsValue'
+          ]"
+        >
+          <h2 class="text-lg uppercase font-semibold">
+            Total {{ positionSymbol }}
+          </h2>
+          <div class="flex space-x-2">
+            <img :src="position.logo" class="w-6" />
+            <span
+              >{{ currentPrice(position.sell_amount) }}
+              <span class="text-red-400"
+                >({{ position.pnl.toFixed(2) }})</span
+              ></span
+            >
+          </div>
+        </div>
+      </div>
+
       <!-- Filter -->
       <div class="flex">
         <Filter @filterChange="updateFilter"></Filter>
@@ -126,28 +148,31 @@ export default {
     this.refreshPositions();
   },
   methods: {
+    currentPrice(price) {
+      return `${nums.formatPrice(price)}`;
+    },
     showClosePosition(data) {
       this.showClosePositionModal = true;
       this.closeId = data.id;
     },
     refreshPositions() {
-      this.active_positions = this.$store.getters["user/allPositions"];
+      this.active_positions = this.$store.getters["positions/allPositions"];
     },
     async updateFilter(data) {
       if (data.id === 1) {
-        await this.$store.dispatch("user/updatePositions", true);
-        this.active_positions = this.$store.getters["user/allPositions"];
+        await this.$store.dispatch("positions/updatePositions", true);
+        this.active_positions = this.$store.getters["positions/allPositions"];
       } else if (data.id === 2) {
-        await this.$store.dispatch("user/updatePositions", false);
-        this.active_positions = this.$store.getters["user/allPositions"];
+        await this.$store.dispatch("positions/updatePositions", false);
+        this.active_positions = this.$store.getters["positions/allPositions"];
       } else if (data.id === 3 && data.asset !== "") {
-        this.active_positions = this.$store.getters["user/allPositions"].filter(
-          (position) => position.sell_asset_symbol === data.asset
-        );
+        this.active_positions = this.$store.getters[
+          "positions/allPositions"
+        ].filter((position) => position.sell_asset_symbol === data.asset);
       } else if (data.id === 4 && data.asset !== "") {
-        this.active_positions = this.$store.getters["user/allPositions"].filter(
-          (position) => position.buy_asset_symbol === data.asset
-        );
+        this.active_positions = this.$store.getters[
+          "positions/allPositions"
+        ].filter((position) => position.buy_asset_symbol === data.asset);
       } else {
         this.refreshPositions();
       }

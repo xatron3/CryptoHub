@@ -8,18 +8,18 @@
         class="grid grid-cols-1 mt-4 space-y-2 space-x-0 md:grid-cols-2 md:space-y-0 md:space-x-4 xl:grid-cols-4"
       >
         <PositionCard
-          :positions="this.$store.getters['user/losingPositions']"
+          :positions="this.$store.getters['positions/losingPositions']"
           title="Losses"
           v-if="
-            this.$store.getters['user/losingPositions'] &&
+            this.$store.getters['positions/losingPositions'] &&
             this.$store.getters['user/role'] >= 10
           "
         />
         <PositionCard
-          :positions="this.$store.getters['user/profitPositions']"
+          :positions="this.$store.getters['positions/profitPositions']"
           title="Profit"
           v-if="
-            this.$store.getters['user/profitPositions'] &&
+            this.$store.getters['positions/profitPositions'] &&
             this.$store.getters['user/role'] >= 10
           "
         />

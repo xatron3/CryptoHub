@@ -69,6 +69,9 @@ const assets = {
       return state.assets.slice(start, end);
     },
     get: (state) => (id) => {
+      if (typeof id === "string")
+        return state.assets.find((asset) => asset.symbol === id);
+
       return state.assets.find((asset) => asset.id === id);
     },
   },

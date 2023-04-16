@@ -26,7 +26,7 @@ export default {
 
       if (result.data.status === 200) {
         await this.$store.dispatch("assets/load");
-        await this.$store.dispatch("user/getPositions");
+        await this.$store.dispatch("positions/getPositions");
         this.toast.success("Coingecko price updated");
       } else {
         this.toast.error(
