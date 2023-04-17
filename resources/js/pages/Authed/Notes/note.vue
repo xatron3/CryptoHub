@@ -27,16 +27,23 @@
 
     <!-- Content -->
     <div v-if="edit" class="w-full space-y-2">
-      <div>
-        <Button title="LINK" class="bg-gray-500 hover:bg-gray-600" />
+      <!-- HTML Buttons -->
+      <div class="space-x-1">
+        <Button
+          v-for="button in helperButtons"
+          :title="button.title"
+          class="bg-gray-500 hover:bg-gray-600"
+          @click="fillTextArea(button.id)"
+        />
       </div>
+
       <textarea
         ref="editArea"
         @contextmenu.prevent="contextMenu($event)"
         class="h-96 bg-gray-900 p-1 order-transparent focus:border-transparent focus:ring-0 w-full"
-        v-model="this.new_content"
+        v-model="this.content"
       >
-      {{ this.new_content }}
+      {{ this.content }}
     </textarea
       >
       <div
@@ -57,7 +64,7 @@
     </div>
 
     <div
-      v-html="modifyContent(this.new_content)"
+      v-html="modifyContent(this.content)"
       v-if="!edit"
       class="bg-gray-800 note-content"
     ></div>
@@ -79,12 +86,26 @@ export default {
       id: null,
       note: null,
       edit: false,
-      new_content: "",
+      content: "",
       context: {
         show: false,
         menuTop: 0,
         menuLeft: 0,
       },
+      helperButtons: [
+        {
+          title: "HEADER",
+          id: "header",
+        },
+        {
+          title: "LINK",
+          id: "link",
+        },
+        {
+          title: "LINE",
+          id: "line",
+        },
+      ],
     };
   },
   setup() {
@@ -95,19 +116,55 @@ export default {
   },
   computed: {
     hasChanges() {
-      return this.new_content !== this.note.content;
+      return this.content !== this.note.content;
     },
   },
   mounted() {
     document.addEventListener("click", this.handleDocumentClick);
+
     this.id = this.$route.params.id;
     this.note = this.$store.getters["user/note"](this.id);
-    this.new_content = this.note.content;
+    if (this.note.content !== null) this.content = this.note.content;
+    else this.content = "";
   },
   beforeUnmount() {
     document.removeEventListener("click", this.handleDocumentClick);
   },
   methods: {
+    fillTextArea(type) {
+      this.$refs.editArea.focus();
+      let tag,
+        length = 0;
+
+      switch (type) {
+        case "link":
+          length = 6;
+          tag = "[link ][/link]";
+          break;
+        case "line":
+          tag = "[/line]";
+          break;
+        case "header":
+          length = 6;
+          length = 8;
+          tag = "[header][/header]";
+          break;
+      }
+
+      this.content =
+        this.content.slice(0, this.$refs.editArea.selectionStart) +
+        tag +
+        this.content.slice(this.$refs.editArea.selectionEnd);
+
+      let selectStart = this.$refs.editArea.selectionStart;
+
+      this.$nextTick(() => {
+        this.$refs.editArea.setSelectionRange(
+          selectStart + length,
+          selectStart + length
+        );
+      });
+    },
     handleDocumentClick(e) {
       const contextMenu = this.$refs.contextMenu;
       if (contextMenu && !contextMenu.contains(e.target)) {
@@ -123,9 +180,17 @@ export default {
     modifyContent(content) {
       if (content === null) return;
 
+      const headerRegex = /\[header\](.*?)\[\/header\]/g;
+      const headerReplacement = "<h2>$1</h2>";
+      content = content.replace(headerRegex, headerReplacement);
+
       const linkRegex = /\[link\s+(.*?)\](.*?)\[\/link\]/g;
       const linkReplacement = '<a href="$1" target="_BLANK">$2</a>';
       content = content.replace(linkRegex, linkReplacement);
+
+      const lineRegex = /\[\/line\]/g;
+      const lineReplacement = "<hr>";
+      content = content.replace(lineRegex, lineReplacement);
 
       const newRowRegex = /(\r\n|\r|\n)/g;
       const newRowReplacement = "<br>";
@@ -149,7 +214,7 @@ export default {
     async updateNote() {
       const result = await updateNote({
         id: this.id,
-        content: this.new_content,
+        content: this.content,
       });
 
       if (result.status === 200) {
@@ -171,10 +236,12 @@ export default {
   }
 
   h1 {
+    display: inline-block;
     font-size: 26px;
   }
 
   h2 {
+    display: inline-block;
     font-size: 22px;
   }
 }
