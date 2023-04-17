@@ -33,7 +33,7 @@
       <textarea
         ref="editArea"
         @contextmenu.prevent="contextMenu($event)"
-        class="h-96 bg-gray-900 order-transparent focus:border-transparent focus:ring-0 w-full"
+        class="h-96 bg-gray-900 p-1 order-transparent focus:border-transparent focus:ring-0 w-full"
         v-model="this.new_content"
       >
       {{ this.new_content }}

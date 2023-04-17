@@ -1,4 +1,6 @@
 TODO:
+  ☐ Implement LINK and HEADER button on /note page @created(23-04-17 02:15)
+    Should be able to click and it will add ex. [link ][/link] tag 
   ☐ Implement provider function setProvider() to loadApp @created(22-11-30 19:00)
     Currently bootstrap.js handles setProvider(), should be in state manager
   ☐ Enhance the add new asset admin page @created(22-09-25 18:45)
