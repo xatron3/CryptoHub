@@ -94,8 +94,9 @@ export default {
   },
   components: { CoingeckoInput },
   async mounted() {
-    var asset = await getAssets({ id: this.$route.params.id });
-    this.asset = asset.data[0];
+    this.asset = this.$store.getters["assets/get"](
+      parseInt(this.$route.params.id)
+    );
   },
   methods: {
     async updateAsset() {

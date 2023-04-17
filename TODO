@@ -16,13 +16,10 @@ TODO:
       ☐ Amount @created(22-09-23 03:17)
       ☐ Platform @created(22-09-23 03:17)
   ☐ Rework closed positions to get from the state not make an separate request @created(23-04-15 21:55)
+  ☐ All-assets.vue should load from state instead of getAssetData in mounted @created(23-04-17 01:59)
   
 BUGS:
-  ☐ Edit asset from /admin/assets/ just routes you back to all assets page @created(23-04-15 21:56)
-  ☐ Get asset from storage with route id in edit asset is not working @created(22-10-14 15:16)
-    SOLUTION: Make sure to parseInt(this.$route.params.id)
-    When trying to acces this.$store.getters['assets/get](1) it returns DOGE but passing this.$route.params.id makes the getter return undefined
-  ☐ When clicking the table button the route push is called twice @created(23-02-23 23:03)
+  ☐ @created(23-04-17 02:00)
 
 IDEAS:
   ☐ Dispatch events when price updates so we can update frontend @created(22-09-25 18:44)
@@ -40,6 +37,11 @@ IDEAS:
       https://www.coinglass.com/FundingRate
 
 Archive:
+  ✔ Edit asset from /admin/assets/ just routes you back to all assets page @created(23-04-15 21:56) @done(23-04-17 01:56) @project(BUGS)
+  ✔ Get asset from storage with route id in edit asset is not working @created(22-10-14 15:16) @done(23-04-17 01:59) @project(BUGS)
+    SOLUTION: Make sure to parseInt(this.$route.params.id)
+    When trying to acces this.$store.getters['assets/get](1) it returns DOGE but passing this.$route.params.id makes the getter return undefined
+  ✔ When clicking the table button the route push is called twice @created(23-02-23 23:03) @done(23-04-17 01:59) @project(BUGS)
   ✔ Implement spatie user roles to user model @created(22-09-14 04:11) @done(22-11-30 19:00) @project(TODO)
   ✔ Position State @created(22-11-01 04:01) @done(22-11-30 19:00) @project(TODO)
   ✔ Make sure you can get them grouped @created(22-11-01 04:01) @done(22-11-30 19:00) @project(TODO)

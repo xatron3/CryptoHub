@@ -20,9 +20,15 @@ const positions = {
   },
   actions: {
     async getPositions(context, data) {
-      let res = await getPosition({
-        grouped: context.state.positionGrouped,
-      });
+      let res;
+
+      if (context.rootGetters["user/loggedIn"]) {
+        res = await getPosition({
+          grouped: context.state.positionGrouped,
+        });
+      } else {
+        res = {};
+      }
 
       context.commit("setPositions", res);
     },
