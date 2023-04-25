@@ -1,4 +1,9 @@
 TODO:
+  ☐ Rework how Pusher events are handled on the front-end @created(23-04-26 01:03)
+    Should be in a separate file that is loaded upon app mount and then different functions
+    will be called on different events.
+  ☐ Move asset pagination into a component @created(23-04-26 01:04)
+    Find the code in all-assets.vue and home.vue. Make this component modular.
   ☐ Enhance the add new asset admin page @created(22-09-25 18:45)
     ☐ Make model for chain @created(23-02-23 23:07)
       Chain ID (int), name (string), RPC (string), Websocket (string)
@@ -7,8 +12,11 @@ TODO:
   ☐ Rework closed positions to get from the state not make an separate request @created(23-04-15 21:55)
   
 BUGS:
+  ☐ Active-positions.vue is not updating properly @created(23-04-26 00:42)
+    Check why its not updating when state does
   ☐ Fix "User Info" active positions count  @created(23-04-17 02:00)
     Ex: http://127.0.0.1:8000/admin/users/3
+  ☐ Authed Navigation not working when screen height is to small @created(23-04-26 00:44)
 
 IDEAS:
   ☐ Modules for different features @created(23-04-25 23:52)

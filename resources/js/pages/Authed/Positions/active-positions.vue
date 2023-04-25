@@ -42,7 +42,7 @@
       <!-- Active Positions Table -->
       <Table
         :items="this.active_positions"
-        :key="this.active_positions"
+        :key="this.$store.getters['positions/allPositions']"
         v-if="this.active_positions.length > 0"
         :headers="this.headers"
         @button_clicked="showClosePosition"
