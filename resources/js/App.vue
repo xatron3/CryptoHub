@@ -42,6 +42,7 @@ import Navigation from "./layout/navigation/Index.vue";
 import HeaderBar from "./layout/header-bar/Index.vue";
 
 import { useHead } from "@vueuse/head";
+import store from "./store/store";
 
 export default {
   setup() {
@@ -66,6 +67,12 @@ export default {
     Footer,
     Navigation,
     HeaderBar,
+  },
+  mounted() {
+    const channel = this.$pusher.subscribe("test-channel");
+    channel.bind("asset-updated", function (data) {
+      store.commit("assets/updateAssets", data.assets);
+    });
   },
   async beforeMount() {
     await this.$store.dispatch("app/loadAppData");

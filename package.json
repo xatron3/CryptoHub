@@ -23,6 +23,7 @@
     "@walletconnect/web3-provider": "^1.8.0",
     "ethers": "^5.7.2",
     "laravel-vue-pagination": "^3.0.0",
+    "pusher-js": "^8.0.2",
     "vue": "^3.2.36",
     "vue-cookie": "^1.1.4",
     "vue-final-modal": "^3.4.4",

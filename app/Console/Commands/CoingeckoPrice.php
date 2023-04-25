@@ -3,7 +3,9 @@
 namespace App\Console\Commands;
 
 
+use App\Events\AssetsUpdated;
 use Illuminate\Console\Command;
+use App\Http\Controllers\Api\AssetsController;
 use App\Http\Controllers\MarketData\CoingeckoController;
 
 class CoingeckoPrice extends Command
@@ -41,6 +43,8 @@ class CoingeckoPrice extends Command
   {
     $coingecko = new CoingeckoController();
     $coingecko->updateCoingeckoPrices();
+    $ac = new AssetsController();
+    event(new AssetsUpdated($ac->getAssetMarketData()));
     $this->info('Coingecko Price Updated');
   }
 }

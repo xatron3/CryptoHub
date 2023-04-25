@@ -14,6 +14,7 @@ import Toast from "vue-toastification";
 import { vfmPlugin } from "vue-final-modal";
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
+import Pusher from "pusher-js";
 
 // Components
 import Input from "./components/Input.vue";
@@ -25,9 +26,16 @@ import Table from "./components/Table/Table.vue";
 
 import directives from "./directives/";
 
+Pusher.logToConsole = true;
+const pusher = new Pusher("978c84a42f7466b79884", {
+  cluster: "eu",
+});
+
 const app = createApp(App);
 const head = createHead();
 directives(app);
+
+app.config.globalProperties.$pusher = pusher;
 
 app.component("Input", Input);
 app.component("HeaderText", HeaderText);

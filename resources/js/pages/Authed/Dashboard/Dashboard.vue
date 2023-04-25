@@ -1,7 +1,7 @@
 <template>
   <div class="relative">
     <div class="text-xs absolute right-4 top-2 dark:text-white">
-      Last Updated: {{ this.lastUpdated }}
+      Last Updated: {{ this.$store.getters["assets/lastUpdated"] }}
     </div>
     <div class="space-y-4">
       <div
@@ -52,7 +52,6 @@ export default {
         upcoming: null,
         passed: null,
       },
-      lastUpdated: null,
     };
   },
   async mounted() {

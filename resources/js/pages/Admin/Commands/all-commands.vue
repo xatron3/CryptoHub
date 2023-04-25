@@ -16,5 +16,6 @@ export default {
   components: {
     UpdateCoingecko,
   },
+  mounted() {},
 };
 </script>
