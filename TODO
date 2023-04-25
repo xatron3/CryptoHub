@@ -6,7 +6,6 @@ TODO:
       Chain ID (int), name (string), RPC (string), Websocket (string)
     ☐ Make it possible to add different chain addresses to asset @created(22-09-25 18:45)
       This is good for future potential of having swap support
-  
   ☐ Rework closed positions to get from the state not make an separate request @created(23-04-15 21:55)
   ☐ All-assets.vue should load from state instead of getAssetData in mounted @created(23-04-17 01:59)
   

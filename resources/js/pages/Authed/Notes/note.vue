@@ -56,9 +56,8 @@
         }"
       >
         <ul>
-          <li @click="copy">Copy</li>
-          <li @click="cut">Cut</li>
-          <li @click="paste">Paste</li>
+          <li @click="redo">Redo</li>
+          <li @click="undo">Undo</li>
         </ul>
       </div>
     </div>
@@ -87,6 +86,8 @@ export default {
       note: null,
       edit: false,
       content: "",
+      history: [],
+      future: [],
       context: {
         show: false,
         menuTop: 0,
@@ -113,6 +114,11 @@ export default {
     const toast = useToast();
 
     return { toast };
+  },
+  watch: {
+    content(newValue) {
+      this.history.push(newValue);
+    },
   },
   computed: {
     hasChanges() {
@@ -177,6 +183,18 @@ export default {
       this.context.menuLeft = e.clientX;
     },
     copy() {},
+    undo() {
+      if (this.history.length > 1) {
+        this.future.push(this.history.pop());
+        this.content = this.history[this.history.length - 2];
+      }
+    },
+    redo() {
+      if (this.future.length > 0) {
+        this.history.push(this.future.pop());
+        this.content = this.history[this.history.length - 1];
+      }
+    },
     modifyContent(content) {
       if (content === null) return;
 
@@ -219,6 +237,7 @@ export default {
 
       if (result.status === 200) {
         this.toast.success(result.message);
+        this.note.content = this.content;
         this.edit = false;
         await this.$store.dispatch("user/getUser");
       } else {
@@ -249,7 +268,7 @@ export default {
 .context-menu {
   position: absolute;
   z-index: 1;
-  background-color: white;
+  background-color: gray;
   border: 1px solid black;
   list-style: none;
   padding: 0;
@@ -263,6 +282,6 @@ export default {
 }
 
 .context-menu li:hover {
-  background-color: #ccc;
+  background-color: darkgray;
 }
 </style>
