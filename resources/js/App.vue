@@ -71,7 +71,7 @@ export default {
   mounted() {
     const channel = this.$pusher.subscribe("test-channel");
     channel.bind("asset-updated", function (data) {
-      store.commit("assets/setAssets", data.assets);
+      store.commit("assets/updateAssets", data.assets);
     });
   },
   async beforeMount() {

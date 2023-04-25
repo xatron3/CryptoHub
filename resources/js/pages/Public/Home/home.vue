@@ -15,8 +15,6 @@
         Today's Top Cryptocurrencies
       </h2>
 
-      <div @click="this.$store.dispatch('assets/load')">Load new data</div>
-
       <AssetsTable />
     </div>
   </div>

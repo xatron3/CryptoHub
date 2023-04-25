@@ -10,11 +10,15 @@ TODO:
   ☐ All-assets.vue should load from state instead of getAssetData in mounted @created(23-04-17 01:59)
   
 BUGS:
-  ☐ @created(23-04-17 02:00)
+  ☐ Fix "User Info" active positions count  @created(23-04-17 02:00)
+    Ex: http://127.0.0.1:8000/admin/users/3
 
 IDEAS:
-  ☐ Dispatch events when price updates so we can update frontend @created(22-09-25 18:44)
-    ☐ Maybe store all assets in vue storage to be able to update it only at once place @created(22-09-25 18:44)
+  ☐ Modules for different features @created(23-04-25 23:52)
+    This could be good to give different users different features
+    Examples
+    ☐ Trader @created(23-04-25 23:52)
+    ☐ CSGO @created(23-04-25 23:52)
   ☐ 0x Integration for closing/opening positions @created(22-10-11 04:08)
     https://docs.0x.org/introduction/welcome
     ☐ This could then "automate" the positions created with the swap @created(22-10-11 04:08)
@@ -38,6 +42,8 @@ IDEAS:
       https://www.coinglass.com/FundingRate
 
 Archive:
+  ✔ Dispatch events when price updates so we can update frontend @created(22-09-25 18:44) @done(23-04-25 23:53) @project(IDEAS)
+  ✔ Maybe store all assets in vue storage to be able to update it only at once place @created(22-09-25 18:44) @done(23-04-25 23:53) @project(IDEAS)
   ✔ Implement LINK and HEADER button on /note page @created(23-04-17 02:15) @done(23-04-17 19:03) @project(TODO)
     Should be able to click and it will add ex. [link ][/link] tag 
   ✔ Edit asset from /admin/assets/ just routes you back to all assets page @created(23-04-15 21:56) @done(23-04-17 01:56) @project(BUGS)

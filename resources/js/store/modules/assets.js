@@ -20,6 +20,18 @@ const assets = {
     setSorting(state, data) {
       state.sorting = data;
     },
+    updateAssets(state, data) {
+      state.updated = Date.now();
+
+      state.assets.forEach((asset) => {
+        let id = asset.id;
+        let res = data.find((obj) => obj.id === id);
+
+        asset.current_price = res.current_price;
+        asset.market_cap = res.market_cap;
+        asset.price_change_24h = res.price_change_24h;
+      });
+    },
   },
   actions: {
     async load(context) {

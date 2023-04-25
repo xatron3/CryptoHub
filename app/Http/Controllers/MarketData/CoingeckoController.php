@@ -65,10 +65,6 @@ class CoingeckoController extends Controller
 
         $assetMarketDataController->update($assetData);
       }
-
-      // TODO: Fix limit size 
-      // $ac = new AssetsController();
-      // event(new AssetsUpdated($ac->getEventData()));
     }
 
     return $result;

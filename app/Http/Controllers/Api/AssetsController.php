@@ -7,6 +7,7 @@ use App\Models\Asset;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\AssetMarketDataResource;
 use App\Http\Resources\AssetResource;
 use App\Models\AssetMarketData;
 
@@ -106,13 +107,13 @@ class AssetsController extends Controller
   /**
    * Get assets for event
    */
-  public function getEventData()
+  public function getAssetMarketData()
   {
-    $fileds = ['id', 'name', 'symbol', 'logo', 'provider_id'];
+    $fileds = ['id'];
 
     $assets = Asset::select($fileds);
     $assets = $assets->get();
 
-    return AssetResource::collection($assets);
+    return AssetMarketDataResource::collection($assets);
   }
 }
