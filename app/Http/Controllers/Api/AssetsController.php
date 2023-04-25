@@ -87,7 +87,7 @@ class AssetsController extends Controller
    */
   public function get(Request $request = null)
   {
-    $fileds = ['id', 'name', 'symbol', 'logo', 'provider_id'];
+    $fileds = ['id', 'name', 'symbol', 'logo', 'provider_id', 'provider'];
 
     $assets = Asset::select($fileds);
 

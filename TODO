@@ -1,13 +1,10 @@
 TODO:
-  ☐ Implement provider function setProvider() to loadApp @created(22-11-30 19:00)
-    Currently bootstrap.js handles setProvider(), should be in state manager
   ☐ Enhance the add new asset admin page @created(22-09-25 18:45)
     ☐ Make model for chain @created(23-02-23 23:07)
       Chain ID (int), name (string), RPC (string), Websocket (string)
     ☐ Make it possible to add different chain addresses to asset @created(22-09-25 18:45)
       This is good for future potential of having swap support
   ☐ Rework closed positions to get from the state not make an separate request @created(23-04-15 21:55)
-  ☐ All-assets.vue should load from state instead of getAssetData in mounted @created(23-04-17 01:59)
   
 BUGS:
   ☐ Fix "User Info" active positions count  @created(23-04-17 02:00)
@@ -42,6 +39,9 @@ IDEAS:
       https://www.coinglass.com/FundingRate
 
 Archive:
+  ✔ All-assets.vue should load from state instead of getAssetData in mounted @created(23-04-17 01:59) @done(23-04-26 00:36) @project(TODO)
+  ✔ Implement provider function setProvider() to loadApp @created(22-11-30 19:00) @done(23-04-25 23:55) @project(TODO)
+    Currently bootstrap.js handles setProvider(), should be in state manager
   ✔ Dispatch events when price updates so we can update frontend @created(22-09-25 18:44) @done(23-04-25 23:53) @project(IDEAS)
   ✔ Maybe store all assets in vue storage to be able to update it only at once place @created(22-09-25 18:44) @done(23-04-25 23:53) @project(IDEAS)
   ✔ Implement LINK and HEADER button on /note page @created(23-04-17 02:15) @done(23-04-17 19:03) @project(TODO)

@@ -18,11 +18,34 @@
 
       <Table
         :headers="this.headers"
-        :items="this.assets"
+        :items="this.$store.getters['assets/allFiltered']"
         :meta="this.meta"
         @button_clicked="edit_asset"
         @change_page="change_page"
       />
+
+      <div class="text-xs my-1 self-start">
+        Showing page
+        {{ this.$store.getters["assets/pageInfo"].currentPage }} out of
+        {{ this.$store.getters["assets/pageInfo"].totalPages }}
+      </div>
+
+      <div class="mt-3 mx-auto rounded-md overflow-hidden flex justify-center">
+        <div
+          v-for="index in this.$store.getters['assets/pageInfo'].totalPages"
+          v-bind:key="index"
+          class="px-2 py-1 cursor-pointer hover:bg-gray-300 dark:hover:bg-gray-900 transition-all"
+          :class="{
+            'bg-gray-200 dark:bg-gray-600':
+              this.$store.getters['assets/pageInfo'].currentPage === index,
+            'bg-gray-100 dark:bg-gray-700':
+              this.$store.getters['assets/pageInfo'].currentPage !== index,
+          }"
+          v-on:click="this.$store.commit('assets/setPage', index)"
+        >
+          <span>{{ index }}</span>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -35,14 +58,15 @@ export default {
   components: {},
   data() {
     return {
-      assets: null,
-      meta: null,
-      page: 1,
       headers: [
         {
           title: "Name",
           value: "name",
           format: "name",
+        },
+        {
+          title: "Provider",
+          value: "provider",
         },
         {
           title: "Edit",
@@ -54,20 +78,7 @@ export default {
       columns: ["name", "symbol", "current_price", "button"],
     };
   },
-  async mounted() {
-    this.getAssetData();
-  },
   methods: {
-    async getAssetData() {
-      const assetData = await getAssets({
-        sort_by: "name",
-        page: this.page,
-        paginate: true,
-      });
-
-      this.assets = assetData.data;
-      this.meta = assetData.meta;
-    },
     edit_asset(data) {
       this.$router.push(`/admin/asset/edit/${data.id}`);
     },

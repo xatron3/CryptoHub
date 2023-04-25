@@ -100,7 +100,7 @@
           'bg-gray-100 dark:bg-gray-700':
             this.$store.getters['assets/pageInfo'].currentPage !== index,
         }"
-        v-on:click="setPage(index)"
+        v-on:click="this.$store.commit('assets/setPage', index)"
       >
         <span>{{ index }}</span>
       </div>
@@ -110,6 +110,9 @@
 
 <script>
 export default {
+  mounted() {
+    this.$store.commit("assets/setPage", 1);
+  },
   methods: {
     marketCap(asset) {
       let market_cap;

@@ -37,7 +37,7 @@ class CoingeckoController extends Controller
 
   public function getAllCoingeckoIds()
   {
-    $ids = Asset::where('provider_id', '!=', null)->get('provider_id')->pluck('provider_id')->toArray();
+    $ids = Asset::where('provider', '=', 'coingecko')->get('provider_id')->pluck('provider_id')->toArray();
 
     return implode(",", $ids);
   }
