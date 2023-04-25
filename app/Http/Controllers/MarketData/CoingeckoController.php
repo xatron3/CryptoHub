@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\MarketData;
 
 use App\Models\Asset;
+use App\Events\AssetsUpdated;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use GuzzleHttp\Exception\ClientException;
 use App\Http\Controllers\AssetMarketDataController;
+use App\Http\Controllers\Api\AssetsController;
 
 class CoingeckoController extends Controller
 {
@@ -63,6 +65,10 @@ class CoingeckoController extends Controller
 
         $assetMarketDataController->update($assetData);
       }
+
+      // TODO: Fix limit size 
+      // $ac = new AssetsController();
+      // event(new AssetsUpdated($ac->getEventData()));
     }
 
     return $result;

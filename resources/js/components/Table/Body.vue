@@ -51,10 +51,10 @@
 
 <script>
 import {
+  formatName,
   formatPercentage,
   formatProfit,
   formatLogo,
-  formatImage,
 } from "./formats";
 
 export default {
@@ -64,6 +64,7 @@ export default {
   methods: {
     format(data, format, index = 0) {
       var _class;
+      let currentItem = this.items[index];
 
       if (format === "price") {
         return `$${nums.formatPrice(data)}`;
@@ -74,22 +75,21 @@ export default {
       }
 
       if (format === "profit") {
-        const data = this.items[index];
-        return formatProfit(data);
+        return formatProfit(currentItem);
       }
 
-      if (format === "image") {
-        return formatImage(data);
+      if (format === "name") {
+        return formatName(currentItem);
       }
 
       /////////////////////
       if (format === "sell_logo") {
-        const logo = this.items[index]["sell_logo"];
+        const logo = currentItem["sell_logo"];
         return formatLogo(data, logo);
       }
 
       if (format === "buy_logo") {
-        const logo = this.items[index]["buy_logo"];
+        const logo = currentItem["buy_logo"];
         return formatLogo(data, logo);
       }
 

@@ -3,6 +3,7 @@ import { getAssets } from "../../services/assets";
 const assets = {
   namespaced: true,
   state: () => ({
+    updated: null,
     assets: {},
     sorting: "marketcap",
     limit: 20, // How many per page
@@ -10,6 +11,7 @@ const assets = {
   }),
   mutations: {
     setAssets(state, data) {
+      state.updated = Date.now();
       state.assets = data;
     },
     setPage(state, page) {
@@ -27,6 +29,11 @@ const assets = {
     },
   },
   getters: {
+    lastUpdated: (state) => {
+      const date = new Date(state.updated);
+
+      return date.toLocaleString();
+    },
     pageInfo: (state) => {
       const totalPages = Math.ceil(state.assets.length / state.limit);
 

@@ -59,6 +59,11 @@ export function formatLogo(data, logo) {
   )}</span></div>`;
 }
 
-export function formatImage(image) {
-  return `<img src="${image}" class="w-6 h-6">`;
+/**
+ * Get asset name with logo and symbol
+ * @param {asset} data
+ * @returns LOGO NAME (SYMBOL)
+ */
+export function formatName(data) {
+  return `<div class="flex items-center space-x-1"><img src="${data.logo}" class="w-6 h-6 rounded-full"> <span>${data.name}</span> <span class="text-xs">(${data.symbol})</span></div>`;
 }

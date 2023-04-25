@@ -40,13 +40,9 @@ export default {
       page: 1,
       headers: [
         {
-          title: "Logo",
-          value: "logo",
-          format: "image",
-        },
-        {
           title: "Name",
           value: "name",
+          format: "name",
         },
         {
           title: "Edit",
