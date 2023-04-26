@@ -63,7 +63,7 @@
 import NavigationLink from "./components/NavigationLink.vue";
 import NavigationHeader from "./components/NavigationHeader.vue";
 import AdminLinks from "./components/AdminLinks.vue";
-import Logo from "../../../images/logo.png";
+import Logo from "../../../../images/logo.png";
 
 export default {
   name: "Navigation",

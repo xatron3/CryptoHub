@@ -70,7 +70,6 @@ export default {
       page: 1,
       events: null,
       meta: null,
-      columns: ["title", "start_date", "end_date", "button"],
     };
   },
   async mounted() {

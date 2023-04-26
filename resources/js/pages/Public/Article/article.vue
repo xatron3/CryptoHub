@@ -1,20 +1,36 @@
 <template>
   <div v-if="dataLoaded" class="mt-4 space-y-2">
-    <h1 class="text-3xl font-bold">{{ article.title }}</h1>
-    <div v-html="article.content"></div>
-    <div class="">
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-        >#FTX</span
-      >
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-        >#crypto</span
-      >
-      <span
-        class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
-        >#fruad</span
-      >
+    <div class="max-w-4xl mx-auto my-8">
+      <!-- Blog Post Title -->
+      <h1 class="text-3xl font-bold mb-4">{{ article.title }}</h1>
+
+      <!-- Blog Post Thumbnail -->
+      <img
+        src="https://via.placeholder.com/640x360.png?text=Blog+Post+Thumbnail"
+        alt="Blog Post Thumbnail"
+        class="w-full rounded-md mb-4"
+      />
+
+      <!-- Blog Post Content -->
+      <div class="leading-7">
+        {{ article.content }}
+      </div>
+
+      <!-- Tags -->
+      <div class="mt-4">
+        <span
+          class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
+          >#tag1</span
+        >
+        <span
+          class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
+          >#tag2</span
+        >
+        <span
+          class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
+          >#tag3</span
+        >
+      </div>
     </div>
   </div>
 </template>

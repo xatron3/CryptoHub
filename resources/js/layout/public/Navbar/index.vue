@@ -73,7 +73,7 @@ import WalletConnect from "./components/wallet-connect.vue";
 import Login from "./components/login.vue";
 import { MoonIcon, SunIcon } from "@heroicons/vue/24/solid";
 
-import Logo from "../../../../../images/logo.png";
+import Logo from "../../../../images/logo.png";
 
 export default {
   name: "Navbar",

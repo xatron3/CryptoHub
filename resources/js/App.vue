@@ -35,11 +35,11 @@
 </template>
 
 <script>
-import Navbar from "@/pages/Public/components/Navbar/index.vue";
-import Footer from "@/pages/Public/components/Footer/index.vue";
+import Navbar from "@/layout/public/Navbar/index.vue";
+import Footer from "@/layout/public/Footer/index.vue";
 
-import Navigation from "./layout/navigation/Index.vue";
-import HeaderBar from "./layout/header-bar/Index.vue";
+import Navigation from "./layout/admin/navigation/Index.vue";
+import HeaderBar from "./layout/admin/header-bar/Index.vue";
 
 import { useHead } from "@vueuse/head";
 import store from "./store/store";

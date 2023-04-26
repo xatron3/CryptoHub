@@ -2,14 +2,15 @@
 import admin from "../middleware/admin";
 
 // Pages
-import AllEvents from "@/pages/Admin/Events/all-events.vue";
+import Events from "@/pages/Admin/Events/all-events.vue";
 
 // Users
-import AllUsers from "@/pages/Admin/Users/all-users.vue";
+import Users from "@/pages/Admin/Users/all-users.vue";
 import NewUser from "@/pages/Admin/Users/new-user.vue";
 import EditUser from "@/pages/Admin/Users/edit-user.vue";
 
-import AllRoles from "@/pages/Admin/Users/Permissions/all-roles.vue";
+// Roles
+import Roles from "@/pages/Admin/Users/Permissions/all-roles.vue";
 import EditRole from "@/pages/Admin/Users/Permissions/edit-role.vue";
 import NewRole from "@/pages/Admin/Users/Permissions/new-role.vue";
 
@@ -18,6 +19,10 @@ import Assets from "@/pages/Admin/Assets/all-assets.vue";
 import EditAsset from "@/pages/Admin/Assets/edit-asset.vue";
 import NewAsset from "@/pages/Admin/Assets/new-asset.vue";
 
+// Posts
+import Posts from "@/pages/Admin/Posts/all-posts.vue";
+import EditPost from "@/pages/Admin/Posts/edit-post.vue";
+
 // Commands
 import Commands from "@/pages/Admin/Commands/all-commands.vue";
 
@@ -25,6 +30,18 @@ import Commands from "@/pages/Admin/Commands/all-commands.vue";
 import AllChains from "@/pages/Admin/Chains/all-chains.vue";
 
 const routes = [
+  {
+    path: "/admin/posts",
+    name: "Posts",
+    component: Posts,
+    beforeEnter: admin,
+  },
+  {
+    path: "/admin/post/edit/:id",
+    name: "Edit Post",
+    component: EditPost,
+    beforeEnter: admin,
+  },
   {
     path: "/admin/assets",
     name: "Assets",
@@ -46,7 +63,7 @@ const routes = [
   {
     path: "/admin/events",
     name: "Events",
-    component: AllEvents,
+    component: Events,
     beforeEnter: admin,
   },
   {
@@ -70,7 +87,7 @@ const routes = [
   {
     path: "/admin/users",
     name: "Users",
-    component: AllUsers,
+    component: Users,
     beforeEnter: admin,
   },
   {
@@ -82,7 +99,7 @@ const routes = [
   {
     path: "/admin/users/roles",
     name: "User Roles",
-    component: AllRoles,
+    component: Roles,
     beforeEnter: admin,
   },
   {

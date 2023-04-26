@@ -9,6 +9,9 @@
     <NavigationLink path="/admin/assets/" title="All Assets"></NavigationLink>
     <NavigationLink path="/admin/assets/new" title="New Asset"></NavigationLink>
 
+    <NavigationHeader title="POsts" />
+    <NavigationLink path="/admin/posts/" title="All Posts"></NavigationLink>
+
     <NavigationHeader title="Users" />
     <NavigationLink path="/admin/users/" title="Users"></NavigationLink>
 
