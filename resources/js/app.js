@@ -15,6 +15,7 @@ import { vfmPlugin } from "vue-final-modal";
 import Datepicker from "@vuepic/vue-datepicker";
 import "@vuepic/vue-datepicker/dist/main.css";
 import Pusher from "pusher-js";
+import CKEditor from "@ckeditor/ckeditor5-vue";
 
 // Components
 import Input from "./components/Input.vue";
@@ -45,6 +46,7 @@ app.component("Modal", Modal);
 app.component("Table", Table);
 app.component("Datepicker", Datepicker); // TODO: change to a more robust library
 
+app.use(CKEditor);
 app.use(Toast);
 app.use(vfmPlugin);
 app.use(store);

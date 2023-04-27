@@ -27,7 +27,7 @@ export async function getPosition(params = {}) {
 
     // Assign current sell price to position
     Object.assign(obj, {
-      current_sell_price: buyAssset.current_price / sellAsset.current_price,
+      current_sell_price: buyAssset.current_price / sellAsset.current_price, // TODO: Move to state handler
       buy_logo: buyAssset.logo,
       buy_symbol: buyAssset.symbol,
       sell_logo: sellAsset.logo,
