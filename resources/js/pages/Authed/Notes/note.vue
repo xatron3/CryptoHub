@@ -65,7 +65,7 @@
     <div
       v-html="modifyContent(this.content)"
       v-if="!edit"
-      class="bg-gray-800 note-content"
+      class="dark:bg-gray-800 note-content"
     ></div>
   </div>
 </template>
@@ -251,7 +251,7 @@ export default {
 <style lang="scss">
 .note-content {
   a {
-    color: turquoise;
+    color: blue;
   }
 
   h1 {

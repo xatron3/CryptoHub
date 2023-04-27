@@ -1,11 +1,11 @@
 <template>
   <div>
-    <div v-if="this.active_positions" class="max-w-4xl space-y-2">
+    <div v-if="this.active_positions" class="max-w-6xl space-y-2">
       <HeaderText>Active Positions</HeaderText>
 
       <div class="grid grid-cols-4 gap-2">
         <div
-          class="bg-gray-700 p-2 rounded-md"
+          class="bg-gray-200 dark:bg-gray-700 p-2 rounded-md"
           v-for="(position, positionSymbol) in this.$store.getters[
             'positions/totalPositionsValue'
           ]"

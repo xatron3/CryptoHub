@@ -1,18 +1,19 @@
 <template>
   <div class="max-w-6xl flex flex-col space-y-2">
-    <HeaderText>All Users</HeaderText>
+    <div class="flex">
+      <HeaderText>All Users</HeaderText>
+      <div class="flex space-x-2 ml-auto">
+        <Button
+          title="NEW USER"
+          @click="this.$router.push('/admin/users/new')"
+        ></Button>
 
-    <div class="flex justify-end space-x-2">
-      <router-link
-        to="/admin/users/new"
-        class="px-3 py-2 rounded-md bg-green-500"
-        >New User</router-link
-      >
-      <router-link
-        to="/admin/users/roles"
-        class="px-3 py-2 rounded-md bg-yellow-500"
-        >Roles</router-link
-      >
+        <Button
+          title="ROLES"
+          class="bg-yellow-500 hover:bg-yellow-600"
+          @click="this.$router.push('/admin/users/roles')"
+        ></Button>
+      </div>
     </div>
 
     <Table

@@ -1,6 +1,9 @@
 <template>
   <div class="overflow-auto">
-    <table class="min-w-max w-full table-auto" v-if="this.items">
+    <table
+      class="min-w-max w-full table-auto rounded-md overflow-hidden"
+      v-if="this.items"
+    >
       <Head :headers="this.headers" />
 
       <Body

@@ -19,7 +19,7 @@ class BlogPostController extends Controller
     $post->save();
   }
 
-  public function getAll()
+  public function get(Request $request = null)
   {
     $posts = BlogPosts::all()->sortByDesc("id");
 

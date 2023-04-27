@@ -1,11 +1,11 @@
 <template>
-  <div class="flex flex-col space-y-2">
+  <div class="flex flex-col space-y-2 max-w-6xl">
     <div class="text-xs ml-auto">
       Last Updated: {{ this.$store.getters["assets/lastUpdated"] }}
     </div>
 
     <div class="w-full flex space-x-2">
-      <div class="w-full md:w-2/5">
+      <div class="w-full md:w-2/4">
         <h2 class="text-lg font-bold dark:text-white">24h Gainers</h2>
         <Table
           :items="gainers"
@@ -13,7 +13,7 @@
           :key="this.$store.getters['assets/all']"
         />
       </div>
-      <div class="w-full md:w-2/5">
+      <div class="w-full md:w-2/4">
         <h2 class="text-lg font-bold dark:text-white">24h Loosers</h2>
         <Table
           :items="loosers"
