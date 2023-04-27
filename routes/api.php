@@ -26,9 +26,9 @@ use App\Http\Controllers\MarketData\CoingeckoController;
 Route::post('register', [AuthController::class, 'register']);
 Route::post('login', [AuthController::class, 'login']);
 
-Route::get('events', [EventsController::class, 'getAll']);
+Route::get('events', [EventsController::class, 'get']);
 Route::get('assets', [AssetsController::class, 'get']);
-Route::get('posts', [BlogPostController::class, 'getAll']);
+Route::get('posts', [BlogPostController::class, 'get']);
 
 Route::group(['middleware' => 'jwt.verify'], function () {
     // User

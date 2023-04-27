@@ -1,16 +1,15 @@
 <template>
-  <div>
-    <HeaderText>All Events</HeaderText>
+  <div class="max-w-6xl space-y-2">
+    <div class="flex">
+      <HeaderText>All Events</HeaderText>
+      <Button
+        title="Add New"
+        class="ml-auto"
+        @click="this.showNewEventModal = true"
+      />
+    </div>
 
-    <div class="max-w-6xl flex flex-col space-y-2">
-      <div class="flex justify-end space-x-2">
-        <Button
-          title="Add New"
-          class="w-28 self-end"
-          @click="this.showNewEventModal = true"
-        />
-      </div>
-
+    <div class="flex flex-col space-y-2">
       <Table
         :headers="this.headers"
         :items="this.events"

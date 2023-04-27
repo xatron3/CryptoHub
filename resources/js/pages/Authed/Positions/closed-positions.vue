@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="this.closed_positions" class="max-w-4xl space-y-2">
+    <div v-if="this.closed_positions" class="max-w-6xl space-y-2">
       <HeaderText>Closed Positions</HeaderText>
       <!-- Filter -->
       <Filter @filterChange="updateFilter"></Filter>

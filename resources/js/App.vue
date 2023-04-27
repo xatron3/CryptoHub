@@ -29,7 +29,7 @@
     <Navigation v-if="this.$store.getters['user/loggedIn']"></Navigation>
     <div class="w-full">
       <HeaderBar v-if="this.$store.getters['user/loggedIn']"></HeaderBar>
-      <router-view class="p-4"></router-view>
+      <router-view class="px-4"></router-view>
     </div>
   </div>
 </template>

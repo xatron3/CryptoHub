@@ -42,7 +42,7 @@ class EventsController extends Controller
      * @param  \App\Models\Event  $event
      * @return \Illuminate\Http\Response
      */
-    public function getAll(Request $request)
+    public function get(Request $request)
     {
         $limit = $request->limit ? $request->limit : 15;
         $passed = $request->passed;

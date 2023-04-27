@@ -12,7 +12,7 @@
     <div class="grid grid-cols-3 gap-2">
       <router-link
         v-for="note in this.$store.getters['user/notes']"
-        class="bg-gray-700 px-3 py-3 shadow-lg rounded-md space-y-1 cursor-pointer hover:shadow-xl hover:transition hover:duration-300 hover:ease-out hover:text-gray-100 hover:bg-gray-600"
+        class="dark:bg-gray-700 bg-gray-200 px-3 py-3 shadow-lg rounded-md space-y-1 cursor-pointer hover:shadow-xl hover:transition hover:duration-300 hover:ease-out dark:hover:text-gray-100 dark:hover:bg-gray-600 hover:bg-gray-100 hover:text-gray-700"
         :to="`/note/${note.id}`"
       >
         <div class="font-semibold text-xl">
