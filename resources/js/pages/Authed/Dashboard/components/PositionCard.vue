@@ -8,7 +8,7 @@
     </div>
 
     <div
-      v-for="item in positions"
+      v-for="item in positions.slice(0, 10)"
       :key="item"
       class="grid grid-cols-3 border-b py-0.5 dark:border-gray-600"
     >

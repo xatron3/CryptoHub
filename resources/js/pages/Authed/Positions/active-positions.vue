@@ -17,7 +17,7 @@
             <img :src="position.logo" class="w-6" />
             <span
               >{{ currentPrice(position.sell_amount) }}
-              <span class="text-red-400"
+              <span class="text-red-500"
                 >({{ position.pnl.toFixed(2) }})</span
               ></span
             >

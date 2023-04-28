@@ -12,9 +12,7 @@
       />
 
       <!-- Blog Post Content -->
-      <div class="leading-7">
-        {{ article.content }}
-      </div>
+      <div class="leading-7 article-content" v-html="article.content"></div>
 
       <!-- Tags -->
       <div class="mt-4">
@@ -71,3 +69,22 @@ export default {
   },
 };
 </script>
+
+<style>
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  line-height: 150%;
+}
+
+h2 {
+  font-size: 26px;
+}
+
+h3 {
+  font-size: 22px;
+}
+</style>

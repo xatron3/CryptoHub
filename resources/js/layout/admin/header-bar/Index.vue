@@ -1,5 +1,5 @@
 <template>
-  <div class="h-10 flex-row flex items-center px-3 dark:bg-gray-700">
+  <div class="h-10 flex-row flex items-center px-3">
     <div class="block md:hidden">
       <span @click="this.$store.commit('app/toggleNavigation')"
         ><Bars3Icon class="h-6 dark:text-white text-black"

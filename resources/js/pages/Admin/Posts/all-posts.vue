@@ -2,7 +2,11 @@
   <div class="max-w-6xl flex flex-col space-y-2">
     <div class="flex w-full">
       <HeaderText>All Posts</HeaderText>
-      <Button title="NEW POST" class="ml-auto" />
+      <Button
+        title="NEW POST"
+        class="ml-auto"
+        @click="this.$router.push('/admin/posts/new')"
+      />
     </div>
 
     <Table
@@ -23,6 +27,14 @@ export default {
         {
           title: "Title",
           value: "title",
+        },
+        {
+          title: "Created",
+          value: "created",
+        },
+        {
+          title: "Updated",
+          value: "updated",
         },
         {
           title: "Edit",

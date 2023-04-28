@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full md:max-w-sm rounded overflow-hidden relative shadow-lg bg-gray-600 flex flex-col"
+    class="w-full md:max-w-sm rounded overflow-hidden relative shadow-lg bg-gray-200 dark:bg-gray-600 flex flex-col"
     @mouseover="scrollPosts = false"
     @mouseleave="scrollPosts = true"
   >
@@ -14,10 +14,10 @@
         <div class="px-6 py-4">
           <div class="font-bold text-xl mb-2">{{ post.title }}</div>
           <div
-            class="text-gray-100 text-base overflow-hidden"
+            class="text-gray-600 dark:text-gray-100 text-base overflow-hidden"
             style="max-height: 78px; min-height: 78px"
           >
-            <div>{{ post.content }}</div>
+            <div>{{ strippedContent }}</div>
           </div>
         </div>
 
@@ -28,15 +28,15 @@
             >
           </div>
           <span
-            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+            class="inline-block bg-gray-100 dark:bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
             >#FTX</span
           >
           <span
-            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+            class="inline-block bg-gray-100 dark:bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
             >#crypto</span
           >
           <span
-            class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+            class="inline-block bg-gray-100 dark:bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
             >#fruad</span
           >
         </div>
@@ -47,7 +47,9 @@
       <div v-for="index in featuredPosts.length" v-bind:key="index">
         <div
           @click="currentIndex = index - 1"
-          :class="{ 'text-gray-200': currentIndex === index - 1 }"
+          :class="{
+            'text-gray-100 dark:text-gray-200': currentIndex === index - 1,
+          }"
           class="text-2xl cursor-pointer"
         >
           &#x2022;
@@ -77,6 +79,10 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/vue/24/solid";
 export default {
   components: { ChevronRightIcon, ChevronLeftIcon },
   computed: {
+    strippedContent() {
+      let regex = /(<([^>]+)>|&nbsp;)/gi;
+      return this.featuredPosts[this.currentIndex].content.replace(regex, "");
+    },
     featuredPosts() {
       return this.$store.getters["posts/all"].slice(0, 4);
     },

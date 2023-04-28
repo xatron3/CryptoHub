@@ -18,7 +18,7 @@ class PermissionsController extends Controller
    * @param  mixed $request
    * @return void
    */
-  public function storeRole(Request $request)
+  public function store(Request $request)
   {
     if ($request->user()->hasRole('admin')) {
       if ($request->has('name')) {
@@ -45,7 +45,7 @@ class PermissionsController extends Controller
     return response()->json(['message' => $message, 'status' => $status], 200);
   }
 
-  public function updateRole(Request $request)
+  public function update(Request $request)
   {
     $role = Role::where('id', $request->id)->first();
 
@@ -68,7 +68,7 @@ class PermissionsController extends Controller
    * @param  mixed $request
    * @return void
    */
-  public function getRoles(Request $request)
+  public function get(Request $request)
   {
     $roles = Role::all();
 

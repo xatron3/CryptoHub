@@ -1,11 +1,8 @@
 <template>
   <div class="relative">
-    <div class="text-xs absolute right-4 top-2 dark:text-white">
-      Last Updated: {{ this.$store.getters["assets/lastUpdated"] }}
-    </div>
     <div class="space-y-4">
       <div
-        class="grid grid-cols-1 mt-4 space-y-2 space-x-0 md:grid-cols-2 md:space-y-0 md:space-x-4 xl:grid-cols-4"
+        class="grid grid-cols-1 space-y-2 space-x-0 md:grid-cols-2 md:space-y-0 md:space-x-4 xl:grid-cols-4"
       >
         <PositionCard
           :positions="this.$store.getters['positions/losingPositions']"

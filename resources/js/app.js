@@ -22,6 +22,7 @@ import Input from "./components/Input.vue";
 import HeaderText from "./components/HeaderText.vue";
 import Select from "./components/Select.vue";
 import Button from "./components/Button.vue";
+import Accordion from "./components/Accordion.vue";
 import Modal from "./components/Modal.vue";
 import Table from "./components/Table/Table.vue";
 
@@ -38,6 +39,7 @@ directives(app);
 
 app.config.globalProperties.$pusher = pusher;
 
+app.component("Accordion", Accordion);
 app.component("Input", Input);
 app.component("HeaderText", HeaderText);
 app.component("Select", Select);

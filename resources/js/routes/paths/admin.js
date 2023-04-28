@@ -21,7 +21,7 @@ import NewAsset from "@/pages/Admin/Assets/new-asset.vue";
 
 // Posts
 import Posts from "@/pages/Admin/Posts/all-posts.vue";
-import EditPost from "@/pages/Admin/Posts/edit-post.vue";
+import ViewPost from "@/pages/Admin/Posts/view-post.vue";
 
 // Commands
 import Commands from "@/pages/Admin/Commands/all-commands.vue";
@@ -37,9 +37,15 @@ const routes = [
     beforeEnter: admin,
   },
   {
+    path: "/admin/posts/new",
+    name: "New Posts",
+    component: ViewPost,
+    beforeEnter: admin,
+  },
+  {
     path: "/admin/post/edit/:id",
     name: "Edit Post",
-    component: EditPost,
+    component: ViewPost,
     beforeEnter: admin,
   },
   {

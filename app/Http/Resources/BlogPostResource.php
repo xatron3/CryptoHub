@@ -19,6 +19,8 @@ class BlogPostResource extends JsonResource
       'title' => $this->title,
       'content' => $this->content,
       'slug' => $this->slug,
+      'updated' => $this->updated_at->format('Y-m-d H:i:s'),
+      'created' => $this->created_at->format('Y-m-d H:i:s')
     ];
   }
 }

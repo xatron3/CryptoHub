@@ -8,7 +8,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 
-class BlogPosts extends Model
+class BlogPost extends Model
 {
   /**
    * The attributes that are mass assignable.

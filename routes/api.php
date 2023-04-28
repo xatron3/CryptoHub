@@ -54,11 +54,13 @@ Route::group(['middleware' => 'jwt.verify'], function () {
     Route::post('event/add', [EventsController::class, 'store']);
     Route::post('event/delete', [EventsController::class, 'destroy']);
 
-    Route::get('roles', [PermissionsController::class, 'getRoles']);
-    Route::post('roles/add', [PermissionsController::class, 'storeRole']);
-    Route::post('roles/update', [PermissionsController::class, 'updateRole']);
+    Route::get('roles', [PermissionsController::class, 'get']);
+    Route::post('roles/add', [PermissionsController::class, 'store']);
+    Route::post('roles/update', [PermissionsController::class, 'update']);
 
     Route::post('post/add', [BlogPostController::class, 'store']);
+    Route::post('post/update', [BlogPostController::class, 'update']);
+    Route::post('post/delete', [BlogPostController::class, 'destroy']);
 
     Route::post('commands/price/coingecko', [CoingeckoController::class, 'updateCoingeckoPrices']);
     // END ADMIN

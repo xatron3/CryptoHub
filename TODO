@@ -12,6 +12,8 @@ TODO:
   ☐ Rework closed positions to get from the state not make an separate request @created(23-04-15 21:55)
   
 BUGS:
+  ☐ Fix add post with unique slug @created(23-04-28 01:15)
+    Integrity constraint violation: 1062 Duplicate entry 'das' for key 'blog_posts_slug_unique'
   ☐ Active-positions.vue is not updating properly @created(23-04-26 00:42)
     Check why its not updating when state does
   ☐ Fix "User Info" active positions count  @created(23-04-17 02:00)
@@ -47,6 +49,8 @@ IDEAS:
       https://www.coinglass.com/FundingRate
 
 Archive:
+  ✔ Add icons @created(23-04-28 00:57) @done(23-04-28 00:57)
+    https://vue-hero-icons.netlify.app/
   ✔ All-assets.vue should load from state instead of getAssetData in mounted @created(23-04-17 01:59) @done(23-04-26 00:36) @project(TODO)
   ✔ Implement provider function setProvider() to loadApp @created(22-11-30 19:00) @done(23-04-25 23:55) @project(TODO)
     Currently bootstrap.js handles setProvider(), should be in state manager

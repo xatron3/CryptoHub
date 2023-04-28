@@ -39,7 +39,9 @@ export default {
     };
   },
   async mounted() {
-    this.coin_list = await getCoingeckoList();
+    const result = await getCoingeckoList();
+
+    this.coin_list = result.data;
   },
   methods: {
     getCoinList() {

@@ -90,16 +90,7 @@ class AssetsController extends Controller
     $fileds = ['id', 'name', 'symbol', 'logo', 'provider_id', 'provider'];
 
     $assets = Asset::select($fileds);
-
-    if ($request != null && $request->has('id')) {
-      $assets->where('id', $request->id);
-    }
-
-    if ($request != null && $request->has('paginate')) {
-      $assets = $assets->paginate();
-    } else {
-      $assets = $assets->get();
-    }
+    $assets = $assets->get();
 
     return AssetResource::collection($assets);
   }

@@ -14,7 +14,7 @@ const posts = {
     async load(context, data) {
       const posts = await getPosts();
 
-      context.commit("setPosts", posts);
+      context.commit("setPosts", posts.data);
     },
   },
   getters: {

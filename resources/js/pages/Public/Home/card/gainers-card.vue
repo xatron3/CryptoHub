@@ -1,5 +1,7 @@
 <template>
-  <div class="w-full md:max-w-sm rounded overflow-hidden shadow-lg bg-gray-600">
+  <div
+    class="w-full md:max-w-sm rounded overflow-hidden shadow-lg bg-gray-200 dark:bg-gray-600"
+  >
     <div class="px-6 py-4">
       <div class="font-semibold text-lg mb-2 uppercase">Gainers</div>
 
