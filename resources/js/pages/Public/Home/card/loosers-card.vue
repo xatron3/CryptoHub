@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full md:max-w-sm rounded overflow-hidden shadow-lg bg-gray-200 dark:bg-gray-600"
+    class="w-full md:max-w-sm rounded overflow-hidden shadow-lg bg-gray-100 dark:bg-gray-600"
   >
     <div class="px-6 py-4">
       <div class="font-semibold text-lg mb-2 uppercase">Loosers</div>
@@ -18,10 +18,10 @@
             {{ asset.name }}</span
           >
           <span
-            class="ml-auto"
+            class="ml-auto font-semibold"
             :class="{
-              'text-green-400': asset.price_change_24h >= 0,
-              'text-red-400': asset.price_change_24h < 0,
+              'text-green-500': asset.price_change_24h >= 0,
+              'text-red-500': asset.price_change_24h < 0,
             }"
             >{{ priceChange(asset) }}</span
           >

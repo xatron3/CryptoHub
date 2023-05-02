@@ -8,7 +8,7 @@
     </div>
 
     <div
-      v-for="item in positions.slice(0, 10)"
+      v-for="item in formattedPositions"
       :key="item"
       class="grid grid-cols-3 border-b py-0.5 dark:border-gray-600"
     >
@@ -42,6 +42,13 @@
 export default {
   props: ["positions", "title"],
   name: "PositionCard",
+  computed: {
+    formattedPositions() {
+      if (this.positions.length > 0) return this.positions.slice(0, 10);
+
+      return [];
+    },
+  },
   methods: {
     getPercentageIncrease(item) {
       let sellPrice =

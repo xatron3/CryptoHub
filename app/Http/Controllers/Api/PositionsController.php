@@ -117,7 +117,7 @@ class PositionsController extends Controller
   }
 
   /**
-   * Import positions that got exported. 
+   * Import positions. 
    */
   public function importPositions(Request $request)
   {

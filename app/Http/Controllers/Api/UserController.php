@@ -33,8 +33,10 @@ class UserController extends Controller
   {
     if ($request->has('id')) {
       $user = User::where('id', $request->id)->get();
-    } else {
+    } else if ($request->user()) {
       $user = User::where('id', $request->user()->id)->get();
+    } else {
+      return response()->json(['message' => 'No user was found.', 'status' => 400], 200);
     }
 
     return UserResource::collection($user);
