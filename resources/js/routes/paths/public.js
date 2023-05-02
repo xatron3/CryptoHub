@@ -6,7 +6,7 @@ import NotFound from "@/pages/Public/NotFound/not-found.vue";
 // Public Pages
 import Home from "@/pages/Public/Home/home.vue";
 import Swap from "@/pages/Public/Swap/swap.vue";
-import Article from "@/pages/Public/Article/article.vue";
+import SinglePost from "@/pages/Public/Blog/single-post.vue";
 import CyclopToken from "@/pages/Public/CyclopToken/token.vue";
 
 const routes = [
@@ -31,7 +31,7 @@ const routes = [
   {
     path: "/article/:title",
     name: "Article",
-    component: Article,
+    component: SinglePost,
     beforeEnter: publicPage,
   },
   { path: "/:pathMatch(.*)*", name: "NotFound", component: NotFound },

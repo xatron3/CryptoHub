@@ -33,13 +33,13 @@
         <div class="lg:flex-grow space-x-8">
           <router-link
             to="/swap"
-            class="inline-flex items-center pt-1 font-medium text-gray-800 dark:text-gray-300 dark:hover:text-gray-200 hover:text-gray-600 focus:outline-none focus:text-gray-200 transition duration-150 ease-in-out"
+            class="inline-flex items-center pt-1 font-medium text-gray-800 dark:text-gray-300 dark:hover:text-gray-200 hover:text-gray-600 focus:outline-none transition duration-150 ease-in-out"
           >
             Swap
           </router-link>
           <router-link
             to="/cyclop-token"
-            class="inline-flex items-center pt-1 font-medium text-gray-800 dark:text-gray-300 dark:hover:text-gray-200 hover:text-gray-600 focus:outline-none focus:text-gray-200 transition duration-150 ease-in-out"
+            class="inline-flex items-center pt-1 font-medium text-gray-800 dark:text-gray-300 dark:hover:text-gray-200 hover:text-gray-600 focus:outline-none transition duration-150 ease-in-out"
           >
             Cyclop Token
           </router-link>

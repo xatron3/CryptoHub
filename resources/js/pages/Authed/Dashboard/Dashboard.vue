@@ -24,7 +24,7 @@
         <EventCard :events="this.events.passed" title="Passed Events" />
       </div>
 
-      <div class="flex">-</div>
+      <div class="flex">{{ this.$store.getters["user/activePositions"] }}</div>
     </div>
   </div>
 </template>

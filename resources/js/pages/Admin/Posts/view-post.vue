@@ -12,9 +12,11 @@
 
     <div class="space-x-1 flex items-center">
       <span class="font-semibold">Permalink:</span>
-      <a :href="`/article/${this.post.slug}`" target="_blank" class="text-xs"
-        >https://127.0.0.1:8000/article/{{ this.post.slug }}</a
-      >
+      <span class="text-xs"
+        >https://127.0.0.1:8000/article/<input
+          v-model="this.post.slug"
+          class="bg-gray-50"
+      /></span>
     </div>
 
     <div class="flex space-x-2">
@@ -101,6 +103,15 @@ export default {
       post: {},
     };
   },
+  watch: {
+    "post.title": function (newVal, oldVal) {
+      if (!this.edit) {
+        if (this.post.slug === oldVal || this.post.slug === undefined) {
+          this.post.slug = this.post.title;
+        }
+      }
+    },
+  },
   setup() {
     // Get toast interface
     const toast = useToast();
@@ -108,7 +119,6 @@ export default {
     return { toast };
   },
   mounted() {
-    console.log("mount");
     if (this.$route.params.id) this.edit = true;
     else this.edit = false;
 
@@ -133,11 +143,7 @@ export default {
       }
     },
     async updatePost() {
-      const result = await updatePost({
-        id: this.post.id,
-        content: this.post.content,
-        title: this.post.title,
-      });
+      const result = await updatePost(this.post);
 
       if (result.status === 200) {
         this.$router.push("/admin/posts");
@@ -148,10 +154,15 @@ export default {
     },
     async publishPost() {
       const result = await addPost(this.post);
-      await this.$store.dispatch("posts/load");
 
-      this.$router.push(`/admin/post/edit/${result.data.id}`);
-      this.edit = true;
+      if (result.status === 400) {
+        this.toast.error(result.message);
+      } else {
+        await this.$store.dispatch("posts/load");
+        this.toast.success(result.message);
+        this.$router.push(`/admin/post/edit/${result.data.id}`);
+        this.edit = true;
+      }
     },
   },
 };

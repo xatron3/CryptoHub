@@ -6,7 +6,7 @@ export async function addPost(data) {
   let res = await axios.post("/api/post/add", {
     title: data.title,
     content: data.content,
-    slug: data.title,
+    slug: data.slug,
   });
 
   return res.data;

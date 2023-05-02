@@ -2,7 +2,7 @@
   <div v-if="dataLoaded" class="mt-4 space-y-2">
     <div class="max-w-4xl mx-auto my-8">
       <!-- Blog Post Title -->
-      <h1 class="text-3xl font-bold mb-4">{{ article.title }}</h1>
+      <h1 class="text-3xl font-bold mb-4">{{ post.title }}</h1>
 
       <!-- Blog Post Thumbnail -->
       <img
@@ -12,7 +12,7 @@
       />
 
       <!-- Blog Post Content -->
-      <div class="leading-7 article-content" v-html="article.content"></div>
+      <div class="leading-7 article-content" v-html="post.content"></div>
 
       <!-- Tags -->
       <div class="mt-4">
@@ -37,10 +37,10 @@
 import { useHead } from "@vueuse/head";
 
 export default {
-  name: "Article",
+  name: "Post",
   data() {
     return {
-      article: {},
+      post: {},
     };
   },
   setup() {
@@ -48,7 +48,7 @@ export default {
       meta: [
         {
           name: "title",
-          content: "Article",
+          content: `Post`,
         },
         {
           name: "description",
@@ -60,12 +60,12 @@ export default {
   },
   computed: {
     dataLoaded() {
-      return Object.keys(this.article).indexOf("title") > -1;
+      return Object.keys(this.post).indexOf("title") > -1;
     },
   },
   mounted() {
-    const article = this.$store.getters["posts/get"](this.$route.params.title);
-    this.article = article;
+    const post = this.$store.getters["posts/get"](this.$route.params.title);
+    this.post = post;
   },
 };
 </script>

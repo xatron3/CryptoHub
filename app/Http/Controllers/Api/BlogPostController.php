@@ -17,6 +17,12 @@ class BlogPostController extends Controller
    */
   public function store(Request $request)
   {
+    $slug = BlogPost::where('slug', $request->slug)->first();
+
+    if ($slug !== null) {
+      return response()->json(['message' => 'Slug already exists', 'status' => 400], 200);
+    }
+
     $post = new BlogPost();
     $post->title = $request->title;
     $post->slug = $request->slug;
@@ -42,6 +48,7 @@ class BlogPostController extends Controller
     }
 
     $post->title = $request->title;
+    $post->slug = $request->slug;
     $post->content = $request->content;
     $post->save();
 

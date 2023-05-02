@@ -46,8 +46,8 @@
       </div>
 
       <h2 class="text-lg font-bold dark:text-white">User Info</h2>
-      <div>Total active positions: {{ userPositions.active.length }}</div>
-      <div>Total closed positions: {{ userPositions.closed.length }}</div>
+      <div>Total active positions: {{ activePositionAmount.length }}</div>
+      <div>Total closed positions: {{ closedPositionAmount.length }}</div>
     </div>
   </div>
 </template>
@@ -56,7 +56,6 @@
 import { useToast } from "vue-toastification";
 import { getUser, updateUser } from "@/services/user";
 import { getRoles } from "@/services/permissions";
-import { getPosition } from "@/services/positions";
 
 export default {
   name: "EditUser",
@@ -67,36 +66,28 @@ export default {
 
     return { toast };
   },
+  computed: {
+    activePositionAmount() {
+      return this.user.positions.filter((item) => {
+        return item.close_amount === null;
+      });
+    },
+    closedPositionAmount() {
+      return this.user.positions.filter((item) => {
+        return item.close_amount !== null;
+      });
+    },
+  },
   data() {
     return {
       userLoaded: false,
-      user: {
-        user_id: null,
-        name: "",
-        email: "",
-        permission: {
-          role: "",
-        },
-      },
-      userPositions: {
-        active: {},
-        closed: {},
-      },
+      user: {},
       roles: {},
     };
   },
   async mounted() {
     this.user = await getUser({ id: this.$route.params.id });
     this.user.user_id = this.$route.params.id;
-
-    this.userPositions.active = await getPosition({
-      user_id: this.user.user_id,
-    });
-
-    this.userPositions.closed = await getPosition({
-      user_id: this.user.user_id,
-      closed: true,
-    });
 
     this.roles = await getRoles();
     this.userLoaded = true;

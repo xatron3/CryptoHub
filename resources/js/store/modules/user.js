@@ -37,6 +37,16 @@ const user = {
     },
   },
   getters: {
+    activePositions(state) {
+      return state.info.positions.filter((item) => {
+        return item.close_amount === null;
+      });
+    },
+    closedPositions(state) {
+      return state.info.positions.filter((item) => {
+        return item.close_amount !== null;
+      });
+    },
     userData(state, getters) {
       return state.info;
     },

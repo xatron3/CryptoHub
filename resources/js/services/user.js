@@ -14,6 +14,8 @@ export async function getUser(params = {}) {
     res = await axios.get("/api/user");
   }
 
+  console.log(res);
+
   if (res.data.hasOwnProperty("data")) {
     user = res.data.data[0];
   } else {

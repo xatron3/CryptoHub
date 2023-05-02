@@ -1,4 +1,7 @@
 TODO:
+  ☐ Add so you can import positions to user in adminpanel @created(23-04-29 15:16)
+    Endpoint: /positions/import
+    Takes in import_data []
   ☐ Rework how Pusher events are handled on the front-end @created(23-04-26 01:03)
     Should be in a separate file that is loaded upon app mount and then different functions
     will be called on different events.
@@ -10,15 +13,13 @@ TODO:
     ☐ Make it possible to add different chain addresses to asset @created(22-09-25 18:45)
       This is good for future potential of having swap support
   ☐ Rework closed positions to get from the state not make an separate request @created(23-04-15 21:55)
+  ☐ Update Postman with all new endpoints @created(23-04-29 15:17)
   
 BUGS:
-  ☐ Fix add post with unique slug @created(23-04-28 01:15)
-    Integrity constraint violation: 1062 Duplicate entry 'das' for key 'blog_posts_slug_unique'
+  ☐ Fix toast on user register from admin panel @created(23-04-28 14:05)
   ☐ Active-positions.vue is not updating properly @created(23-04-26 00:42)
     Check why its not updating when state does
-  ☐ Fix "User Info" active positions count  @created(23-04-17 02:00)
-    Ex: http://127.0.0.1:8000/admin/users/3
-  ☐ Authed Navigation not working when screen height is to small @created(23-04-26 00:44)
+  ☐ Authed Navigation design not working when screen height is to small @created(23-04-26 00:44)
 
 IDEAS:
   ☐ Modules for different features @created(23-04-25 23:52)
@@ -49,6 +50,12 @@ IDEAS:
       https://www.coinglass.com/FundingRate
 
 Archive:
+  ✔ Fix add post with unique slug @created(23-04-28 01:15) @done(23-04-29 16:08) @project(BUGS)
+    Integrity constraint violation: 1062 Duplicate entry 'das' for key 'blog_posts_slug_unique'
+  ✔ Fix "User Info" active positions count @created(23-04-17 02:00) @done(23-04-29 16:08) @project(BUGS)
+    The positions should be included in the user object
+    Ex: http://127.0.0.1:8000/admin/users/3
+  ✔ Check why admin routes calls "getUser" for each re-route @created(23-04-28 13:42) @done(23-04-28 13:47) @project(BUGS)
   ✔ Add icons @created(23-04-28 00:57) @done(23-04-28 00:57)
     https://vue-hero-icons.netlify.app/
   ✔ All-assets.vue should load from state instead of getAssetData in mounted @created(23-04-17 01:59) @done(23-04-26 00:36) @project(TODO)

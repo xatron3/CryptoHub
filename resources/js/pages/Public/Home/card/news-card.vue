@@ -1,6 +1,6 @@
 <template>
   <div
-    class="w-full md:max-w-sm rounded overflow-hidden relative shadow-lg bg-gray-200 dark:bg-gray-600 flex flex-col"
+    class="w-full md:max-w-sm rounded overflow-hidden relative shadow-lg bg-gray-100 dark:bg-gray-600 flex flex-col"
     @mouseover="scrollPosts = false"
     @mouseleave="scrollPosts = true"
   >
@@ -15,9 +15,9 @@
           <div class="font-bold text-xl mb-2">{{ post.title }}</div>
           <div
             class="text-gray-600 dark:text-gray-100 text-base overflow-hidden"
-            style="max-height: 78px; min-height: 78px"
+            style="max-height: 64px; min-height: 64px"
           >
-            <div>{{ strippedContent }}</div>
+            <div class="leading-5">{{ strippedContent }}</div>
           </div>
         </div>
 
@@ -28,15 +28,15 @@
             >
           </div>
           <span
-            class="inline-block bg-gray-100 dark:bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+            class="inline-block bg-gray-200 dark:bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
             >#FTX</span
           >
           <span
-            class="inline-block bg-gray-100 dark:bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+            class="inline-block bg-gray-200 dark:bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
             >#crypto</span
           >
           <span
-            class="inline-block bg-gray-100 dark:bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
+            class="inline-block bg-gray-200 dark:bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2"
             >#fruad</span
           >
         </div>
@@ -48,7 +48,7 @@
         <div
           @click="currentIndex = index - 1"
           :class="{
-            'text-gray-100 dark:text-gray-200': currentIndex === index - 1,
+            'text-gray-200 dark:text-gray-200': currentIndex === index - 1,
           }"
           class="text-2xl cursor-pointer"
         >
@@ -90,7 +90,7 @@ export default {
   data() {
     return {
       currentIndex: 0,
-      scrollPosts: true,
+      scrollPosts: false,
     };
   },
   mounted() {
