@@ -15,7 +15,7 @@
       <span class="text-xs"
         >https://127.0.0.1:8000/article/<input
           v-model="this.post.slug"
-          class="bg-gray-50"
+          class="bg-gray-50 w-auto"
       /></span>
     </div>
 
@@ -34,6 +34,14 @@
           <template v-slot:content>
             <!-- Post info -->
             <div class="text-sm mb-1" v-if="edit">
+              <div class="grid grid-cols-3">
+                <div class="col-span-1 font-semibold">View Post</div>
+                <div class="col-span-2">
+                  <a :href="`/article/${this.post.slug}`" target="_blank"
+                    ><LinkIcon class="w-4"
+                  /></a>
+                </div>
+              </div>
               <div class="grid grid-cols-3">
                 <div class="col-span-1 font-semibold">Created</div>
                 <div class="col-span-2">{{ this.post.created }}</div>
@@ -83,7 +91,7 @@
 </template>
 
 <script>
-import { ChevronLeftIcon } from "@heroicons/vue/24/outline";
+import { ChevronLeftIcon, LinkIcon } from "@heroicons/vue/24/outline";
 import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useToast } from "vue-toastification";
 import { updatePost, deletePost, addPost } from "@/services/posts";
@@ -92,6 +100,7 @@ export default {
   name: "edit-post",
   components: {
     ChevronLeftIcon,
+    LinkIcon,
   },
   data() {
     return {
