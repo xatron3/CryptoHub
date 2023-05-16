@@ -106,9 +106,7 @@ export default {
     return {
       edit: false,
       editor: ClassicEditor,
-      editorConfig: {
-        height: "300px",
-      },
+      editorConfig: {},
       post: {},
     };
   },

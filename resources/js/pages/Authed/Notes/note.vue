@@ -27,25 +27,20 @@
 
     <!-- Content -->
     <div v-if="edit" class="w-full space-y-2">
-      <!-- HTML Buttons -->
-      <div class="space-x-1">
-        <Button
-          v-for="button in helperButtons"
-          :title="button.title"
-          class="bg-gray-500 hover:bg-gray-600"
-          @click="fillTextArea(button.id)"
-        />
-      </div>
+      <ckeditor
+        :editor="editor"
+        v-model="this.content"
+        :config="editorConfig"
+      ></ckeditor>
 
-      <textarea
+      <!-- <textarea
         ref="editArea"
         @contextmenu.prevent="contextMenu($event)"
-        class="h-96 bg-gray-900 p-1 order-transparent focus:border-transparent focus:ring-0 w-full"
+        class="h-96 dark:bg-gray-900 p-1 order-transparent focus:border-transparent focus:ring-0 w-full"
         v-model="this.content"
       >
       {{ this.content }}
-    </textarea
-      >
+    </textarea> -->
       <div
         v-if="context.show"
         ref="contextMenu"
@@ -73,6 +68,7 @@
 <script>
 import { ChevronLeftIcon } from "@heroicons/vue/24/outline";
 import { deleteNote, updateNote } from "@/services/notes";
+import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
 import { useToast } from "vue-toastification";
 
 export default {
@@ -82,6 +78,12 @@ export default {
   },
   data() {
     return {
+      editor: ClassicEditor,
+      editorConfig: {
+        link: {
+          addTargetToExternalLinks: true,
+        },
+      },
       id: null,
       note: null,
       edit: false,
@@ -93,20 +95,6 @@ export default {
         menuTop: 0,
         menuLeft: 0,
       },
-      helperButtons: [
-        {
-          title: "HEADER",
-          id: "header",
-        },
-        {
-          title: "LINK",
-          id: "link",
-        },
-        {
-          title: "LINE",
-          id: "line",
-        },
-      ],
     };
   },
   setup() {
@@ -126,15 +114,10 @@ export default {
     },
   },
   mounted() {
-    document.addEventListener("click", this.handleDocumentClick);
-
     this.id = this.$route.params.id;
     this.note = this.$store.getters["user/note"](this.id);
     if (this.note.content !== null) this.content = this.note.content;
     else this.content = "";
-  },
-  beforeUnmount() {
-    document.removeEventListener("click", this.handleDocumentClick);
   },
   methods: {
     fillTextArea(type) {
@@ -171,48 +154,8 @@ export default {
         );
       });
     },
-    handleDocumentClick(e) {
-      const contextMenu = this.$refs.contextMenu;
-      if (contextMenu && !contextMenu.contains(e.target)) {
-        this.context.show = false;
-      }
-    },
-    contextMenu: function (e) {
-      this.context.show = true;
-      this.context.menuTop = e.clientY;
-      this.context.menuLeft = e.clientX;
-    },
-    copy() {},
-    undo() {
-      if (this.history.length > 1) {
-        this.future.push(this.history.pop());
-        this.content = this.history[this.history.length - 2];
-      }
-    },
-    redo() {
-      if (this.future.length > 0) {
-        this.history.push(this.future.pop());
-        this.content = this.history[this.history.length - 1];
-      }
-    },
     modifyContent(content) {
       if (content === null) return;
-
-      const headerRegex = /\[header\](.*?)\[\/header\]/g;
-      const headerReplacement = "<h2>$1</h2>";
-      content = content.replace(headerRegex, headerReplacement);
-
-      const linkRegex = /\[link\s+(.*?)\](.*?)\[\/link\]/g;
-      const linkReplacement = '<a href="$1" target="_BLANK">$2</a>';
-      content = content.replace(linkRegex, linkReplacement);
-
-      const lineRegex = /\[\/line\]/g;
-      const lineReplacement = "<hr>";
-      content = content.replace(lineRegex, lineReplacement);
-
-      const newRowRegex = /(\r\n|\r|\n)/g;
-      const newRowReplacement = "<br>";
-      content = content.replace(newRowRegex, newRowReplacement);
 
       return content;
     },
