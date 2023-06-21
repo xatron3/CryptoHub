@@ -15,6 +15,8 @@ const getPercentageIncrease = (numA, numB) => {
  * @returns {float}
  */
 const formatPrice = (number, decimals = 4) => {
+  if (!number) return 0;
+
   number = number.toString().split(",").join("");
   number = parseFloat(number);
   let formattedNumber, m;

@@ -206,6 +206,15 @@ export default {
     display: inline-block;
     font-size: 22px;
   }
+
+  table {
+    tr {
+      td {
+        padding: 6px;
+        border: 1px solid;
+      }
+    }
+  }
 }
 
 .context-menu {

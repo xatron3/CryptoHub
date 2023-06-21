@@ -54,7 +54,7 @@ export default {
   },
   methods: {
     async refreshPositions() {
-      this.closed_positions = await getPosition(this.filter);
+      this.closed_positions = this.$store.getters["user/closedPositions"];
     },
     async updateFilter(data) {
       if (data.id === 1) {
